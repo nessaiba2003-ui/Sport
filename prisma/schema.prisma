@@ -1,0 +1,342 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RoleName {
+  SUPER_ADMIN
+  ADMIN
+  MANAGER
+  COACH
+  CONTENT_MANAGER
+  CLIENT
+}
+
+enum MembershipStatus {
+  ACTIVE
+  EXPIRING_SOON
+  EXPIRED
+  PENDING_PAYMENT
+}
+
+enum PaymentStatus {
+  PAID
+  PENDING
+  OVERDUE
+  CANCELLED
+}
+
+model User {
+  id              String            @id @default(cuid())
+  email           String            @unique
+  passwordHash    String
+  roles           Role[]
+  profile         ClientProfile?
+  memberships     Membership[]
+  bookings        Booking[]
+  attendances     Attendance[]      @relation("ClientAttendance")
+  workouts        Workout[]
+  notifications   Notification[]
+  achievements    UserAchievement[]
+  challengeStates ChallengeProgress[]
+  comments        Comment[]
+  likes           Like[]
+  createdAt       DateTime          @default(now())
+  updatedAt       DateTime          @updatedAt
+}
+
+model Role {
+  id    String   @id @default(cuid())
+  name  RoleName
+  users User[]
+}
+
+model ClientProfile {
+  id                 String    @id @default(cuid())
+  userId             String    @unique
+  user               User      @relation(fields: [userId], references: [id])
+  firstName          String
+  lastName           String
+  phone              String?
+  dateOfBirth        DateTime?
+  gender             String?
+  profilePictureUrl  String?
+  emergencyContact   String?
+  notes              String?
+  familyMemberships  FamilyMember[]
+}
+
+model MembershipPlan {
+  id            String       @id @default(cuid())
+  audience      String
+  name          String
+  durationDays  Int?
+  priceMad      Int
+  registration  Boolean      @default(false)
+  benefits      String[]
+  memberships   Membership[]
+  payments      Payment[]
+  active        Boolean      @default(true)
+}
+
+model Membership {
+  id          String           @id @default(cuid())
+  userId      String
+  planId      String
+  user        User             @relation(fields: [userId], references: [id])
+  plan        MembershipPlan   @relation(fields: [planId], references: [id])
+  startDate   DateTime
+  expiryDate  DateTime?
+  status      MembershipStatus
+  payments    Payment[]
+}
+
+model Payment {
+  id             String        @id @default(cuid())
+  userId         String
+  membershipId   String?
+  planId         String?
+  amountMad      Int
+  method         String
+  status         PaymentStatus
+  reference      String?
+  paidAt         DateTime?
+  user           User          @relation(fields: [userId], references: [id])
+  membership     Membership?   @relation(fields: [membershipId], references: [id])
+  plan           MembershipPlan? @relation(fields: [planId], references: [id])
+}
+
+model ClassSession {
+  id          String       @id @default(cuid())
+  name        String
+  coachId     String?
+  dayOfWeek   Int
+  startsAt    String
+  endsAt      String
+  capacity    Int
+  type        String
+  bookings    Booking[]
+  attendances Attendance[]
+}
+
+model Booking {
+  id        String       @id @default(cuid())
+  userId    String
+  classId   String
+  status    String
+  bookedFor DateTime?
+  user      User         @relation(fields: [userId], references: [id])
+  class     ClassSession @relation(fields: [classId], references: [id])
+}
+
+model Attendance {
+  id        String       @id @default(cuid())
+  userId    String
+  classId   String?
+  staffId   String?
+  checkedAt DateTime     @default(now())
+  user      User         @relation("ClientAttendance", fields: [userId], references: [id])
+  class     ClassSession? @relation(fields: [classId], references: [id])
+}
+
+model Event {
+  id            String              @id @default(cuid())
+  title         String
+  description   String
+  startsAt      DateTime
+  location      String
+  category      String
+  capacity      Int?
+  coverImageUrl String?
+  registrations EventRegistration[]
+}
+
+model EventRegistration {
+  id      String @id @default(cuid())
+  eventId String
+  userId  String
+  status  String
+  event   Event  @relation(fields: [eventId], references: [id])
+}
+
+model MemoryAlbum {
+  id          String       @id @default(cuid())
+  title       String
+  year        Int
+  category    String
+  location    String?
+  coverUrl    String?
+  items       MemoryItem[]
+}
+
+model MemoryItem {
+  id       String      @id @default(cuid())
+  albumId  String
+  type     String
+  url      String
+  caption  String?
+  album    MemoryAlbum @relation(fields: [albumId], references: [id])
+}
+
+model Post {
+  id        String    @id @default(cuid())
+  title     String
+  body      String
+  mediaUrl  String?
+  comments  Comment[]
+  likes     Like[]
+  createdAt DateTime  @default(now())
+}
+
+model Comment {
+  id      String @id @default(cuid())
+  postId  String
+  userId  String
+  body    String
+  post    Post   @relation(fields: [postId], references: [id])
+  user    User   @relation(fields: [userId], references: [id])
+}
+
+model Like {
+  id     String @id @default(cuid())
+  postId String
+  userId String
+  post   Post   @relation(fields: [postId], references: [id])
+  user   User   @relation(fields: [userId], references: [id])
+}
+
+model GymFloor {
+  id          String    @id @default(cuid())
+  name        String
+  level       Int
+  description String?
+  zones       GymZone[]
+}
+
+model GymZone {
+  id          String      @id @default(cuid())
+  floorId     String
+  name        String
+  description String?
+  x           Float?
+  y           Float?
+  floor       GymFloor    @relation(fields: [floorId], references: [id])
+  equipment   Equipment[]
+}
+
+model Equipment {
+  id           String   @id @default(cuid())
+  name         String
+  category     String
+  floorId      String?
+  zoneId       String?
+  imageUrl     String?
+  description  String
+  difficulty   String
+  muscles      String[]
+  instructions String[]
+  videoUrl     String?
+  safety       String[]
+  zone         GymZone? @relation(fields: [zoneId], references: [id])
+}
+
+model Workout {
+  id        String            @id @default(cuid())
+  userId    String
+  date      DateTime
+  duration  Int
+  notes     String?
+  user      User              @relation(fields: [userId], references: [id])
+  exercises WorkoutExercise[]
+}
+
+model WorkoutExercise {
+  id        String  @id @default(cuid())
+  workoutId String
+  name      String
+  sets      Int
+  reps      Int?
+  weightKg  Float?
+  duration  Int?
+  workout   Workout @relation(fields: [workoutId], references: [id])
+}
+
+model Achievement {
+  id          String            @id @default(cuid())
+  name        String
+  description String
+  xp          Int
+  users       UserAchievement[]
+}
+
+model UserAchievement {
+  id            String      @id @default(cuid())
+  userId        String
+  achievementId String
+  earnedAt      DateTime    @default(now())
+  user          User        @relation(fields: [userId], references: [id])
+  achievement   Achievement @relation(fields: [achievementId], references: [id])
+}
+
+model Challenge {
+  id          String              @id @default(cuid())
+  title       String
+  goal        String
+  target      Int
+  xpReward    Int
+  progresses  ChallengeProgress[]
+}
+
+model ChallengeProgress {
+  id          String    @id @default(cuid())
+  userId      String
+  challengeId String
+  progress    Int
+  completed   Boolean   @default(false)
+  user        User      @relation(fields: [userId], references: [id])
+  challenge   Challenge @relation(fields: [challengeId], references: [id])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String?
+  type      String
+  title     String
+  body      String
+  readAt    DateTime?
+  createdAt DateTime @default(now())
+  user      User?    @relation(fields: [userId], references: [id])
+}
+
+model Family {
+  id      String         @id @default(cuid())
+  name    String
+  members FamilyMember[]
+}
+
+model FamilyMember {
+  id        String        @id @default(cuid())
+  familyId  String
+  profileId String
+  relation  String
+  family    Family        @relation(fields: [familyId], references: [id])
+  profile   ClientProfile @relation(fields: [profileId], references: [id])
+}
+
+model ClubSetting {
+  id    String @id @default(cuid())
+  key   String @unique
+  value Json
+}
+
+model MediaAsset {
+  id        String   @id @default(cuid())
+  type      String
+  url       String
+  tags      String[]
+  createdAt DateTime @default(now())
+}

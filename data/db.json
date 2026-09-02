@@ -1,0 +1,2270 @@
+{
+  "meta": {
+    "version": 1,
+    "seededAt": "2026-09-02T19:35:40.381Z",
+    "updatedAt": "2026-09-02T19:42:48.991Z",
+    "timezone": "Africa/Casablanca"
+  },
+  "settings": {
+    "clubName": "ALJAWARIH GYM TAROUDANT",
+    "arabicName": "نادي الجوارح",
+    "city": "Taroudant",
+    "country": "Morocco",
+    "currency": "DH",
+    "phone": "+212 5 28 00 00 00",
+    "email": "contact@aljawarih-gym.ma",
+    "address": "Taroudant, Morocco",
+    "languages": [
+      "fr",
+      "ar",
+      "en"
+    ],
+    "openingHours": "Editable in admin settings",
+    "social": {
+      "instagram": "@aljawarih.gym",
+      "facebook": "Aljawarih Gym Taroudant"
+    }
+  },
+  "users": [
+    {
+      "id": "usr_admin",
+      "email": "admin@aljawarih.demo",
+      "passwordHash": "5588c162c8c97c58eff8b1a824ed2a80:54745a8ed43edf17d4633bd97f3b15ffb5e8455a02df75545119de68de35744c",
+      "roles": [
+        "SUPER_ADMIN"
+      ],
+      "createdAt": "2026-05-25T19:35:36.999Z"
+    },
+    {
+      "id": "usr_coach",
+      "email": "coach@aljawarih.demo",
+      "passwordHash": "be357291fda38139631ff7a915602365:4eadad4924bb93f6a30a93cae9c284a03806124a5c9a644bad44f81e327c9d2e",
+      "roles": [
+        "COACH"
+      ],
+      "createdAt": "2026-06-04T19:35:37.163Z"
+    },
+    {
+      "id": "usr_sara",
+      "email": "sara@aljawarih.demo",
+      "passwordHash": "61f36c18f99c24f75c8e67109e060c1f:7020b0d421b7ca265273af01d34493b70165f5bfe7985fa9b7909842b4ec4f8d",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-06-24T19:35:37.331Z"
+    },
+    {
+      "id": "usr_demo_0",
+      "email": "youssef.elamrani@demo.ma",
+      "passwordHash": "8ae9a71c25a04313858d3456665c54e7:52575439b5bc60e0286946530b907c40262b36f5803e15522cf13765a54c4aa7",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-09-02T19:35:37.468Z"
+    },
+    {
+      "id": "usr_demo_1",
+      "email": "lina.bennani@demo.ma",
+      "passwordHash": "e521b5fe61b40e01a1e9587126b0cb05:7ef9956ba71e4708af43989f45e108e76ce0a768f419aa39268e8f7c7d8c8676",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-30T19:35:37.603Z"
+    },
+    {
+      "id": "usr_demo_2",
+      "email": "adam.aittaleb@demo.ma",
+      "passwordHash": "47a2d5a8a99a8c4814e19693b94b7017:939f51d4703a089fb30aff93500c9b8808e7471a8b2d3a5715040eacc33fb308",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-27T19:35:37.784Z"
+    },
+    {
+      "id": "usr_demo_3",
+      "email": "nadia.mansouri@demo.ma",
+      "passwordHash": "1bc7609a1623ec3573c0a90b34d7d477:0d480a6ac922f580e701e491cd295afb804f175feffae5a05fc2c46706803ef0",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-24T19:35:37.945Z"
+    },
+    {
+      "id": "usr_demo_4",
+      "email": "karim.idrissi@demo.ma",
+      "passwordHash": "2589fceac4c8aebd8d5fc1134a340511:e0534734d1500dbbe7c90a51d562f6246cd34747cf672abb8961d2f08f070291",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-21T19:35:38.076Z"
+    },
+    {
+      "id": "usr_demo_5",
+      "email": "hajar.ouardi@demo.ma",
+      "passwordHash": "4b9c1cb1302ebf928c3fd521bcf2d7e4:3352fe9e0a9d9783c9c5316c59b60e2b942b2785703eadf5258362532659331e",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-18T19:35:38.207Z"
+    },
+    {
+      "id": "usr_demo_6",
+      "email": "imane.raji@demo.ma",
+      "passwordHash": "4cd20d2588c521182be20af439f914ae:327eb65c0ae85312a4fb0cce8c8e8c904d045e130b167bcee895a0d1a3f9ca93",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-15T19:35:38.388Z"
+    },
+    {
+      "id": "usr_demo_7",
+      "email": "mehdi.bakkali@demo.ma",
+      "passwordHash": "14a91e1c95fd3ce69cb52f840fbcef1e:9a370aaee1ba3de20e871203772e06519d6004d1ec36f4ca702aa6002fbd4a69",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-12T19:35:38.525Z"
+    },
+    {
+      "id": "usr_demo_8",
+      "email": "aya.tazi@demo.ma",
+      "passwordHash": "1bb74d2205b5750f9dd2f526b79a75d6:028285884f747c4ce31b5c0cd158ca6050dcb55ad5b8cc7a6179c5dbbd92b7bd",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-09T19:35:38.681Z"
+    },
+    {
+      "id": "usr_demo_9",
+      "email": "omar.chakir@demo.ma",
+      "passwordHash": "411c72e9ef84a50d1e1a54a6dcd057d7:70bcab1b7f5a2219eca6fbf14c3edd6583af9fd7c00894189f7749d67f59eccb",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-06T19:35:38.846Z"
+    },
+    {
+      "id": "usr_demo_10",
+      "email": "salma.elfassi@demo.ma",
+      "passwordHash": "5cc43fb58785e4ff27ceccd4238b6b0f:2f42f996397bd37b49ecc0c85d2e907e763ca44e28032ec7f13922ccb44a2cf9",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-08-03T19:35:39.006Z"
+    },
+    {
+      "id": "usr_demo_11",
+      "email": "anas.rochdi@demo.ma",
+      "passwordHash": "9c32b8cf149ae16045f33142c902fd53:0db775286c630784493d8aea4e932813d02b5d1b99008e889d072af5d5cec138",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-31T19:35:39.159Z"
+    },
+    {
+      "id": "usr_demo_12",
+      "email": "mariam.alaoui@demo.ma",
+      "passwordHash": "7345c12b7bede7e7d05ee39bbd763a20:b657cdfc1a5e9ab6e6fee5d07f3889146ef241ed4d65c3d089ea2f8fce675079",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-28T19:35:39.318Z"
+    },
+    {
+      "id": "usr_demo_13",
+      "email": "bilal.sbai@demo.ma",
+      "passwordHash": "e491da8cb791ad5e46d5f3ad25304010:292dceafb12ba7b142855c08fb7c2c010afec7ccba058ebf64e3d322b2643f82",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-25T19:35:39.469Z"
+    },
+    {
+      "id": "usr_demo_14",
+      "email": "nour.ziani@demo.ma",
+      "passwordHash": "f51bc3703190b02fa07ca5fb65d72a67:60a04105e6ea9fbfa554d0126f1175a9b0b0b48e0cbdb3c717bdc1c4e6d14347",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-22T19:35:39.619Z"
+    },
+    {
+      "id": "usr_demo_15",
+      "email": "hamza.kettani@demo.ma",
+      "passwordHash": "f0e168e76624ca4f2988c9984de8bda1:1319fa64d554e871943c710cc47bb015828d89b35dff2d93cc306fb7dfd4c073",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-19T19:35:39.759Z"
+    },
+    {
+      "id": "usr_demo_16",
+      "email": "sofia.naciri@demo.ma",
+      "passwordHash": "438b37592684ada477d9802feaba6bd8:17b787445096ed2b8e5a8e69514f642ed9485c559daa92e2cf77bade0c0b1481",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-16T19:35:39.919Z"
+    },
+    {
+      "id": "usr_demo_17",
+      "email": "rayan.hilali@demo.ma",
+      "passwordHash": "557a25ba54ede994b36ed3c776cbeef7:124179de92cfe8fcacc575885b3782d2ce52522d6497ced6341684c3ab823fb2",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-13T19:35:40.072Z"
+    },
+    {
+      "id": "usr_demo_18",
+      "email": "amal.lahlou@demo.ma",
+      "passwordHash": "2ba8e722c277f93f190739d10cf1f52c:5af1f1abfd5daeb9fcdb46acd343884bfb1d877a8a9ff9de91148b47d5964488",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-10T19:35:40.237Z"
+    },
+    {
+      "id": "usr_demo_19",
+      "email": "ilyas.baroudi@demo.ma",
+      "passwordHash": "8544c4b2a58f4c70778fd6805f0d72a7:500ec5924c276a48d029b8919948021b0b8cbb3eba27f2b442ff720fd6430681",
+      "roles": [
+        "CLIENT"
+      ],
+      "createdAt": "2026-07-07T19:35:40.377Z"
+    }
+  ],
+  "profiles": [
+    {
+      "id": "pro_sara",
+      "userId": "usr_sara",
+      "firstName": "Sara",
+      "lastName": "X",
+      "phone": "+212 6 12 34 56 78",
+      "dateOfBirth": "1998-05-18",
+      "gender": "Female",
+      "emergencyContact": "+212 6 44 00 11 22",
+      "notes": "Prefers evening group training.",
+      "audience": "adult",
+      "avatar": "https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=600&q=80"
+    },
+    {
+      "id": "pro_admin",
+      "userId": "usr_admin",
+      "firstName": "Admin",
+      "lastName": "Aljawarih",
+      "phone": "+212 5 28 00 00 00",
+      "gender": "Staff",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_coach",
+      "userId": "usr_coach",
+      "firstName": "Coach",
+      "lastName": "Rachid",
+      "phone": "+212 6 77 88 99 00",
+      "gender": "Staff",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_0",
+      "userId": "usr_demo_0",
+      "firstName": "Youssef",
+      "lastName": "El Amrani",
+      "phone": "+212 6 30 20 1000",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_1",
+      "userId": "usr_demo_1",
+      "firstName": "Lina",
+      "lastName": "Bennani",
+      "phone": "+212 6 30 20 1001",
+      "dateOfBirth": "2014-04-10",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "child"
+    },
+    {
+      "id": "pro_demo_2",
+      "userId": "usr_demo_2",
+      "firstName": "Adam",
+      "lastName": "Ait Taleb",
+      "phone": "+212 6 30 20 1002",
+      "dateOfBirth": "2014-04-10",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "child"
+    },
+    {
+      "id": "pro_demo_3",
+      "userId": "usr_demo_3",
+      "firstName": "Nadia",
+      "lastName": "Mansouri",
+      "phone": "+212 6 30 20 1003",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_4",
+      "userId": "usr_demo_4",
+      "firstName": "Karim",
+      "lastName": "Idrissi",
+      "phone": "+212 6 30 20 1004",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_5",
+      "userId": "usr_demo_5",
+      "firstName": "Hajar",
+      "lastName": "Ouardi",
+      "phone": "+212 6 30 20 1005",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_6",
+      "userId": "usr_demo_6",
+      "firstName": "Imane",
+      "lastName": "Raji",
+      "phone": "+212 6 30 20 1006",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_7",
+      "userId": "usr_demo_7",
+      "firstName": "Mehdi",
+      "lastName": "Bakkali",
+      "phone": "+212 6 30 20 1007",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_8",
+      "userId": "usr_demo_8",
+      "firstName": "Aya",
+      "lastName": "Tazi",
+      "phone": "+212 6 30 20 1008",
+      "dateOfBirth": "2014-04-10",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "child"
+    },
+    {
+      "id": "pro_demo_9",
+      "userId": "usr_demo_9",
+      "firstName": "Omar",
+      "lastName": "Chakir",
+      "phone": "+212 6 30 20 1009",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_10",
+      "userId": "usr_demo_10",
+      "firstName": "Salma",
+      "lastName": "El Fassi",
+      "phone": "+212 6 30 20 1010",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_11",
+      "userId": "usr_demo_11",
+      "firstName": "Anas",
+      "lastName": "Rochdi",
+      "phone": "+212 6 30 20 1011",
+      "dateOfBirth": "2014-04-10",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "child"
+    },
+    {
+      "id": "pro_demo_12",
+      "userId": "usr_demo_12",
+      "firstName": "Mariam",
+      "lastName": "Alaoui",
+      "phone": "+212 6 30 20 1012",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_13",
+      "userId": "usr_demo_13",
+      "firstName": "Bilal",
+      "lastName": "Sbai",
+      "phone": "+212 6 30 20 1013",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_14",
+      "userId": "usr_demo_14",
+      "firstName": "Nour",
+      "lastName": "Ziani",
+      "phone": "+212 6 30 20 1014",
+      "dateOfBirth": "2014-04-10",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "child"
+    },
+    {
+      "id": "pro_demo_15",
+      "userId": "usr_demo_15",
+      "firstName": "Hamza",
+      "lastName": "Kettani",
+      "phone": "+212 6 30 20 1015",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_16",
+      "userId": "usr_demo_16",
+      "firstName": "Sofia",
+      "lastName": "Naciri",
+      "phone": "+212 6 30 20 1016",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_17",
+      "userId": "usr_demo_17",
+      "firstName": "Rayan",
+      "lastName": "Hilali",
+      "phone": "+212 6 30 20 1017",
+      "dateOfBirth": "2014-04-10",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "child"
+    },
+    {
+      "id": "pro_demo_18",
+      "userId": "usr_demo_18",
+      "firstName": "Amal",
+      "lastName": "Lahlou",
+      "phone": "+212 6 30 20 1018",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Male",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    },
+    {
+      "id": "pro_demo_19",
+      "userId": "usr_demo_19",
+      "firstName": "Ilyas",
+      "lastName": "Baroudi",
+      "phone": "+212 6 30 20 1019",
+      "dateOfBirth": "1995-09-12",
+      "gender": "Female",
+      "emergencyContact": "+212 6 00 00 00 00",
+      "audience": "adult"
+    }
+  ],
+  "membershipPlans": [
+    {
+      "id": "plan_adult_reg",
+      "audience": "Adults",
+      "name": "Registration",
+      "durationDays": null,
+      "priceMad": 500,
+      "registration": true,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_adult_month",
+      "audience": "Adults",
+      "name": "Monthly",
+      "durationDays": 30,
+      "priceMad": 250,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_adult_4",
+      "audience": "Adults",
+      "name": "4 Months",
+      "durationDays": 120,
+      "priceMad": 900,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_adult_11",
+      "audience": "Adults",
+      "name": "11 Months",
+      "durationDays": 330,
+      "priceMad": 2200,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_adult_single",
+      "audience": "Adults",
+      "name": "Single Session",
+      "durationDays": 1,
+      "priceMad": 50,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_child_reg",
+      "audience": "Children",
+      "name": "Registration",
+      "durationDays": null,
+      "priceMad": 400,
+      "registration": true,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_child_month",
+      "audience": "Children",
+      "name": "Monthly",
+      "durationDays": 30,
+      "priceMad": 150,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_child_4",
+      "audience": "Children",
+      "name": "4 Months",
+      "durationDays": 120,
+      "priceMad": 600,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_child_11",
+      "audience": "Children",
+      "name": "11 Months",
+      "durationDays": 330,
+      "priceMad": 1650,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_child_single",
+      "audience": "Children",
+      "name": "Single Session",
+      "durationDays": 1,
+      "priceMad": 50,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    },
+    {
+      "id": "plan_private",
+      "audience": "Private",
+      "name": "Individual Session",
+      "durationDays": 1,
+      "priceMad": 100,
+      "registration": false,
+      "currency": "DH",
+      "benefits": [
+        "Acces club",
+        "Suivi progression",
+        "Reservations digitales"
+      ],
+      "active": true
+    }
+  ],
+  "memberships": [
+    {
+      "id": "mem_0",
+      "userId": "usr_sara",
+      "planId": "plan_adult_4",
+      "startDate": "2026-07-04T19:35:40.378Z",
+      "expiryDate": "2026-08-28T19:35:40.378Z",
+      "status": "EXPIRED",
+      "paymentStatus": "OVERDUE"
+    },
+    {
+      "id": "mem_1",
+      "userId": "usr_demo_0",
+      "planId": "plan_adult_month",
+      "startDate": "2026-07-03T19:35:40.378Z",
+      "expiryDate": "2026-10-01T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_2",
+      "userId": "usr_demo_1",
+      "planId": "plan_adult_month",
+      "startDate": "2026-07-02T19:35:40.378Z",
+      "expiryDate": "2026-10-02T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_3",
+      "userId": "usr_demo_2",
+      "planId": "plan_adult_month",
+      "startDate": "2026-07-01T19:35:40.378Z",
+      "expiryDate": "2026-10-03T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_4",
+      "userId": "usr_demo_3",
+      "planId": "plan_adult_4",
+      "startDate": "2026-06-30T19:35:40.378Z",
+      "expiryDate": "2026-10-04T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_5",
+      "userId": "usr_demo_4",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-29T19:35:40.378Z",
+      "expiryDate": "2026-09-08T19:35:40.378Z",
+      "status": "EXPIRING_SOON",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_6",
+      "userId": "usr_demo_5",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-28T19:35:40.378Z",
+      "expiryDate": "2026-10-06T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_7",
+      "userId": "usr_demo_6",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-27T19:35:40.378Z",
+      "expiryDate": "2026-08-28T19:35:40.378Z",
+      "status": "EXPIRED",
+      "paymentStatus": "OVERDUE"
+    },
+    {
+      "id": "mem_8",
+      "userId": "usr_demo_7",
+      "planId": "plan_adult_4",
+      "startDate": "2026-06-26T19:35:40.378Z",
+      "expiryDate": "2026-10-08T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_9",
+      "userId": "usr_demo_8",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-25T19:35:40.378Z",
+      "expiryDate": "2026-10-09T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_10",
+      "userId": "usr_demo_9",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-24T19:35:40.378Z",
+      "expiryDate": "2026-09-08T19:35:40.378Z",
+      "status": "EXPIRING_SOON",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_11",
+      "userId": "usr_demo_10",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-23T19:35:40.378Z",
+      "expiryDate": "2026-10-11T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_12",
+      "userId": "usr_demo_11",
+      "planId": "plan_adult_4",
+      "startDate": "2026-06-22T19:35:40.378Z",
+      "expiryDate": "2026-10-12T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_13",
+      "userId": "usr_demo_12",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-21T19:35:40.378Z",
+      "expiryDate": "2026-10-13T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_14",
+      "userId": "usr_demo_13",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-20T19:35:40.378Z",
+      "expiryDate": "2026-08-28T19:35:40.378Z",
+      "status": "EXPIRED",
+      "paymentStatus": "OVERDUE"
+    },
+    {
+      "id": "mem_15",
+      "userId": "usr_demo_14",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-19T19:35:40.378Z",
+      "expiryDate": "2026-09-08T19:35:40.378Z",
+      "status": "EXPIRING_SOON",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_16",
+      "userId": "usr_demo_15",
+      "planId": "plan_adult_4",
+      "startDate": "2026-06-18T19:35:40.378Z",
+      "expiryDate": "2026-10-16T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_17",
+      "userId": "usr_demo_16",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-17T19:35:40.378Z",
+      "expiryDate": "2026-10-17T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_18",
+      "userId": "usr_demo_17",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-16T19:35:40.378Z",
+      "expiryDate": "2026-10-18T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_19",
+      "userId": "usr_demo_18",
+      "planId": "plan_adult_month",
+      "startDate": "2026-06-15T19:35:40.378Z",
+      "expiryDate": "2026-10-19T19:35:40.378Z",
+      "status": "ACTIVE",
+      "paymentStatus": "PAID"
+    },
+    {
+      "id": "mem_20",
+      "userId": "usr_demo_19",
+      "planId": "plan_adult_4",
+      "startDate": "2026-06-14T19:35:40.378Z",
+      "expiryDate": "2026-09-08T19:35:40.378Z",
+      "status": "EXPIRING_SOON",
+      "paymentStatus": "PAID"
+    }
+  ],
+  "payments": [
+    {
+      "id": "pay_0",
+      "userId": "usr_sara",
+      "membershipId": "mem_0",
+      "planId": "plan_adult_4",
+      "amountMad": 900,
+      "method": "Cash",
+      "status": "OVERDUE",
+      "reference": "AJ-2026-0001",
+      "paidAt": null
+    },
+    {
+      "id": "pay_1",
+      "userId": "usr_demo_0",
+      "membershipId": "mem_1",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Bank transfer",
+      "status": "PAID",
+      "reference": "AJ-2026-0002",
+      "paidAt": "2026-09-01T19:35:40.380Z"
+    },
+    {
+      "id": "pay_2",
+      "userId": "usr_demo_1",
+      "membershipId": "mem_2",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Online payment",
+      "status": "PAID",
+      "reference": "AJ-2026-0003",
+      "paidAt": "2026-08-31T19:35:40.380Z"
+    },
+    {
+      "id": "pay_3",
+      "userId": "usr_demo_2",
+      "membershipId": "mem_3",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Cash",
+      "status": "PAID",
+      "reference": "AJ-2026-0004",
+      "paidAt": "2026-08-30T19:35:40.380Z"
+    },
+    {
+      "id": "pay_4",
+      "userId": "usr_demo_3",
+      "membershipId": "mem_4",
+      "planId": "plan_adult_4",
+      "amountMad": 900,
+      "method": "Bank transfer",
+      "status": "PAID",
+      "reference": "AJ-2026-0005",
+      "paidAt": "2026-08-29T19:35:40.380Z"
+    },
+    {
+      "id": "pay_5",
+      "userId": "usr_demo_4",
+      "membershipId": "mem_5",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Online payment",
+      "status": "PAID",
+      "reference": "AJ-2026-0006",
+      "paidAt": "2026-08-28T19:35:40.380Z"
+    },
+    {
+      "id": "pay_6",
+      "userId": "usr_demo_5",
+      "membershipId": "mem_6",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Cash",
+      "status": "PAID",
+      "reference": "AJ-2026-0007",
+      "paidAt": "2026-08-27T19:35:40.380Z"
+    },
+    {
+      "id": "pay_7",
+      "userId": "usr_demo_6",
+      "membershipId": "mem_7",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Bank transfer",
+      "status": "OVERDUE",
+      "reference": "AJ-2026-0008",
+      "paidAt": null
+    },
+    {
+      "id": "pay_8",
+      "userId": "usr_demo_7",
+      "membershipId": "mem_8",
+      "planId": "plan_adult_4",
+      "amountMad": 900,
+      "method": "Online payment",
+      "status": "PAID",
+      "reference": "AJ-2026-0009",
+      "paidAt": "2026-08-25T19:35:40.380Z"
+    },
+    {
+      "id": "pay_9",
+      "userId": "usr_demo_8",
+      "membershipId": "mem_9",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Cash",
+      "status": "PAID",
+      "reference": "AJ-2026-0010",
+      "paidAt": "2026-08-24T19:35:40.380Z"
+    },
+    {
+      "id": "pay_10",
+      "userId": "usr_demo_9",
+      "membershipId": "mem_10",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Bank transfer",
+      "status": "PAID",
+      "reference": "AJ-2026-0011",
+      "paidAt": "2026-08-23T19:35:40.380Z"
+    },
+    {
+      "id": "pay_11",
+      "userId": "usr_demo_10",
+      "membershipId": "mem_11",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Online payment",
+      "status": "PAID",
+      "reference": "AJ-2026-0012",
+      "paidAt": "2026-08-22T19:35:40.380Z"
+    },
+    {
+      "id": "pay_12",
+      "userId": "usr_demo_11",
+      "membershipId": "mem_12",
+      "planId": "plan_adult_4",
+      "amountMad": 900,
+      "method": "Cash",
+      "status": "PAID",
+      "reference": "AJ-2026-0013",
+      "paidAt": "2026-08-21T19:35:40.380Z"
+    },
+    {
+      "id": "pay_13",
+      "userId": "usr_demo_12",
+      "membershipId": "mem_13",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Bank transfer",
+      "status": "PAID",
+      "reference": "AJ-2026-0014",
+      "paidAt": "2026-08-20T19:35:40.380Z"
+    },
+    {
+      "id": "pay_14",
+      "userId": "usr_demo_13",
+      "membershipId": "mem_14",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Online payment",
+      "status": "OVERDUE",
+      "reference": "AJ-2026-0015",
+      "paidAt": null
+    },
+    {
+      "id": "pay_15",
+      "userId": "usr_demo_14",
+      "membershipId": "mem_15",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Cash",
+      "status": "PAID",
+      "reference": "AJ-2026-0016",
+      "paidAt": "2026-08-18T19:35:40.380Z"
+    },
+    {
+      "id": "pay_16",
+      "userId": "usr_demo_15",
+      "membershipId": "mem_16",
+      "planId": "plan_adult_4",
+      "amountMad": 900,
+      "method": "Bank transfer",
+      "status": "PAID",
+      "reference": "AJ-2026-0017",
+      "paidAt": "2026-08-17T19:35:40.380Z"
+    },
+    {
+      "id": "pay_17",
+      "userId": "usr_demo_16",
+      "membershipId": "mem_17",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Online payment",
+      "status": "PAID",
+      "reference": "AJ-2026-0018",
+      "paidAt": "2026-08-16T19:35:40.380Z"
+    },
+    {
+      "id": "pay_18",
+      "userId": "usr_demo_17",
+      "membershipId": "mem_18",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Cash",
+      "status": "PAID",
+      "reference": "AJ-2026-0019",
+      "paidAt": "2026-08-15T19:35:40.380Z"
+    },
+    {
+      "id": "pay_19",
+      "userId": "usr_demo_18",
+      "membershipId": "mem_19",
+      "planId": "plan_adult_month",
+      "amountMad": 250,
+      "method": "Bank transfer",
+      "status": "PAID",
+      "reference": "AJ-2026-0020",
+      "paidAt": "2026-08-14T19:35:40.380Z"
+    },
+    {
+      "id": "pay_20",
+      "userId": "usr_demo_19",
+      "membershipId": "mem_20",
+      "planId": "plan_adult_4",
+      "amountMad": 900,
+      "method": "Online payment",
+      "status": "PAID",
+      "reference": "AJ-2026-0021",
+      "paidAt": "2026-08-13T19:35:40.380Z"
+    }
+  ],
+  "classes": [
+    {
+      "id": "cls_0",
+      "dayName": "Monday",
+      "dayOfWeek": 1,
+      "startsAt": "06:00",
+      "endsAt": "07:00",
+      "name": "Morning Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_1",
+      "dayName": "Monday",
+      "dayOfWeek": 1,
+      "startsAt": "18:00",
+      "endsAt": "21:00",
+      "name": "Evening Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_2",
+      "dayName": "Wednesday",
+      "dayOfWeek": 3,
+      "startsAt": "06:00",
+      "endsAt": "07:00",
+      "name": "Morning Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_3",
+      "dayName": "Wednesday",
+      "dayOfWeek": 3,
+      "startsAt": "18:00",
+      "endsAt": "21:00",
+      "name": "Evening Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_4",
+      "dayName": "Friday",
+      "dayOfWeek": 5,
+      "startsAt": "06:00",
+      "endsAt": "07:00",
+      "name": "Morning Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_5",
+      "dayName": "Friday",
+      "dayOfWeek": 5,
+      "startsAt": "18:00",
+      "endsAt": "21:00",
+      "name": "Evening Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_6",
+      "dayName": "Tuesday",
+      "dayOfWeek": 2,
+      "startsAt": "13:00",
+      "endsAt": "14:00",
+      "name": "Kids Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 16,
+      "type": "Kids Training",
+      "active": true
+    },
+    {
+      "id": "cls_7",
+      "dayName": "Tuesday",
+      "dayOfWeek": 2,
+      "startsAt": "19:00",
+      "endsAt": "21:00",
+      "name": "Evening Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_8",
+      "dayName": "Thursday",
+      "dayOfWeek": 4,
+      "startsAt": "13:00",
+      "endsAt": "14:00",
+      "name": "Kids Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 16,
+      "type": "Kids Training",
+      "active": true
+    },
+    {
+      "id": "cls_9",
+      "dayName": "Thursday",
+      "dayOfWeek": 4,
+      "startsAt": "19:00",
+      "endsAt": "21:00",
+      "name": "Evening Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    },
+    {
+      "id": "cls_10",
+      "dayName": "Saturday",
+      "dayOfWeek": 6,
+      "startsAt": "13:00",
+      "endsAt": "14:00",
+      "name": "Kids Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 16,
+      "type": "Kids Training",
+      "active": true
+    },
+    {
+      "id": "cls_11",
+      "dayName": "Saturday",
+      "dayOfWeek": 6,
+      "startsAt": "19:00",
+      "endsAt": "21:00",
+      "name": "Evening Training",
+      "coachId": "usr_coach",
+      "coachName": "Coach Rachid",
+      "capacity": 20,
+      "type": "Group Training",
+      "active": true
+    }
+  ],
+  "bookings": [
+    {
+      "id": "book_0",
+      "userId": "usr_sara",
+      "classId": "cls_0",
+      "status": "CANCELLED",
+      "bookedFor": "2026-09-02T19:35:40.378Z",
+      "createdAt": "2026-09-02T19:35:40.378Z"
+    },
+    {
+      "id": "book_1",
+      "userId": "usr_demo_0",
+      "classId": "cls_1",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-03T19:35:40.378Z",
+      "createdAt": "2026-09-01T19:35:40.378Z"
+    },
+    {
+      "id": "book_2",
+      "userId": "usr_demo_1",
+      "classId": "cls_2",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-04T19:35:40.378Z",
+      "createdAt": "2026-08-31T19:35:40.378Z"
+    },
+    {
+      "id": "book_3",
+      "userId": "usr_demo_2",
+      "classId": "cls_3",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-05T19:35:40.378Z",
+      "createdAt": "2026-08-30T19:35:40.378Z"
+    },
+    {
+      "id": "book_4",
+      "userId": "usr_demo_3",
+      "classId": "cls_4",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-06T19:35:40.378Z",
+      "createdAt": "2026-08-29T19:35:40.378Z"
+    },
+    {
+      "id": "book_5",
+      "userId": "usr_demo_4",
+      "classId": "cls_5",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-02T19:35:40.378Z",
+      "createdAt": "2026-08-28T19:35:40.378Z"
+    },
+    {
+      "id": "book_6",
+      "userId": "usr_demo_5",
+      "classId": "cls_6",
+      "status": "CANCELLED",
+      "bookedFor": "2026-09-03T19:35:40.378Z",
+      "createdAt": "2026-08-27T19:35:40.378Z"
+    },
+    {
+      "id": "book_7",
+      "userId": "usr_demo_6",
+      "classId": "cls_7",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-04T19:35:40.378Z",
+      "createdAt": "2026-08-26T19:35:40.378Z"
+    },
+    {
+      "id": "book_8",
+      "userId": "usr_demo_7",
+      "classId": "cls_8",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-05T19:35:40.378Z",
+      "createdAt": "2026-08-25T19:35:40.378Z"
+    },
+    {
+      "id": "book_9",
+      "userId": "usr_demo_8",
+      "classId": "cls_9",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-06T19:35:40.378Z",
+      "createdAt": "2026-08-24T19:35:40.378Z"
+    },
+    {
+      "id": "book_10",
+      "userId": "usr_demo_9",
+      "classId": "cls_10",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-02T19:35:40.378Z",
+      "createdAt": "2026-08-23T19:35:40.378Z"
+    },
+    {
+      "id": "book_11",
+      "userId": "usr_demo_10",
+      "classId": "cls_11",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-03T19:35:40.378Z",
+      "createdAt": "2026-08-22T19:35:40.378Z"
+    },
+    {
+      "id": "book_12",
+      "userId": "usr_demo_11",
+      "classId": "cls_0",
+      "status": "CANCELLED",
+      "bookedFor": "2026-09-04T19:35:40.378Z",
+      "createdAt": "2026-08-21T19:35:40.379Z"
+    },
+    {
+      "id": "book_13",
+      "userId": "usr_demo_12",
+      "classId": "cls_1",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-05T19:35:40.379Z",
+      "createdAt": "2026-08-20T19:35:40.379Z"
+    },
+    {
+      "id": "book_14",
+      "userId": "usr_demo_13",
+      "classId": "cls_2",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-06T19:35:40.379Z",
+      "createdAt": "2026-08-19T19:35:40.379Z"
+    },
+    {
+      "id": "book_15",
+      "userId": "usr_demo_14",
+      "classId": "cls_3",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-02T19:35:40.379Z",
+      "createdAt": "2026-08-18T19:35:40.379Z"
+    },
+    {
+      "id": "book_54d20500",
+      "userId": "usr_sara",
+      "classId": "cls_0",
+      "status": "BOOKED",
+      "bookedFor": "2026-09-02T19:42:48.990Z",
+      "createdAt": "2026-09-02T19:42:48.990Z"
+    }
+  ],
+  "attendances": [
+    {
+      "id": "att_1_0",
+      "userId": "usr_demo_0",
+      "classId": "cls_1",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-09-01T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_2_0",
+      "userId": "usr_demo_1",
+      "classId": "cls_2",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-31T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_2_1",
+      "userId": "usr_demo_1",
+      "classId": "cls_3",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-30T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_3_0",
+      "userId": "usr_demo_2",
+      "classId": "cls_3",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-30T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_3_1",
+      "userId": "usr_demo_2",
+      "classId": "cls_4",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-29T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_3_2",
+      "userId": "usr_demo_2",
+      "classId": "cls_5",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-28T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_4_0",
+      "userId": "usr_demo_3",
+      "classId": "cls_4",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-29T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_4_1",
+      "userId": "usr_demo_3",
+      "classId": "cls_5",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-28T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_4_2",
+      "userId": "usr_demo_3",
+      "classId": "cls_6",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-27T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_4_3",
+      "userId": "usr_demo_3",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-26T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_5_0",
+      "userId": "usr_demo_4",
+      "classId": "cls_5",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-28T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_5_1",
+      "userId": "usr_demo_4",
+      "classId": "cls_6",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-27T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_5_2",
+      "userId": "usr_demo_4",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-26T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_5_3",
+      "userId": "usr_demo_4",
+      "classId": "cls_8",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-25T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_5_4",
+      "userId": "usr_demo_4",
+      "classId": "cls_9",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-24T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_6_0",
+      "userId": "usr_demo_5",
+      "classId": "cls_6",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-27T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_6_1",
+      "userId": "usr_demo_5",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-26T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_6_2",
+      "userId": "usr_demo_5",
+      "classId": "cls_8",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-25T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_6_3",
+      "userId": "usr_demo_5",
+      "classId": "cls_9",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-24T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_6_4",
+      "userId": "usr_demo_5",
+      "classId": "cls_10",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-23T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_6_5",
+      "userId": "usr_demo_5",
+      "classId": "cls_11",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-22T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_7_0",
+      "userId": "usr_demo_6",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-26T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_7_1",
+      "userId": "usr_demo_6",
+      "classId": "cls_8",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-25T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_7_2",
+      "userId": "usr_demo_6",
+      "classId": "cls_9",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-24T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_7_3",
+      "userId": "usr_demo_6",
+      "classId": "cls_10",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-23T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_7_4",
+      "userId": "usr_demo_6",
+      "classId": "cls_11",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-22T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_7_5",
+      "userId": "usr_demo_6",
+      "classId": "cls_0",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-21T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_7_6",
+      "userId": "usr_demo_6",
+      "classId": "cls_1",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-20T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_9_0",
+      "userId": "usr_demo_8",
+      "classId": "cls_9",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-24T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_10_0",
+      "userId": "usr_demo_9",
+      "classId": "cls_10",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-23T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_10_1",
+      "userId": "usr_demo_9",
+      "classId": "cls_11",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-22T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_11_0",
+      "userId": "usr_demo_10",
+      "classId": "cls_11",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-22T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_11_1",
+      "userId": "usr_demo_10",
+      "classId": "cls_0",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-21T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_11_2",
+      "userId": "usr_demo_10",
+      "classId": "cls_1",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-20T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_12_0",
+      "userId": "usr_demo_11",
+      "classId": "cls_0",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-21T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_12_1",
+      "userId": "usr_demo_11",
+      "classId": "cls_1",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-20T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_12_2",
+      "userId": "usr_demo_11",
+      "classId": "cls_2",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-19T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_12_3",
+      "userId": "usr_demo_11",
+      "classId": "cls_3",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-18T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_13_0",
+      "userId": "usr_demo_12",
+      "classId": "cls_1",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-20T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_13_1",
+      "userId": "usr_demo_12",
+      "classId": "cls_2",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-19T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_13_2",
+      "userId": "usr_demo_12",
+      "classId": "cls_3",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-18T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_13_3",
+      "userId": "usr_demo_12",
+      "classId": "cls_4",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-17T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_13_4",
+      "userId": "usr_demo_12",
+      "classId": "cls_5",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-16T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_14_0",
+      "userId": "usr_demo_13",
+      "classId": "cls_2",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-19T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_14_1",
+      "userId": "usr_demo_13",
+      "classId": "cls_3",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-18T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_14_2",
+      "userId": "usr_demo_13",
+      "classId": "cls_4",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-17T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_14_3",
+      "userId": "usr_demo_13",
+      "classId": "cls_5",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-16T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_14_4",
+      "userId": "usr_demo_13",
+      "classId": "cls_6",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-15T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_14_5",
+      "userId": "usr_demo_13",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-14T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_15_0",
+      "userId": "usr_demo_14",
+      "classId": "cls_3",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-18T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_15_1",
+      "userId": "usr_demo_14",
+      "classId": "cls_4",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-17T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_15_2",
+      "userId": "usr_demo_14",
+      "classId": "cls_5",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-16T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_15_3",
+      "userId": "usr_demo_14",
+      "classId": "cls_6",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-15T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_15_4",
+      "userId": "usr_demo_14",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-14T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_15_5",
+      "userId": "usr_demo_14",
+      "classId": "cls_8",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-13T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_15_6",
+      "userId": "usr_demo_14",
+      "classId": "cls_9",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-12T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_17_0",
+      "userId": "usr_demo_16",
+      "classId": "cls_5",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-16T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_18_0",
+      "userId": "usr_demo_17",
+      "classId": "cls_6",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-15T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_18_1",
+      "userId": "usr_demo_17",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-14T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_19_0",
+      "userId": "usr_demo_18",
+      "classId": "cls_7",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-14T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_19_1",
+      "userId": "usr_demo_18",
+      "classId": "cls_8",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-13T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_19_2",
+      "userId": "usr_demo_18",
+      "classId": "cls_9",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-12T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_20_0",
+      "userId": "usr_demo_19",
+      "classId": "cls_8",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-13T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_20_1",
+      "userId": "usr_demo_19",
+      "classId": "cls_9",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-12T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_20_2",
+      "userId": "usr_demo_19",
+      "classId": "cls_10",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-11T19:35:40.379Z",
+      "source": "QR"
+    },
+    {
+      "id": "att_20_3",
+      "userId": "usr_demo_19",
+      "classId": "cls_11",
+      "staffId": "usr_coach",
+      "checkedAt": "2026-08-10T19:35:40.379Z",
+      "source": "QR"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt_trip",
+      "title": "Sortie club Anti-Atlas",
+      "category": "Trip",
+      "description": "Une journee de communaute, marche et souvenirs.",
+      "startsAt": "2026-09-20T19:35:40.380Z",
+      "time": "09:30",
+      "location": "Taroudant, Morocco",
+      "capacity": 60,
+      "coverImageUrl": "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=1200&q=80",
+      "registrationOpen": true,
+      "participants": 10
+    },
+    {
+      "id": "evt_tournament",
+      "title": "Tournoi Aljawarih Warrior",
+      "category": "Competition",
+      "description": "Defis sportifs, equipe, energie et recompenses.",
+      "startsAt": "2026-10-07T19:35:40.380Z",
+      "time": "19:00",
+      "location": "Taroudant, Morocco",
+      "capacity": 48,
+      "coverImageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80",
+      "registrationOpen": true,
+      "participants": 17
+    },
+    {
+      "id": "evt_ramadan",
+      "title": "Ramadan Training Night",
+      "category": "Ramadan event",
+      "description": "Session nocturne speciale avec ambiance club.",
+      "startsAt": "2026-10-24T19:35:40.380Z",
+      "time": "09:30",
+      "location": "Taroudant, Morocco",
+      "capacity": 40,
+      "coverImageUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80",
+      "registrationOpen": true,
+      "participants": 24
+    },
+    {
+      "id": "evt_kids",
+      "title": "Kids Activity Day",
+      "category": "Kids activity",
+      "description": "Activites encadrees pour les jeunes athletes.",
+      "startsAt": "2026-09-14T19:35:40.380Z",
+      "time": "19:00",
+      "location": "Taroudant, Morocco",
+      "capacity": 35,
+      "coverImageUrl": "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=1200&q=80",
+      "registrationOpen": true,
+      "participants": 31
+    }
+  ],
+  "eventRegistrations": [],
+  "memories": [
+    {
+      "id": "alb_summer",
+      "title": "Summer Trip",
+      "year": 2026,
+      "category": "Trip",
+      "location": "Taroudant",
+      "coverUrl": "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
+      "items": 87,
+      "videos": 12,
+      "story": "Moments de voyage, effort et fierte partagee."
+    },
+    {
+      "id": "alb_tournament",
+      "title": "Tournament",
+      "year": 2026,
+      "category": "Competition",
+      "location": "ALJAWARIH GYM",
+      "coverUrl": "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80",
+      "items": 54,
+      "videos": 8,
+      "story": "La communaute en mode competition."
+    },
+    {
+      "id": "alb_kids",
+      "title": "Kids Activity",
+      "year": 2026,
+      "category": "Kids",
+      "location": "ALJAWARIH GYM",
+      "coverUrl": "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=1200&q=80",
+      "items": 42,
+      "videos": 0,
+      "story": "Les jeunes athletes construisent leurs premiers souvenirs."
+    }
+  ],
+  "posts": [
+    {
+      "id": "post_1",
+      "title": "Congratulations to our athletes",
+      "body": "Fierte pour toute la famille Aljawarih.",
+      "mediaUrl": null,
+      "likes": 34,
+      "comments": 7,
+      "createdAt": "2026-08-31T19:35:40.381Z"
+    },
+    {
+      "id": "post_2",
+      "title": "New equipment has arrived",
+      "body": "Une nouvelle experience training arrive au club.",
+      "mediaUrl": null,
+      "likes": 22,
+      "comments": 3,
+      "createdAt": "2026-08-28T19:35:40.381Z"
+    }
+  ],
+  "floors": [
+    {
+      "id": "floor_1",
+      "name": "Floor 1",
+      "level": 1,
+      "description": "Configurable floor awaiting real photos and zone mapping.",
+      "zones": []
+    },
+    {
+      "id": "floor_2",
+      "name": "Floor 2",
+      "level": 2,
+      "description": "Configurable floor awaiting real photos and zone mapping.",
+      "zones": []
+    }
+  ],
+  "zones": [
+    {
+      "id": "zone_placeholder_1",
+      "floorId": "floor_1",
+      "name": "Zone a configurer",
+      "description": "Real layout will be added after photos are provided.",
+      "x": 38,
+      "y": 46
+    },
+    {
+      "id": "zone_placeholder_2",
+      "floorId": "floor_2",
+      "name": "Zone a configurer",
+      "description": "Real layout will be added after photos are provided.",
+      "x": 58,
+      "y": 40
+    }
+  ],
+  "equipment": [
+    {
+      "id": "eq_leg_press",
+      "name": "Leg Press",
+      "category": "Legs",
+      "floorId": "floor_1",
+      "zoneId": "zone_placeholder_1",
+      "imageUrl": "https://images.unsplash.com/photo-1534368420009-621bfab424a8?auto=format&fit=crop&w=900&q=80",
+      "description": "Machine guidee pour developper quadriceps et fessiers.",
+      "difficulty": "Beginner",
+      "muscles": [
+        "Quadriceps",
+        "Glutes"
+      ],
+      "instructions": [
+        "Regler le siege",
+        "Placer les pieds",
+        "Pousser sans verrouiller les genoux"
+      ],
+      "safety": [
+        "Garder le dos colle",
+        "Commencer leger",
+        "Eviter l'amplitude douloureuse"
+      ],
+      "qrPath": "/equipment/eq_leg_press"
+    },
+    {
+      "id": "eq_bench",
+      "name": "Bench Press",
+      "category": "Chest",
+      "floorId": "floor_1",
+      "zoneId": "zone_placeholder_1",
+      "imageUrl": "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
+      "description": "Mouvement fondamental pour poitrine, epaules et triceps.",
+      "difficulty": "Intermediate",
+      "muscles": [
+        "Chest",
+        "Triceps",
+        "Shoulders"
+      ],
+      "instructions": [
+        "Stabiliser les omoplates",
+        "Descendre controle",
+        "Pousser droit"
+      ],
+      "safety": [
+        "Utiliser un spotter",
+        "Ne pas rebondir sur la poitrine"
+      ],
+      "qrPath": "/equipment/eq_bench"
+    }
+  ],
+  "workouts": [
+    {
+      "id": "wrk_sara_1",
+      "userId": "usr_sara",
+      "date": "2026-09-01T19:35:40.381Z",
+      "duration": 75,
+      "notes": "Seance jambes solide.",
+      "exercises": [
+        {
+          "name": "Leg Press",
+          "sets": 3,
+          "reps": 10,
+          "weightKg": 70
+        },
+        {
+          "name": "Squat",
+          "sets": 4,
+          "reps": 8,
+          "weightKg": 45
+        }
+      ]
+    },
+    {
+      "id": "wrk_sara_2",
+      "userId": "usr_sara",
+      "date": "2026-08-29T19:35:40.381Z",
+      "duration": 60,
+      "notes": "Progression haut du corps.",
+      "exercises": [
+        {
+          "name": "Bench Press",
+          "sets": 3,
+          "reps": 8,
+          "weightKg": 35
+        },
+        {
+          "name": "Row",
+          "sets": 3,
+          "reps": 12,
+          "weightKg": 30
+        }
+      ]
+    }
+  ],
+  "achievements": [
+    {
+      "id": "ach_first",
+      "name": "First Workout",
+      "description": "Complete the first tracked workout.",
+      "xp": 10
+    },
+    {
+      "id": "ach_streak7",
+      "name": "7 Day Streak",
+      "description": "Train consistently for seven days.",
+      "xp": 20
+    },
+    {
+      "id": "ach_pr",
+      "name": "Personal Record",
+      "description": "Set a new personal record.",
+      "xp": 50
+    },
+    {
+      "id": "ach_event",
+      "name": "Event Participant",
+      "description": "Join a club event.",
+      "xp": 30
+    }
+  ],
+  "userAchievements": [
+    {
+      "id": "ua_1",
+      "userId": "usr_sara",
+      "achievementId": "ach_first",
+      "earnedAt": "2026-07-24T19:35:40.381Z"
+    },
+    {
+      "id": "ua_2",
+      "userId": "usr_sara",
+      "achievementId": "ach_pr",
+      "earnedAt": "2026-08-25T19:35:40.381Z"
+    }
+  ],
+  "challenges": [
+    {
+      "id": "chg_30",
+      "title": "30 DAYS WARRIOR",
+      "goal": "20 workouts in 30 days",
+      "target": 20,
+      "xpReward": 100,
+      "active": true
+    }
+  ],
+  "challengeProgress": [
+    {
+      "id": "cp_sara",
+      "userId": "usr_sara",
+      "challengeId": "chg_30",
+      "progress": 17,
+      "completed": false
+    }
+  ],
+  "notifications": [
+    {
+      "id": "not_1",
+      "userId": "usr_sara",
+      "type": "Membership reminder",
+      "title": "Membership active",
+      "body": "Votre abonnement expire bientot. Pensez au renouvellement.",
+      "readAt": null,
+      "createdAt": "2026-09-01T19:35:40.381Z"
+    },
+    {
+      "id": "not_2",
+      "userId": "usr_sara",
+      "type": "New memory",
+      "title": "Summer trip photos",
+      "body": "Les photos de la sortie sont disponibles.",
+      "readAt": null,
+      "createdAt": "2026-08-30T19:35:40.381Z"
+    },
+    {
+      "id": "not_3",
+      "userId": "usr_sara",
+      "type": "Achievement unlocked",
+      "title": "Personal Record",
+      "body": "Bravo, nouveau record personnel.",
+      "readAt": "2026-08-31T19:35:40.381Z",
+      "createdAt": "2026-08-25T19:35:40.381Z"
+    },
+    {
+      "id": "not_4608d122",
+      "userId": "usr_sara",
+      "type": "Booking confirmation",
+      "title": "Reservation confirmee",
+      "body": "Morning Training 06:00-07:00",
+      "readAt": null,
+      "createdAt": "2026-09-02T19:42:48.990Z"
+    }
+  ],
+  "families": [
+    {
+      "id": "fam_ahmed",
+      "name": "Famille Ahmed"
+    }
+  ],
+  "familyMembers": [
+    {
+      "id": "fm_1",
+      "familyId": "fam_ahmed",
+      "profileId": "pro_demo_0",
+      "relation": "Parent"
+    },
+    {
+      "id": "fm_2",
+      "familyId": "fam_ahmed",
+      "profileId": "pro_demo_1",
+      "relation": "Child"
+    },
+    {
+      "id": "fm_3",
+      "familyId": "fam_ahmed",
+      "profileId": "pro_demo_2",
+      "relation": "Child"
+    }
+  ]
+}

@@ -1,0 +1,15 @@
+{
+  "name": "aljawarih-gym-platform",
+  "version": "0.1.0",
+  "private": true,
+  "description": "ALJAWARIH GYM TAROUDANT digital club platform",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "seed": "node server.js --seed-only"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

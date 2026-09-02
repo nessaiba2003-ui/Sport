@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-label="ALJAWARIH GYM">
+  <rect width="128" height="128" rx="24" fill="#080a0f"/>
+  <path d="M18 73c22-2 38-14 48-37 10 23 26 35 48 37-19 6-32 13-40 27-4-7-7-14-8-22-1 8-4 15-8 22-8-14-21-21-40-27Z" fill="#c9a24a"/>
+  <path d="M43 63h46l-23 12-23-12Z" fill="#fff"/>
+  <text x="64" y="113" text-anchor="middle" font-family="Arial, sans-serif" font-size="18" font-weight="800" fill="#fff">AJ</text>
+</svg>
