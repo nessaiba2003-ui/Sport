@@ -7,8 +7,44 @@ const state = {
   portal: null,
   admin: null,
   route: location.pathname,
+  theme: localStorage.getItem("theme") || "dark",
   toast: ""
 };
+
+const copy = {
+  fr: {
+    about: "À propos", heroTag: "Force • Discipline • Communauté", heroText: "À Taroudant, Aljawarih est plus qu'une salle : un lieu pour s'entraîner, progresser et appartenir à une vraie communauté sportive.",
+    storyTitle: "L'esprit Aljawarih", storyLead: "Une identité marocaine forte, inspirée par l'aigle : concentration, discipline, accueil et dépassement de soi.", community: "Communauté", communityText: "Entraînements, sorties, compétitions et souvenirs créent un club où chacun trouve sa place.", coaching: "Encadrement", coachingText: "Des coachs présents pour vous accompagner avec attention, quel que soit votre niveau.", progress: "Progression", progressText: "Des espaces variés et des séances structurées pour rendre chaque progrès visible.",
+    pricing: "Abonnements & tarifs", pricingLead: "Des formules simples pour adultes, enfants et séances privées.", viewPlans: "Voir les formules", scheduleTitle: "Planning des entraînements", noSession: "Aucune séance", available: "places disponibles", reserve: "Réserver", full: "COMPLET",
+    galleryTitle: "Découvrez le club", galleryLead: "Explorez l'accueil, le hammam beldi, la salle d'aérobic et l'espace cinéma, puis les machines, la boxe et le stretching au sous-sol.",
+    eventsTitle: "Événements du club", participants: "participants", register: "S'inscrire", memoriesTitle: "Souvenirs Aljawarih", memoriesLead: "Nos sorties, tournois, activités pour enfants et moments partagés.", photos: "photos", videos: "vidéos",
+    coachesTitle: "Vos coachs", coachesLead: "Une équipe proche, motivante et engagée dans votre progression.", clubQuote: "Notre club, notre force.", quote: "Chaque séance est une nouvelle occasion de progresser ensemble.",
+    aboutTitle: "À propos d'Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT est un club sportif où les membres s'entraînent, progressent et représentent fièrement leur communauté.", membershipPageLead: "Choisissez la formule adaptée à votre objectif.", scheduleLead: "Consultez le planning et réservez votre séance.", exploreTitle: "Explorez Aljawarih Gym", exploreLead: "Découvrez en images tous les espaces du club, du rez-de-chaussée au sous-sol.", equipment: "Équipements", difficulty: "Niveau", targets: "Muscles ciblés", viewQr: "Voir la fiche",
+    contactTitle: "Contact", club: "Club", phone: "Téléphone", instagram: "Instagram", name: "Nom", message: "Message", send: "Envoyer", contactLead: "Une question ? Contactez-nous directement ou venez nous rencontrer à Taroudant.", light: "Mode clair", dark: "Mode sombre"
+  },
+  en: {
+    about: "About", heroTag: "Strength • Discipline • Community", heroText: "In Taroudant, Aljawarih is more than a gym: a place to train, grow and belong to a true sports community.",
+    storyTitle: "The Aljawarih spirit", storyLead: "A strong Moroccan identity inspired by the eagle: focus, discipline, hospitality and self-improvement.", community: "Community", communityText: "Training, outings, competitions and memories create a club where everyone belongs.", coaching: "Coaching", coachingText: "Attentive coaches support you at every level.", progress: "Progress", progressText: "Varied spaces and structured sessions make every improvement visible.",
+    pricing: "Memberships & pricing", pricingLead: "Simple plans for adults, children and private sessions.", viewPlans: "View plans", scheduleTitle: "Training schedule", noSession: "No session", available: "spots available", reserve: "Reserve", full: "FULL",
+    galleryTitle: "Discover the club", galleryLead: "Explore reception, the traditional hammam, aerobics and cinema space, then machines, boxing and stretching downstairs.",
+    eventsTitle: "Club events", participants: "participants", register: "Register", memoriesTitle: "Aljawarih memories", memoriesLead: "Our outings, tournaments, children's activities and shared moments.", photos: "photos", videos: "videos",
+    coachesTitle: "Meet your coaches", coachesLead: "A supportive, motivating team committed to your progress.", clubQuote: "Our club, our strength.", quote: "Every session is a new opportunity to grow together.",
+    aboutTitle: "About Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT is a sports club where members train, improve and proudly represent their community.", membershipPageLead: "Choose the plan that fits your goal.", scheduleLead: "Check the timetable and reserve your session.", exploreTitle: "Explore Aljawarih Gym", exploreLead: "Discover every club space, from the ground floor to the basement.", equipment: "Equipment", difficulty: "Level", targets: "Target muscles", viewQr: "View details",
+    contactTitle: "Contact", club: "Club", phone: "Phone", instagram: "Instagram", name: "Name", message: "Message", send: "Send", contactLead: "Have a question? Contact us directly or visit us in Taroudant.", light: "Light mode", dark: "Dark mode"
+  },
+  ar: {
+    about: "من نحن", heroTag: "قوة • انضباط • مجتمع", heroText: "في تارودانت، الجوارح أكثر من مجرد نادٍ رياضي؛ إنه مكان للتدريب والتطور والانتماء إلى مجتمع رياضي حقيقي.",
+    storyTitle: "روح الجوارح", storyLead: "هوية مغربية قوية مستوحاة من النسر: التركيز والانضباط وحسن الاستقبال وتطوير الذات.", community: "المجتمع", communityText: "التدريبات والرحلات والمنافسات والذكريات تصنع نادياً يجد فيه الجميع مكانهم.", coaching: "التأطير", coachingText: "مدربون حاضرون لمرافقتكم باهتمام مهما كان مستواكم.", progress: "التطور", progressText: "فضاءات متنوعة وحصص منظمة تجعل كل تقدم واضحاً.",
+    pricing: "الاشتراكات والأسعار", pricingLead: "عروض بسيطة للكبار والأطفال والحصص الخاصة.", viewPlans: "عرض الاشتراكات", scheduleTitle: "برنامج التدريبات", noSession: "لا توجد حصة", available: "أماكن متاحة", reserve: "احجز", full: "ممتلئ",
+    galleryTitle: "اكتشف النادي", galleryLead: "اكتشف الاستقبال والحمام البلدي وقاعة الأيروبيك وفضاء السينما، ثم الآلات والملاكمة والتمدد في الطابق السفلي.",
+    eventsTitle: "أنشطة النادي", participants: "مشارك", register: "سجل", memoriesTitle: "ذكريات الجوارح", memoriesLead: "رحلاتنا وبطولاتنا وأنشطة الأطفال ولحظاتنا المشتركة.", photos: "صور", videos: "فيديوهات",
+    coachesTitle: "مدربوكم", coachesLead: "فريق قريب ومحفز وملتزم بتطوركم.", clubQuote: "نادينا، قوتنا.", quote: "كل حصة فرصة جديدة لنتطور معاً.",
+    aboutTitle: "عن نادي الجوارح", aboutText: "نادي الجوارح تارودانت فضاء رياضي يتدرب فيه الأعضاء ويتطورون ويمثلون مجتمعهم بفخر.", membershipPageLead: "اختر العرض المناسب لهدفك.", scheduleLead: "اطلع على البرنامج واحجز حصتك.", exploreTitle: "اكتشف نادي الجوارح", exploreLead: "شاهد جميع فضاءات النادي من الطابق الأرضي إلى الطابق السفلي.", equipment: "المعدات", difficulty: "المستوى", targets: "العضلات المستهدفة", viewQr: "عرض التفاصيل",
+    contactTitle: "اتصل بنا", club: "النادي", phone: "الهاتف", instagram: "إنستغرام", name: "الاسم", message: "الرسالة", send: "إرسال", contactLead: "لديك سؤال؟ تواصل معنا مباشرة أو زرنا في تارودانت.", light: "الوضع الفاتح", dark: "الوضع الداكن"
+  }
+};
+
+function tx(key) { return copy[state.lang]?.[key] || copy.fr[key] || key; }
 
 const t = {
   fr: {
@@ -131,16 +167,17 @@ function isStaff() {
 }
 
 function eagleMark() {
-  return `<div class="brand-mark" aria-label="Aljawarih eagle mark">AJ</div>`;
+  return `<div class="brand-mark" aria-label="Logo Aljawarih"><img src="/assets/club/logo-aigle.jpg" alt="Aigle Aljawarih Gym"></div>`;
 }
 
 function shell(content) {
   const publicNav = [
-    ["/", tr("home")], ["/about", "About"], ["/memberships", tr("memberships")], ["/schedule", tr("schedule")],
+    ["/", tr("home")], ["/about", tx("about")], ["/memberships", tr("memberships")], ["/schedule", tr("schedule")],
     ["/events", tr("events")], ["/memories", tr("memories")], ["/virtual-gym", tr("gym")], ["/contact", tr("contact")]
   ];
   const logged = Boolean(state.me);
   document.documentElement.lang = state.lang;
+  document.documentElement.dataset.theme = state.theme;
   document.body.dir = state.lang === "ar" ? "rtl" : "ltr";
   return `
     <div class="app-shell">
@@ -156,6 +193,7 @@ function shell(content) {
           <div class="lang">
             ${["fr", "ar", "en"].map((lang) => `<button class="${state.lang === lang ? "active" : ""}" data-lang="${lang}">${lang.toUpperCase()}</button>`).join("")}
           </div>
+          <button class="theme-toggle" data-theme aria-label="${state.theme === "dark" ? tx("light") : tx("dark")}" title="${state.theme === "dark" ? tx("light") : tx("dark")}">${state.theme === "dark" ? "☀" : "☾"}</button>
           ${logged ? `<button class="btn secondary" data-nav="${roleHome()}">${tr("portal")}</button><button class="btn danger" data-logout>${tr("logout")}</button>` : `<button class="btn secondary" data-nav="/login">${tr("login")}</button><button class="btn" data-nav="/register">${tr("join")}</button>`}
         </div>
       </header>
@@ -174,14 +212,15 @@ function publicHome() {
   return `
     <section class="hero">
       <div>
-        <div class="eyebrow">Luxury Fitness Club + Modern Technology + Moroccan Identity</div>
+        <div class="eyebrow">${tx("heroTag")}</div>
         <h1>ALJAWARIH GYM</h1>
-        <p>Train. Grow. Belong. A Taroudant, Aljawarih est plus qu'une salle: c'est une communaute sportive, un espace de progression et une memoire collective.</p>
+        <p>${tx("heroText")}</p>
         <div class="actions"><button class="btn" data-nav="/register">${tr("join")}</button><button class="btn secondary" data-nav="/virtual-gym">${tr("explore")}</button></div>
       </div>
-      <div class="hero-media" role="img" aria-label="Premium gym training visual"></div>
+      <div class="hero-media" role="img" aria-label="Entrée d'Aljawarih Gym"><div class="official-logo"><img src="/assets/club/logo-association.jpg" alt="Association El Jawarih Taroudant"></div></div>
     </section>
     ${storySection()}
+    ${coachesSection()}
     ${membershipPreview()}
     ${schedulePreview()}
     ${virtualGymPreview()}
@@ -193,46 +232,57 @@ function publicHome() {
 
 function storySection() {
   const features = [
-    ["Club community", "Training, outings, competitions and memories create a place members belong to."],
-    ["Smart operations", "Memberships, booking, check-ins, notifications and payments are managed from one system."],
-    ["Progress culture", "Workouts, achievements, challenges and attendance make improvement visible."]
+    [tx("community"), tx("communityText")],
+    [tx("coaching"), tx("coachingText")],
+    [tx("progress"), tx("progressText")]
   ];
-  return `<section class="section"><h2>What is Aljawarih?</h2><p class="section-lead">A strong Moroccan club identity inspired by the eagle: focused, disciplined, welcoming and built for real athletes and families.</p><div class="grid">${features.map(([h, p]) => `<article class="card"><h3>${h}</h3><p class="muted">${p}</p></article>`).join("")}</div></section>`;
+  return `<section class="section"><h2>${tx("storyTitle")}</h2><p class="section-lead">${tx("storyLead")}</p><div class="grid">${features.map(([h, p], i) => `<article class="card feature-card"><span class="feature-number">0${i + 1}</span><h3>${h}</h3><p class="muted">${p}</p></article>`).join("")}</div></section>`;
 }
 
-function membershipPreview() {
+function coachesSection() {
+  const coaches = ["Hind", "Brahim", "Elhabib", "Abderrahmane"];
+  return `<section class="section coaches"><div><h2>${tx("coachesTitle")}</h2><p class="section-lead">${tx("coachesLead")}</p></div><div class="coach-list">${coaches.map((name, i) => `<article class="coach-card"><span>0${i + 1}</span><h3>${name}</h3><p>COACH</p></article>`).join("")}</div></section>`;
+}
+
+function membershipPreview(showHeading = true) {
   const groups = Object.groupBy ? Object.groupBy(state.data.membershipPlans, (p) => p.audience) : state.data.membershipPlans.reduce((a, p) => ((a[p.audience] ||= []).push(p), a), {});
-  return `<section class="section"><h2>Memberships & Pricing</h2><p class="section-lead">All plans are data-driven and editable by admin.</p><div class="grid">${Object.entries(groups).map(([audience, plans]) => `<article class="card span-4"><span class="pill">${audience}</span><h3>${audience === "Private" ? "Private coaching" : audience}</h3>${plans.map((p) => `<div><strong>${p.name}</strong><div class="price">${money(p.priceMad)}</div></div>`).join("")}<button class="btn" data-nav="/memberships">View plans</button></article>`).join("")}</div></section>`;
+  return `<section class="section">${showHeading ? `<h2>${tx("pricing")}</h2><p class="section-lead">${tx("pricingLead")}</p>` : ""}<div class="grid">${Object.entries(groups).map(([audience, plans]) => `<article class="card span-4"><span class="pill">${audience}</span><h3>${audience}</h3>${plans.map((p) => `<div><strong>${p.name}</strong><div class="price">${money(p.priceMad)}</div></div>`).join("")}<button class="btn" data-nav="/memberships">${tx("viewPlans")}</button></article>`).join("")}</div></section>`;
 }
 
 function schedulePreview() {
-  return `<section class="section"><h2>Training Schedule</h2>${scheduleGrid(state.data.classes.slice(0, 12), false)}</section>`;
+  return `<section class="section"><h2>${tx("scheduleTitle")}</h2>${scheduleGrid(state.data.classes.slice(0, 12), false)}</section>`;
 }
 
 function scheduleGrid(classes, bookable = true) {
+  const coachNames = ["Coach Hind", "Coach Brahim", "Coach Elhabib", "Coach Abderrahmane"];
   return `<div class="schedule">${days.slice(1).concat("Sunday").map((day) => {
     const list = classes.filter((c) => c.dayName === day);
-    return `<div class="day"><strong>${day}</strong>${list.length ? list.map((c) => `<div class="class-item"><span class="pill">${c.type}</span><h3>${c.startsAt} - ${c.endsAt}</h3><p class="muted">${c.name}<br>${c.coachName || "Coach"}<br>${c.available} / ${c.capacity} available</p>${bookable ? `<button class="btn ${c.isFull ? "secondary" : ""}" data-book="${c.id}" ${c.isFull ? "disabled" : ""}>${c.isFull ? "FULL" : "Reserve"}</button>` : ""}</div>`).join("") : `<p class="muted">No scheduled session</p>`}</div>`;
+    return `<div class="day"><strong>${day}</strong>${list.length ? list.map((c) => { const n = Number(String(c.id).match(/\d+/)?.[0] || 0); return `<div class="class-item"><span class="pill">${c.type}</span><h3>${c.startsAt} - ${c.endsAt}</h3><p class="muted">${c.name}<br>${coachNames[n % coachNames.length]}<br>${c.available} / ${c.capacity} ${tx("available")}</p>${bookable ? `<button class="btn ${c.isFull ? "secondary" : ""}" data-book="${c.id}" ${c.isFull ? "disabled" : ""}>${c.isFull ? tx("full") : tx("reserve")}</button>` : ""}</div>`; }).join("") : `<p class="muted">${tx("noSession")}</p>`}</div>`;
   }).join("")}</div>`;
 }
 
 function virtualGymPreview() {
-  return `<section class="section"><h2>Découvrez le club</h2><p class="section-lead">Visitez les différents espaces d'Aljawarih Gym : accueil, hammam beldi, salle d'aérobic et espace cinéma au rez-de-chaussée, puis machines, boxe et stretching au sous-sol.</p>${clubGallery()}</section>`;
+  return `<section class="section"><h2>${tx("galleryTitle")}</h2><p class="section-lead">${tx("galleryLead")}</p>${clubGallery()}</section>`;
 }
 
 function clubGallery() {
+  const labels = {
+    fr: [["Accueil du club", "L'entrée et le tableau d'affichage."], ["Hammam beldi", "Le hammam traditionnel et ses vestiaires."], ["Rez-de-chaussée — Aérobic & cinéma", "Cours collectifs et projections avec vidéoprojecteur."], ["Sous-sol — Machines, boxe & stretching", "Musculation, boxe, renforcement et stretching."]],
+    en: [["Club reception", "The entrance and information board."], ["Traditional hammam", "The traditional hammam and changing area."], ["Ground floor — Aerobics & cinema", "Group classes and screenings with a video projector."], ["Basement — Machines, boxing & stretching", "Strength training, boxing and stretching."]],
+    ar: [["استقبال النادي", "المدخل ولوحة الإعلانات."], ["الحمام البلدي", "الحمام التقليدي وغرف تبديل الملابس."], ["الطابق الأرضي — أيروبيك وسينما", "حصص جماعية وعروض بجهاز الإسقاط."], ["الطابق السفلي — آلات وملاكمة وتمدد", "كمال الأجسام والملاكمة والتقوية والتمدد."]]
+  }[state.lang];
   const sections = [
     {
-      title: "Accueil du club",
-      description: "L'entrée d'Aljawarih Gym et le tableau d'affichage avec l'emploi du temps.",
+      title: labels[0][0],
+      description: labels[0][1],
       photos: [
         ["/assets/club/entree.jpg", "Entrée principale d'Aljawarih Gym"],
         ["/assets/club/emploi-du-temps.jpg", "Tableau d'affichage et emploi du temps"]
       ]
     },
     {
-      title: "Hammam beldi",
-      description: "L'espace hammam traditionnel et ses vestiaires.",
+      title: labels[1][0],
+      description: labels[1][1],
       photos: [
         ["/assets/club/hammam-1.jpg", "Vestiaires du hammam beldi"],
         ["/assets/club/hammam-2.jpg", "Cabines du hammam beldi"],
@@ -240,8 +290,8 @@ function clubGallery() {
       ]
     },
     {
-      title: "Rez-de-chaussée — Aérobic & cinéma",
-      description: "Une grande salle polyvalente pour l'aérobic, les cours collectifs et les projections avec vidéoprojecteur.",
+      title: labels[2][0],
+      description: labels[2][1],
       photos: [
         ["/assets/club/rdc-aerobic-1.jpg", "Salle d'aérobic au rez-de-chaussée"],
         ["/assets/club/rdc-aerobic-2.jpg", "Espace d'entraînement et matériel d'aérobic"],
@@ -250,8 +300,8 @@ function clubGallery() {
       ]
     },
     {
-      title: "Sous-sol — Machines, boxe & stretching",
-      description: "Un espace complet équipé pour la musculation, la boxe, le renforcement et le stretching.",
+      title: labels[3][0],
+      description: labels[3][1],
       photos: [
         ["/assets/club/sous-sol-boxe-1.jpg", "Espace boxe au sous-sol"],
         ["/assets/club/sous-sol-boxe-2.jpg", "Sacs de frappe et zone d'entraînement"],
@@ -272,40 +322,41 @@ function gymMap(floorId = "floor_1") {
 
 function eventsSection(preview = false) {
   const items = preview ? state.data.events.slice(0, 3) : state.data.events;
-  return `<section class="section"><h2>Club Events</h2><div class="grid">${items.map((e) => `<article class="card span-4"><span class="pill">${e.category}</span><h3>${e.title}</h3><p class="muted">${e.description}</p><p>${date(e.startsAt)} - ${e.location}</p><p class="muted">${e.participants}/${e.capacity} participants</p>${state.me ? `<button class="btn secondary" data-event-register="${e.id}">Register</button>` : ""}</article>`).join("")}</div></section>`;
+  return `<section class="section"><h2>${tx("eventsTitle")}</h2><div class="grid">${items.map((e) => `<article class="card span-4"><span class="pill">${e.category}</span><h3>${e.title}</h3><p class="muted">${e.description}</p><p>${date(e.startsAt)} - ${e.location}</p><p class="muted">${e.participants}/${e.capacity} ${tx("participants")}</p>${state.me ? `<button class="btn secondary" data-event-register="${e.id}">${tx("register")}</button>` : ""}</article>`).join("")}</div></section>`;
 }
 
 function memoriesSection(preview = false) {
   const items = preview ? state.data.memories.slice(0, 3) : state.data.memories;
-  return `<section class="section"><h2>ALJAWARIH Memories</h2><p class="section-lead">A living archive of trips, tournaments, kids activities and shared club moments.</p><div class="grid">${items.map((m) => `<article class="card span-4" style="min-height:18rem;background:linear-gradient(180deg,rgba(8,10,15,.25),rgba(8,10,15,.9)),url('${m.coverUrl}') center/cover"><span class="pill">${m.year}</span><h3>${m.title}</h3><p>${m.story}</p><p>${m.items} Photos ${m.videos ? `- ${m.videos} Videos` : ""}</p></article>`).join("")}</div></section>`;
+  return `<section class="section"><h2>${tx("memoriesTitle")}</h2><p class="section-lead">${tx("memoriesLead")}</p><div class="grid">${items.map((m) => `<article class="card span-4" style="min-height:18rem;background:linear-gradient(180deg,rgba(8,10,15,.25),rgba(8,10,15,.9)),url('${m.coverUrl}') center/cover"><span class="pill">${m.year}</span><h3>${m.title}</h3><p>${m.story}</p><p>${m.items} ${tx("photos")} ${m.videos ? `- ${m.videos} ${tx("videos")}` : ""}</p></article>`).join("")}</div></section>`;
 }
 
 function testimonials() {
-  return `<section class="section"><h2>This is my club.</h2><div class="grid"><article class="card span-6"><p>"Le planning, les souvenirs et le suivi me donnent envie de rester constant."</p><span class="muted">Sara, member</span></article><article class="card span-6"><p>"Les familles peuvent suivre les enfants, les coachs voient mieux les presences."</p><span class="muted">Coach Rachid</span></article></div></section>`;
+  return `<section class="section quote-section"><span class="eyebrow">ALJAWARIH GYM</span><h2>${tx("clubQuote")}</h2><p>${tx("quote")}</p></section>`;
 }
 
 function aboutPage() {
-  return `<div class="page-title"><h1>About Aljawarih</h1><p>ALJAWARIH GYM TAROUDANT is a sports club where members train, improve, attend events, build relationships, join outings and represent the club in competitions.</p></div>${storySection()}`;
+  return `<div class="page-title"><h1>${tx("aboutTitle")}</h1><p>${tx("aboutText")}</p></div>${storySection()}${coachesSection()}`;
 }
 
 function membershipsPage() {
-  return `<div class="page-title"><h1>Memberships & Pricing</h1><p>Editable plans for adults, children and private sessions.</p></div>${membershipPreview()}`;
+  return `<div class="page-title"><h1>${tx("pricing")}</h1><p>${tx("membershipPageLead")}</p></div>${membershipPreview(false)}`;
 }
 
 function schedulePage() {
-  return `<div class="page-title"><h1>Training Schedule</h1><p>Reserve your session. Capacity is enforced by the backend.</p></div>${scheduleGrid(state.data.classes, true)}`;
+  return `<div class="page-title"><h1>${tx("scheduleTitle")}</h1><p>${tx("scheduleLead")}</p></div>${scheduleGrid(state.data.classes, true)}`;
 }
 
 function virtualGymPage() {
-  return `<div class="page-title"><h1>Explorez Aljawarih Gym</h1><p>Découvrez en images tous les espaces du club, du rez-de-chaussée au sous-sol.</p></div>${clubGallery()}<section class="section"><h2>Équipements</h2><div class="grid">${state.data.equipment.map(equipmentCard).join("")}</div></section>`;
+  return `<div class="page-title"><h1>${tx("exploreTitle")}</h1><p>${tx("exploreLead")}</p></div>${clubGallery()}<section class="section"><h2>${tx("equipment")}</h2><div class="grid">${state.data.equipment.map(equipmentCard).join("")}</div></section>`;
 }
 
 function equipmentCard(eq) {
-  return `<article class="card span-6"><span class="pill">${eq.category}</span><h3>${eq.name}</h3><p class="muted">${eq.description}</p><p><strong>Difficulty:</strong> ${eq.difficulty}</p><p><strong>Targets:</strong> ${eq.muscles.join(", ")}</p><div class="qr" title="${location.origin}${eq.qrPath}"></div><button class="btn secondary" data-nav="${eq.qrPath}">View QR page</button></article>`;
+  return `<article class="card span-6"><span class="pill">${eq.category}</span><h3>${eq.name}</h3><p class="muted">${eq.description}</p><p><strong>${tx("difficulty")}:</strong> ${eq.difficulty}</p><p><strong>${tx("targets")}:</strong> ${eq.muscles.join(", ")}</p><div class="qr" title="${location.origin}${eq.qrPath}"></div><button class="btn secondary" data-nav="${eq.qrPath}">${tx("viewQr")}</button></article>`;
 }
 
 function contactPage() {
-  return `<div class="page-title"><h1>Contact</h1><p>${state.data.settings.address}</p></div><div class="grid"><article class="card span-6"><h3>Club</h3><p>Phone: ${state.data.settings.phone}</p><p>Email: ${state.data.settings.email}</p><p>Instagram: ${state.data.settings.social.instagram}</p></article><form class="card span-6 form"><div class="field"><label>Name</label><input required></div><div class="field"><label>Message</label><textarea rows="5"></textarea></div><button class="btn" type="button" data-toast="Message prepared for CMS integration">Send</button></form></div>`;
+  const instagram = "https://www.instagram.com/aljawarih_gym_maroc?stkn=bG1hZzZmbHo0OGEy";
+  return `<div class="page-title"><h1>${tx("contactTitle")}</h1><p>${tx("contactLead")}</p></div><div class="grid contact-grid"><article class="card span-6 contact-card"><span class="eyebrow">${tx("club")}</span><a class="contact-link" href="tel:+212668190058"><small>${tx("phone")}</small><strong>06 68 19 00 58</strong></a><a class="contact-link" href="${instagram}" target="_blank" rel="noopener"><small>${tx("instagram")}</small><strong>@aljawarih_gym_maroc ↗</strong></a><p class="muted">Taroudant, Maroc</p></article><form class="card span-6 form"><div class="field"><label>${tx("name")}</label><input required></div><div class="field"><label>${tx("message")}</label><textarea rows="5"></textarea></div><button class="btn" type="button" data-toast="WhatsApp / Instagram">${tx("send")}</button></form></div>`;
 }
 
 function loginPage(register = false) {
@@ -482,6 +533,11 @@ document.addEventListener("click", async (event) => {
     localStorage.setItem("lang", state.lang);
     render();
   }
+  if (target.dataset.theme !== undefined) {
+    state.theme = state.theme === "dark" ? "light" : "dark";
+    localStorage.setItem("theme", state.theme);
+    render();
+  }
   if (target.dataset.logout !== undefined) {
     localStorage.removeItem("token");
     state.token = "";
@@ -568,7 +624,7 @@ document.addEventListener("submit", async (event) => {
     }
     if (form.dataset.class !== undefined) {
       const dayName = values.dayName;
-      await api("/api/classes", { method: "POST", body: JSON.stringify({ ...values, dayName, dayOfWeek: days.indexOf(dayName), capacity: Number(values.capacity), type: values.name, coachName: "Coach Rachid" }) });
+      await api("/api/classes", { method: "POST", body: JSON.stringify({ ...values, dayName, dayOfWeek: days.indexOf(dayName), capacity: Number(values.capacity), type: values.name, coachName: "Coach Hind" }) });
       state.data = null;
       await refresh();
       toast("Class created");

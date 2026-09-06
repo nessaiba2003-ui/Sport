@@ -266,7 +266,7 @@ function seedDb() {
     endsAt,
     name,
     coachId,
-    coachName: "Coach Rachid",
+    coachName: ["Coach Hind", "Coach Brahim", "Coach Elhabib", "Coach Abderrahmane"][index % 4],
     capacity,
     type,
     active: true
@@ -458,12 +458,12 @@ function seedDb() {
       city: "Taroudant",
       country: "Morocco",
       currency: "DH",
-      phone: "+212 5 28 00 00 00",
-      email: "contact@aljawarih-gym.ma",
+      phone: "0668190058",
+      email: "",
       address: "Taroudant, Morocco",
       languages: ["fr", "ar", "en"],
       openingHours: "Editable in admin settings",
-      social: { instagram: "@aljawarih.gym", facebook: "Aljawarih Gym Taroudant" }
+      social: { instagram: "https://www.instagram.com/aljawarih_gym_maroc?stkn=bG1hZzZmbHo0OGEy", facebook: "Aljawarih Gym Taroudant" }
     },
     users,
     profiles,
