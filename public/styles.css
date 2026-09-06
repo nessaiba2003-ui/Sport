@@ -225,6 +225,24 @@ button {
   z-index: 1;
 }
 
+.hero-lockup {
+  width: min(22rem, 82%);
+  margin-bottom: 1.5rem;
+  padding: 0.45rem;
+  border: 1px solid color-mix(in srgb, var(--gold) 42%, transparent);
+  border-radius: 1.2rem;
+  background: #050505;
+  box-shadow: 0 18px 55px rgba(0, 0, 0, 0.24), 0 0 0 6px color-mix(in srgb, var(--gold) 5%, transparent);
+  transform: rotate(-1deg);
+}
+
+.hero-lockup img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 0.85rem;
+}
+
 .hero h1 {
   font-size: clamp(3rem, 8vw, 7rem);
   line-height: 0.88;
@@ -270,26 +288,6 @@ button {
   color: var(--gold-2);
   font-size: clamp(1.6rem, 4vw, 3rem);
   font-weight: 900;
-}
-
-.official-logo {
-  position: absolute;
-  top: 1rem;
-  inset-inline-end: 1rem;
-  width: min(19rem, 56%);
-  padding: 0.35rem;
-  border: 1px solid rgba(245, 215, 110, 0.45);
-  border-radius: 1rem;
-  background: rgba(5, 7, 10, 0.88);
-  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
-  backdrop-filter: blur(8px);
-}
-
-.official-logo img {
-  display: block;
-  width: 100%;
-  height: auto;
-  border-radius: 0.7rem;
 }
 
 .section {
@@ -835,6 +833,12 @@ button {
 
   .hero h1 {
     font-size: 2.8rem;
+  }
+
+  .hero-lockup {
+    width: min(18rem, 88%);
+    margin-inline: auto;
+    margin-bottom: 1.25rem;
   }
 
   .card {

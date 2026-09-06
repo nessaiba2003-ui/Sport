@@ -212,12 +212,13 @@ function publicHome() {
   return `
     <section class="hero">
       <div>
+        <div class="hero-lockup"><img src="/assets/club/logo-association.jpg" alt="Association El Jawarih Taroudant"></div>
         <div class="eyebrow">${tx("heroTag")}</div>
         <h1>ALJAWARIH GYM</h1>
         <p>${tx("heroText")}</p>
         <div class="actions"><button class="btn" data-nav="/register">${tr("join")}</button><button class="btn secondary" data-nav="/virtual-gym">${tr("explore")}</button></div>
       </div>
-      <div class="hero-media" role="img" aria-label="Entrée d'Aljawarih Gym"><div class="official-logo"><img src="/assets/club/logo-association.jpg" alt="Association El Jawarih Taroudant"></div></div>
+      <div class="hero-media" role="img" aria-label="Entrée d'Aljawarih Gym"></div>
     </section>
     ${storySection()}
     ${coachesSection()}
