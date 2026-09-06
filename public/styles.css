@@ -115,6 +115,30 @@ button {
   backdrop-filter: blur(18px);
 }
 
+.menu-toggle,
+.mobile-nav-head,
+.mobile-account,
+.nav-backdrop {
+  display: none;
+}
+
+.menu-toggle {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0.65rem;
+  border: 1px solid var(--line);
+  border-radius: 0.75rem;
+  background: var(--panel-2);
+}
+
+.menu-toggle span {
+  display: block;
+  height: 2px;
+  margin: 0.25rem 0;
+  border-radius: 2px;
+  background: var(--text);
+}
+
 .theme-toggle {
   width: 2.75rem;
   height: 2.75rem;
@@ -745,11 +769,93 @@ button {
   }
 
   .topbar {
-    align-items: flex-start;
+    align-items: center;
   }
 
   .nav {
-    display: none;
+    position: fixed;
+    z-index: 60;
+    top: 0;
+    inset-inline-start: 0;
+    width: min(21rem, 86vw);
+    height: 100dvh;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: 0.35rem;
+    border-inline-end: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 96%, transparent);
+    box-shadow: 24px 0 70px rgba(0, 0, 0, 0.35);
+    backdrop-filter: blur(22px);
+    transform: translateX(-105%);
+    transition: transform 240ms ease;
+  }
+
+  body[dir="rtl"] .nav {
+    transform: translateX(105%);
+  }
+
+  .nav.open,
+  body[dir="rtl"] .nav.open {
+    transform: translateX(0);
+  }
+
+  .nav button {
+    width: 100%;
+    min-height: 3.25rem;
+    display: flex;
+    align-items: center;
+    text-align: start;
+    border-radius: 0.75rem;
+  }
+
+  .mobile-nav-head {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 0.75rem;
+    padding: 0.5rem;
+    color: var(--gold-2);
+    letter-spacing: 0.14em;
+  }
+
+  .mobile-account {
+    display: grid;
+    gap: 0.5rem;
+    margin-top: auto;
+    padding-top: 1rem;
+    border-top: 1px solid var(--line);
+  }
+
+  .mobile-account .btn {
+    display: flex;
+    justify-content: center;
+  }
+
+  .nav-close {
+    width: 2.5rem !important;
+    min-height: 2.5rem !important;
+    justify-content: center;
+    border: 1px solid var(--line) !important;
+    color: var(--text) !important;
+    font-size: 1.7rem;
+  }
+
+  .menu-toggle {
+    display: block;
+    flex: 0 0 auto;
+  }
+
+  .nav-backdrop {
+    position: fixed;
+    z-index: 50;
+    inset: 0;
+    display: block;
+    border: 0;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(3px);
   }
 
   .sidebar {
@@ -829,6 +935,14 @@ button {
   .actions {
     flex-wrap: wrap;
     justify-content: flex-end;
+  }
+
+  .lang button {
+    padding-inline: 0.6rem;
+  }
+
+  .topbar > .actions .btn {
+    display: none;
   }
 
   .hero h1 {

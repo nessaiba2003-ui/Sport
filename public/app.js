@@ -8,6 +8,7 @@ const state = {
   admin: null,
   route: location.pathname,
   theme: localStorage.getItem("theme") || "dark",
+  mobileMenu: false,
   toast: ""
 };
 
@@ -186,9 +187,13 @@ function shell(content) {
           ${eagleMark()}
           <span><strong>ALJAWARIH GYM</strong><small>Taroudant, Morocco</small></span>
         </button>
-        <nav class="nav" aria-label="Public navigation">
+        <nav class="nav ${state.mobileMenu ? "open" : ""}" aria-label="Public navigation">
+          <div class="mobile-nav-head"><strong>MENU</strong><button class="nav-close" data-menu aria-label="Fermer le menu">×</button></div>
           ${publicNav.map(([href, label]) => `<button class="${state.route === href ? "active" : ""}" data-nav="${href}">${label}</button>`).join("")}
+          <div class="mobile-account">${logged ? `<button class="btn secondary" data-nav="${roleHome()}">${tr("portal")}</button><button class="btn danger" data-logout>${tr("logout")}</button>` : `<button class="btn secondary" data-nav="/login">${tr("login")}</button><button class="btn" data-nav="/register">${tr("join")}</button>`}</div>
         </nav>
+        <button class="menu-toggle" data-menu aria-label="Ouvrir le menu" aria-expanded="${state.mobileMenu}"><span></span><span></span><span></span></button>
+        ${state.mobileMenu ? `<button class="nav-backdrop" data-menu aria-label="Fermer le menu"></button>` : ""}
         <div class="actions">
           <div class="lang">
             ${["fr", "ar", "en"].map((lang) => `<button class="${state.lang === lang ? "active" : ""}" data-lang="${lang}">${lang.toUpperCase()}</button>`).join("")}
@@ -528,7 +533,14 @@ async function render() {
 document.addEventListener("click", async (event) => {
   const target = event.target.closest("button");
   if (!target) return;
-  if (target.dataset.nav) navigate(target.dataset.nav);
+  if (target.dataset.nav) {
+    state.mobileMenu = false;
+    navigate(target.dataset.nav);
+  }
+  if (target.dataset.menu !== undefined) {
+    state.mobileMenu = !state.mobileMenu;
+    render();
+  }
   if (target.dataset.lang) {
     state.lang = target.dataset.lang;
     localStorage.setItem("lang", state.lang);
