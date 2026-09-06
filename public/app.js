@@ -217,7 +217,51 @@ function scheduleGrid(classes, bookable = true) {
 }
 
 function virtualGymPreview() {
-  return `<section class="section"><h2>Explore Aljawarih</h2><p class="section-lead">The digital twin is prepared for two configurable floors. Real photos and exact zones can be mapped later without rebuilding the platform.</p>${gymMap()}</section>`;
+  return `<section class="section"><h2>Découvrez le club</h2><p class="section-lead">Visitez les différents espaces d'Aljawarih Gym : accueil, hammam beldi, salle d'aérobic et espace cinéma au rez-de-chaussée, puis machines, boxe et stretching au sous-sol.</p>${clubGallery()}</section>`;
+}
+
+function clubGallery() {
+  const sections = [
+    {
+      title: "Accueil du club",
+      description: "L'entrée d'Aljawarih Gym et le tableau d'affichage avec l'emploi du temps.",
+      photos: [
+        ["/assets/club/entree.jpg", "Entrée principale d'Aljawarih Gym"],
+        ["/assets/club/emploi-du-temps.jpg", "Tableau d'affichage et emploi du temps"]
+      ]
+    },
+    {
+      title: "Hammam beldi",
+      description: "L'espace hammam traditionnel et ses vestiaires.",
+      photos: [
+        ["/assets/club/hammam-1.jpg", "Vestiaires du hammam beldi"],
+        ["/assets/club/hammam-2.jpg", "Cabines du hammam beldi"],
+        ["/assets/club/hammam-3.jpg", "Espace de préparation du hammam beldi"]
+      ]
+    },
+    {
+      title: "Rez-de-chaussée — Aérobic & cinéma",
+      description: "Une grande salle polyvalente pour l'aérobic, les cours collectifs et les projections avec vidéoprojecteur.",
+      photos: [
+        ["/assets/club/rdc-aerobic-1.jpg", "Salle d'aérobic au rez-de-chaussée"],
+        ["/assets/club/rdc-aerobic-2.jpg", "Espace d'entraînement et matériel d'aérobic"],
+        ["/assets/club/rdc-cinema.jpg", "Espace cinéma avec écran et vidéoprojecteur"],
+        ["/assets/club/rdc-aerobic-3.jpg", "Vue générale de la salle du rez-de-chaussée"]
+      ]
+    },
+    {
+      title: "Sous-sol — Machines, boxe & stretching",
+      description: "Un espace complet équipé pour la musculation, la boxe, le renforcement et le stretching.",
+      photos: [
+        ["/assets/club/sous-sol-boxe-1.jpg", "Espace boxe au sous-sol"],
+        ["/assets/club/sous-sol-boxe-2.jpg", "Sacs de frappe et zone d'entraînement"],
+        ["/assets/club/sous-sol-machines-1.jpg", "Machines et zone de musculation"],
+        ["/assets/club/sous-sol-stretching.jpg", "Zone de stretching et renforcement"],
+        ["/assets/club/sous-sol-machines-2.jpg", "Équipements de musculation au sous-sol"]
+      ]
+    }
+  ];
+  return `<div class="club-gallery">${sections.map((section) => `<section class="gallery-section"><div class="gallery-heading"><h3>${section.title}</h3><p class="muted">${section.description}</p></div><div class="photo-grid photo-grid-${section.photos.length}">${section.photos.map(([src, alt], index) => `<figure class="club-photo ${index === 0 ? "featured" : ""}"><img src="${src}" alt="${alt}" loading="lazy"><figcaption>${alt}</figcaption></figure>`).join("")}</div></section>`).join("")}</div>`;
 }
 
 function gymMap(floorId = "floor_1") {
@@ -253,7 +297,7 @@ function schedulePage() {
 }
 
 function virtualGymPage() {
-  return `<div class="page-title"><h1>Explore Aljawarih</h1><p>Two-floor virtual gym architecture prepared for real photos, zones, coordinates and future 3D.</p></div>${gymMap()}<section class="section"><h2>Equipment Database</h2><div class="grid">${state.data.equipment.map(equipmentCard).join("")}</div></section>`;
+  return `<div class="page-title"><h1>Explorez Aljawarih Gym</h1><p>Découvrez en images tous les espaces du club, du rez-de-chaussée au sous-sol.</p></div>${clubGallery()}<section class="section"><h2>Équipements</h2><div class="grid">${state.data.equipment.map(equipmentCard).join("")}</div></section>`;
 }
 
 function equipmentCard(eq) {
