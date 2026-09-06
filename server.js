@@ -266,7 +266,7 @@ function seedDb() {
     endsAt,
     name,
     coachId,
-    coachName: ["Coach Hind", "Coach Brahim", "Coach Elhabib", "Coach Abderrahmane"][index % 4],
+    coachName: ["Coach Elhabib", "Coach Abderrahmane", "Coach Youssef", "Coach Rachid", "Coach Brahim", "Coach Hicham", "Coach Abdelmajid"][index % 7],
     capacity,
     type,
     active: true

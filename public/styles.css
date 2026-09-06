@@ -791,6 +791,7 @@ button {
     backdrop-filter: blur(22px);
     transform: translateX(-105%);
     transition: transform 240ms ease;
+    overflow-y: auto;
   }
 
   body[dir="rtl"] .nav {
@@ -914,6 +915,47 @@ button {
   }
 }
 
+@media (max-width: 760px) {
+  .topbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+  }
+
+  .brand {
+    grid-column: 1;
+  }
+
+  .menu-toggle {
+    grid-column: 3;
+  }
+
+  .topbar > .actions {
+    grid-column: 1 / -1;
+    width: 100%;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 0.55rem;
+  }
+
+  .topbar > .actions .lang {
+    min-width: 0;
+    justify-content: center;
+  }
+
+  .topbar > .actions .lang button {
+    flex: 1;
+  }
+
+  .topbar > .actions > .btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    white-space: normal;
+    text-align: center;
+  }
+}
+
 @media (max-width: 560px) {
   .main {
     width: min(100% - 1rem, 1180px);
@@ -942,7 +984,8 @@ button {
   }
 
   .topbar > .actions .btn {
-    display: none;
+    min-height: 3.2rem;
+    padding: 0.65rem 0.75rem;
   }
 
   .hero h1 {

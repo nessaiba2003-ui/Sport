@@ -246,7 +246,7 @@ function storySection() {
 }
 
 function coachesSection() {
-  const coaches = ["Hind", "Brahim", "Elhabib", "Abderrahmane"];
+  const coaches = ["Elhabib", "Abderrahmane", "Youssef", "Rachid", "Brahim", "Hicham", "Abdelmajid"];
   return `<section class="section coaches"><div><h2>${tx("coachesTitle")}</h2><p class="section-lead">${tx("coachesLead")}</p></div><div class="coach-list">${coaches.map((name, i) => `<article class="coach-card"><span>0${i + 1}</span><h3>${name}</h3><p>COACH</p></article>`).join("")}</div></section>`;
 }
 
@@ -260,7 +260,7 @@ function schedulePreview() {
 }
 
 function scheduleGrid(classes, bookable = true) {
-  const coachNames = ["Coach Hind", "Coach Brahim", "Coach Elhabib", "Coach Abderrahmane"];
+  const coachNames = ["Coach Elhabib", "Coach Abderrahmane", "Coach Youssef", "Coach Rachid", "Coach Brahim", "Coach Hicham", "Coach Abdelmajid"];
   return `<div class="schedule">${days.slice(1).concat("Sunday").map((day) => {
     const list = classes.filter((c) => c.dayName === day);
     return `<div class="day"><strong>${day}</strong>${list.length ? list.map((c) => { const n = Number(String(c.id).match(/\d+/)?.[0] || 0); return `<div class="class-item"><span class="pill">${c.type}</span><h3>${c.startsAt} - ${c.endsAt}</h3><p class="muted">${c.name}<br>${coachNames[n % coachNames.length]}<br>${c.available} / ${c.capacity} ${tx("available")}</p>${bookable ? `<button class="btn ${c.isFull ? "secondary" : ""}" data-book="${c.id}" ${c.isFull ? "disabled" : ""}>${c.isFull ? tx("full") : tx("reserve")}</button>` : ""}</div>`; }).join("") : `<p class="muted">${tx("noSession")}</p>`}</div>`;
@@ -637,7 +637,7 @@ document.addEventListener("submit", async (event) => {
     }
     if (form.dataset.class !== undefined) {
       const dayName = values.dayName;
-      await api("/api/classes", { method: "POST", body: JSON.stringify({ ...values, dayName, dayOfWeek: days.indexOf(dayName), capacity: Number(values.capacity), type: values.name, coachName: "Coach Hind" }) });
+      await api("/api/classes", { method: "POST", body: JSON.stringify({ ...values, dayName, dayOfWeek: days.indexOf(dayName), capacity: Number(values.capacity), type: values.name, coachName: "Coach Elhabib" }) });
       state.data = null;
       await refresh();
       toast("Class created");
