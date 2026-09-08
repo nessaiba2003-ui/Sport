@@ -42,7 +42,7 @@ Copier `.env.example` vers `.env`, générer un secret long pour `APP_SESSION_SE
 
 ## Persistance
 
-Le mode local utilise `data/db.json` avec écriture atomique : les données survivent au redémarrage du serveur. Un hébergement serverless comme Vercel ne garantit pas la persistance des fichiers locaux. Avant la mise en production sur Vercel, connecter `DATABASE_URL` à PostgreSQL et brancher les routes sur Prisma à partir de `prisma/schema.prisma`. Les images doivent alors être placées dans un stockage objet persistant (S3, Cloudinary, Supabase Storage ou équivalent).
+Le mode local utilise `data/db.json` avec écriture atomique : les données survivent au redémarrage du serveur. Sur Vercel, renseigner `DATABASE_URL` : l'adaptateur PostgreSQL crée automatiquement la table persistante `aljawarih_app_state` et y conserve l'état complet. Sans cette variable, le site public et la connexion aux comptes préchargés restent disponibles, mais toute écriture renvoie une erreur contrôlée `503`. Les images doivent être placées dans un stockage objet persistant (S3, Cloudinary, Supabase Storage ou équivalent).
 
 ## Sauvegardes recommandées
 

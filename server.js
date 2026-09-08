@@ -4,6 +4,7 @@ import { createReadStream } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import crypto from "node:crypto";
+import pg from "pg";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3100);
@@ -15,6 +16,9 @@ const AUTH_CONFIGURED = process.env.NODE_ENV !== "production" || Boolean(process
 const MOROCCO_TZ = "Africa/Casablanca";
 const TOKEN_TTL_MS = 1000 * 60 * 30;
 const loginAttempts = new Map();
+const USE_POSTGRES = Boolean(process.env.DATABASE_URL);
+const FILE_DATABASE_WRITABLE = USE_POSTGRES || !process.env.VERCEL;
+const postgres = USE_POSTGRES ? new pg.Pool({ connectionString: process.env.DATABASE_URL, ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : undefined, max: 5 }) : null;
 
 const jsonHeaders = {
   "content-type": "application/json; charset=utf-8",
@@ -289,6 +293,14 @@ function httpError(status, message) {
 }
 
 async function loadDb() {
+  if (USE_POSTGRES) {
+    await postgres.query("CREATE TABLE IF NOT EXISTS aljawarih_app_state (id TEXT PRIMARY KEY, data JSONB NOT NULL, updated_at TIMESTAMPTZ NOT NULL DEFAULT NOW())");
+    const result = await postgres.query("SELECT data FROM aljawarih_app_state WHERE id = $1", ["main"]);
+    if (result.rows[0]?.data) return normalizeDb(result.rows[0].data);
+    const seeded = normalizeDb(seedDb());
+    await postgres.query("INSERT INTO aljawarih_app_state (id, data) VALUES ($1, $2::jsonb)", ["main", JSON.stringify(seeded)]);
+    return seeded;
+  }
   await mkdir(DATA_DIR, { recursive: true });
   try {
     return normalizeDb(JSON.parse(await readFile(DB_PATH, "utf8")));
@@ -300,6 +312,12 @@ async function loadDb() {
 }
 
 async function saveDb(db) {
+  if (!FILE_DATABASE_WRITABLE) throw httpError(503, "Persistent database is not configured. Connect PostgreSQL with DATABASE_URL before using registrations or administrative changes.");
+  if (USE_POSTGRES) {
+    db.meta.updatedAt = new Date().toISOString();
+    await postgres.query("INSERT INTO aljawarih_app_state (id, data, updated_at) VALUES ($1, $2::jsonb, NOW()) ON CONFLICT (id) DO UPDATE SET data = EXCLUDED.data, updated_at = NOW()", ["main", JSON.stringify(normalizeDb(db))]);
+    return;
+  }
   await mkdir(DATA_DIR, { recursive: true });
   db.meta.updatedAt = new Date().toISOString();
   const temporaryPath = `${DB_PATH}.tmp`;
@@ -739,7 +757,7 @@ function classWithAvailability(db, cls) {
 
 async function handleApi(req, res, pathname) {
   const db = await loadDb();
-  if (runAutomations(db)) await saveDb(db);
+  if (FILE_DATABASE_WRITABLE && runAutomations(db)) await saveDb(db);
   const user = await getAuth(req, db);
   const method = req.method;
 
@@ -790,8 +808,6 @@ async function handleApi(req, res, pathname) {
     if (!found.emailVerified) throw httpError(403, "Email verification required");
     loginAttempts.delete(attemptKey);
     const token = signSession({ sub: found.id, roles: found.roles, exp: Date.now() + 1000 * 60 * 60 * 12 });
-    audit(db, found, "LOGIN", "User", found.id);
-    await saveDb(db);
     send(200, { token, user: withProfile(db, found) });
     return;
   }
