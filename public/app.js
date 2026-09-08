@@ -52,20 +52,26 @@ const arabicUi = {
   "Home": "الرئيسية", "About": "من نحن", "Memberships": "الاشتراكات", "Schedule": "البرنامج", "Events": "الأنشطة", "Memories": "الذكريات", "Virtual Gym": "الجيم الافتراضي", "Contact": "اتصال",
   "My portal": "فضائي", "Logout": "خروج", "Login": "تسجيل الدخول", "Join the Club": "انضم للنادي",
   "Admin Dashboard": "لوحة تحكم الإدارة", "Staff Dashboard": "لوحة تحكم المدربين", "Client Portal": "فضاء العضو",
-  "Overview": "نظرة عامة", "Dashboard": "لوحة التحكم", "Members": "الأعضاء", "Payments": "المدفوعات", "Bookings": "الحجوزات", "Attendance": "الحضور", "Equipment": "المعدات", "Analytics": "الإحصائيات", "Settings": "الإعدادات",
+  "Overview": "نظرة عامة", "Dashboard": "لوحة التحكم", "Today": "اليوم", "Members": "الأعضاء", "Payments": "المدفوعات", "Bookings": "الحجوزات", "Attendance": "الحضور", "Gym": "القاعة", "Equipment": "المعدات", "Analytics": "الإحصائيات", "Settings": "الإعدادات",
   "Total Members": "مجموع الأعضاء", "Active Members": "الأعضاء النشطون", "Expired": "الاشتراكات المنتهية", "New Members": "الأعضاء الجدد", "Today Attendance": "حضور اليوم", "Monthly Revenue": "الدخل الشهري", "Pending Payments": "المدفوعات المعلقة", "Revenue growth": "تطور المداخيل",
-  "Member": "العضو", "Plan": "الاشتراك", "Expiry": "تاريخ الانتهاء", "Status": "الحالة", "Amount": "المبلغ", "Method": "طريقة الدفع", "Date": "التاريخ", "Source": "المصدر", "Client": "العضو", "Session": "الحصة", "Time": "الوقت",
+  "Member": "العضو", "Plan": "الاشتراك", "Expiry": "تاريخ الانتهاء", "Status": "الحالة", "Amount": "المبلغ", "Method": "طريقة الدفع", "Date": "التاريخ", "Source": "المصدر", "Client": "العضو", "Session": "الحصة", "Time": "الوقت", "Visits": "الزيارات",
   "Membership": "الاشتراك", "Paiements": "المدفوعات", "Progress": "التقدم", "Workouts": "التدريبات", "Achievements": "الإنجازات", "Challenges": "التحديات", "Notifications": "الإشعارات", "Profile": "الملف الشخصي",
   "Welcome back": "مرحباً بعودتك", "No membership": "لا يوجد اشتراك", "days remaining": "يوماً متبقياً", "Expires": "ينتهي في", "Total visits": "مجموع الزيارات", "Current streak": "الاستمرارية الحالية", "This month": "هذا الشهر", "Workouts completed": "التدريبات المنجزة", "Hours trained": "ساعات التدريب", "Strength progression": "تطور القوة", "Upcoming Bookings": "الحجوزات القادمة", "Quick actions": "إجراءات سريعة",
   "Book a Session": "احجز حصة", "Explore Gym": "اكتشف القاعة", "Track Workout": "سجّل تمريناً", "Cancel": "إلغاء", "Mark as read": "تحديد كمقروء", "Reserve": "احجز", "FULL": "ممتلئ",
   "Monday": "الاثنين", "Tuesday": "الثلاثاء", "Wednesday": "الأربعاء", "Thursday": "الخميس", "Friday": "الجمعة", "Saturday": "السبت", "Sunday": "الأحد",
   "Morning Training": "تدريب صباحي", "Evening Training": "تدريب مسائي", "Kids Training": "تدريب الأطفال", "Group Training": "تدريب جماعي", "Private Session": "حصة خاصة",
+  "Adults": "الكبار", "Children": "الأطفال", "Private": "خاص", "Registration": "واجب التسجيل", "Monthly": "شهري", "4 Months": "4 أشهر", "11 Months": "11 شهراً", "Single Session": "حصة واحدة", "Individual Session": "حصة فردية", "Private coaching": "تدريب خاص", "View plans": "عرض الاشتراكات",
   "Assigned sessions": "الحصص المسندة", "Coach tools": "أدوات المدرب", "Check-in": "تسجيل الحضور", "Sessions": "الحصص", "Participants": "المشاركون", "QR Check-in": "تسجيل الحضور بالرمز", "QR token or client id": "رمز QR أو رقم العضو", "Record attendance": "تسجيل الحضور",
   "Add membership plan": "إضافة اشتراك", "Audience": "الفئة", "Name": "الاسم", "Price DH": "السعر بالدرهم", "Duration days": "المدة بالأيام", "Create plan": "إنشاء الاشتراك", "Create class": "إنشاء حصة", "Day": "اليوم", "Starts": "البداية", "Ends": "النهاية", "Capacity": "السعة", "Create event": "إنشاء نشاط", "Title": "العنوان", "Category": "الفئة", "Description": "الوصف", "Create memory album": "إنشاء ألبوم ذكريات", "Year": "السنة", "Create album": "إنشاء الألبوم", "Add equipment": "إضافة معدات", "Difficulty": "المستوى", "Add equipment": "إضافة المعدات",
-  "Club settings": "إعدادات النادي", "Search": "بحث", "Load bookings": "تحميل الحجوزات", "Create Account": "إنشاء حساب", "Créer un compte": "إنشاء حساب", "Connexion": "تسجيل الدخول", "Prénom": "الاسم الشخصي", "Nom": "الاسم العائلي", "Téléphone": "الهاتف", "CIN / Carte Nationale": "البطاقة الوطنية", "Date de naissance": "تاريخ الازدياد", "Sexe / catégorie": "الجنس / الفئة", "Homme": "رجل", "Femme": "امرأة", "Type d'abonnement": "نوع الاشتراك", "Mot de passe": "كلمة المرور", "Créer le compte": "إنشاء الحساب", "Se connecter": "تسجيل الدخول", "Accès sécurisé": "ولوج آمن",
+  "Club settings": "إعدادات النادي", "Search": "بحث", "Load bookings": "تحميل الحجوزات", "Create Account": "إنشاء حساب", "Créer un compte": "إنشاء حساب", "Connexion": "تسجيل الدخول", "Prénom": "الاسم الشخصي", "Nom": "الاسم العائلي", "Téléphone": "الهاتف", "CIN / Carte Nationale": "البطاقة الوطنية", "Date de naissance": "تاريخ الازدياد", "Sexe / catégorie": "الجنس / الفئة", "Homme": "رجل", "Femme": "امرأة", "Type d'abonnement": "نوع الاشتراك", "Mot de passe": "كلمة المرور", "Créer le compte": "إنشاء الحساب", "Se connecter": "تسجيل الدخول", "Accès sécurisé": "ولوج آمن", "Après l'inscription, un message de confirmation est envoyé à votre adresse e-mail.": "بعد التسجيل، ستصلك رسالة لتأكيد بريدك الإلكتروني.", "Les comptes de démonstration restent configurables par l'administrateur.": "يمكن للإدارة ضبط الحسابات التجريبية.",
   "First name": "الاسم الشخصي", "Last name": "الاسم العائلي", "Phone": "الهاتف", "Emergency contact": "رقم الطوارئ", "Save profile": "حفظ الملف", "Exercise": "التمرين", "Sets": "الجولات", "Reps": "التكرارات", "Weight kg": "الوزن بالكيلوغرام", "Save workout": "حفظ التمرين", "Track workout": "تسجيل تمرين",
   "ACTIVE": "نشط", "EXPIRING_SOON": "قريب الانتهاء", "EXPIRED": "منتهي", "PENDING_PAYMENT": "في انتظار الدفع", "PAID": "مدفوع", "PENDING": "معلق", "CANCELLED": "ملغى",
-  "No scheduled session": "لا توجد حصة مبرمجة", "No notifications.": "لا توجد إشعارات.", "No achievements yet.": "لا توجد إنجازات بعد.", "Equipment not found.": "المعدة غير موجودة.", "Something needs attention": "حدث خطأ", "Authentication required": "يجب تسجيل الدخول", "Insufficient permissions": "ليست لديك الصلاحية", "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صحيحة", "Email verification required": "يجب تأكيد البريد الإلكتروني"
+  "How to use": "طريقة الاستعمال", "Safety": "السلامة", "Beginner": "مبتدئ", "Intermediate": "متوسط", "Strength": "القوة", "Workshop": "ورشة", "Ramadan": "رمضان",
+  "Premium Monthly": "اشتراك شهري مميز", "Workshop Nutrition": "ورشة التغذية", "Cable Machine": "آلة الكابلات", "Bench Press": "تمرين ضغط الصدر", "Session education et performance.": "حصة للتوعية وتحسين الأداء.", "Machine polyvalente pour exercices guides.": "آلة متعددة الاستعمالات للتمارين الموجّهة.",
+  "Signed out": "تم تسجيل الخروج", "Reservation confirmed": "تم تأكيد الحجز", "Booking cancelled": "تم إلغاء الحجز", "Event registration saved": "تم التسجيل في النشاط", "Notification marked as read": "تم تحديد الإشعار كمقروء", "Profile updated": "تم تحديث الملف الشخصي", "Workout tracked": "تم تسجيل التمرين", "Plan created": "تم إنشاء الاشتراك", "Class created": "تم إنشاء الحصة", "Event created": "تم إنشاء النشاط", "Album created": "تم إنشاء الألبوم", "Equipment added": "تمت إضافة المعدات",
+  "No data yet.": "لا توجد بيانات بعد.", "No scheduled session": "لا توجد حصة مبرمجة", "No notifications.": "لا توجد إشعارات.", "No achievements yet.": "لا توجد إنجازات بعد.", "Equipment not found.": "المعدة غير موجودة.", "Something needs attention": "حدث خطأ", "Authentication required": "يجب تسجيل الدخول", "Insufficient permissions": "ليست لديك الصلاحية", "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صحيحة", "Email verification required": "يجب تأكيد البريد الإلكتروني",
+  "Settings API is prepared for production CMS expansion.": "إعدادات النظام جاهزة للإدارة والتطوير.", "Booking data is available through /api/bookings with staff scoping.": "بيانات الحجوزات متاحة حسب صلاحيات المستخدم.", "Mark attendance, view participants and add workout notes.": "سجّل الحضور واطلع على المشاركين وأضف ملاحظات التدريب.", "Use client QR token format: qr:usr_sara. Camera scanner can be connected to this endpoint.": "استخدم رمز العضو أو امسح رمز QR لتسجيل الحضور.",
+  "Entrée principale d'Aljawarih Gym": "المدخل الرئيسي لنادي الجوارح", "Tableau d'affichage et emploi du temps": "لوحة الإعلانات والبرنامج", "Vestiaires du hammam beldi": "غرف تبديل الملابس بالحمام البلدي", "Cabines du hammam beldi": "مرافق الحمام البلدي", "Espace de préparation du hammam beldi": "فضاء الاستعداد بالحمام البلدي", "Salle d'aérobic au rez-de-chaussée": "قاعة الأيروبيك بالطابق الأرضي", "Espace d'entraînement et matériel d'aérobic": "فضاء ومعدات الأيروبيك", "Espace cinéma avec écran et vidéoprojecteur": "فضاء السينما مع الشاشة وجهاز العرض", "Vue générale de la salle du rez-de-chaussée": "منظر عام لقاعة الطابق الأرضي", "Espace boxe au sous-sol": "فضاء الملاكمة بالطابق السفلي", "Sacs de frappe et zone d'entraînement": "أكياس الملاكمة ومنطقة التدريب", "Machines et zone de musculation": "الآلات ومنطقة كمال الأجسام", "Zone de stretching et renforcement": "منطقة التمدد والتقوية", "Équipements de musculation au sous-sol": "معدات كمال الأجسام بالطابق السفلي"
 };
 
 function localizeArabic(root) {
@@ -88,6 +94,14 @@ function localizeArabic(root) {
   });
   root.querySelectorAll("input[placeholder], textarea[placeholder]").forEach((element) => {
     if (arabicUi[element.placeholder]) element.placeholder = arabicUi[element.placeholder];
+  });
+  root.querySelectorAll("input:not([type='password']), textarea").forEach((element) => {
+    if (arabicUi[element.value]) element.value = arabicUi[element.value];
+  });
+  root.querySelectorAll("[title], [aria-label]").forEach((element) => {
+    if (element.title && arabicUi[element.title]) element.title = arabicUi[element.title];
+    const label = element.getAttribute("aria-label");
+    if (label && arabicUi[label]) element.setAttribute("aria-label", arabicUi[label]);
   });
 }
 
@@ -229,7 +243,7 @@ function shell(content) {
       <header class="topbar">
         <button class="brand icon-btn" data-nav="/">
           ${eagleMark()}
-          <span><strong>ALJAWARIH GYM</strong><small>Taroudant, Morocco</small></span>
+          <span><strong>${state.lang === "ar" ? "نادي الجوارح" : "ALJAWARIH GYM"}</strong><small>${state.lang === "ar" ? "تارودانت، المغرب" : "Taroudant, Morocco"}</small></span>
         </button>
         <nav class="nav ${state.mobileMenu ? "open" : ""}" aria-label="Public navigation">
           <div class="mobile-nav-head"><strong>MENU</strong><button class="nav-close" data-menu aria-label="Fermer le menu">×</button></div>
@@ -569,8 +583,10 @@ async function screen() {
 async function render() {
   try {
     app.innerHTML = shell(await screen());
+    localizeArabic(app);
   } catch (err) {
     app.innerHTML = shell(`<div class="empty"><h2>Something needs attention</h2><p>${err.message}</p><button class="btn" data-nav="/login">Login</button></div>`);
+    localizeArabic(app);
   }
 }
 
