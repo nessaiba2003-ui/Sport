@@ -7,9 +7,20 @@
   "scripts": {
     "dev": "node server.js",
     "start": "node server.js",
-    "seed": "node server.js --seed-only"
+    "seed": "node server.js --seed-only",
+    "backup": "node scripts/backup-data.js",
+    "check": "node --check server.js && node --check public/app.js"
   },
   "engines": {
     "node": ">=20"
+  },
+  "dependencies": {
+    "docx": "^9.5.1",
+    "exceljs": "^4.4.0",
+    "nodemailer": "^10.0.1",
+    "pdfkit": "^0.17.2"
+  },
+  "overrides": {
+    "uuid": "^11.1.1"
   }
 }

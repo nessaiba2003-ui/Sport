@@ -28,3 +28,11 @@ bin/
 
 ### Mac OS ###
 .DS_Store
+
+### Node / local secrets and uploads ###
+node_modules/
+.env
+.env.*
+!.env.example
+public/uploads/
+data/backups/

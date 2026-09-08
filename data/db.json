@@ -2,7 +2,7 @@
   "meta": {
     "version": 1,
     "seededAt": "2026-09-02T19:35:40.381Z",
-    "updatedAt": "2026-09-02T19:42:48.991Z",
+    "updatedAt": "2026-09-08T17:27:34.023Z",
     "timezone": "Africa/Casablanca"
   },
   "settings": {
@@ -31,9 +31,13 @@
       "email": "admin@aljawarih.demo",
       "passwordHash": "5588c162c8c97c58eff8b1a824ed2a80:54745a8ed43edf17d4633bd97f3b15ffb5e8455a02df75545119de68de35744c",
       "roles": [
-        "SUPER_ADMIN"
+        "SUPER_ADMIN",
+        "COACH"
       ],
-      "createdAt": "2026-05-25T19:35:36.999Z"
+      "createdAt": "2026-05-25T19:35:36.999Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_coach",
@@ -42,7 +46,10 @@
       "roles": [
         "COACH"
       ],
-      "createdAt": "2026-06-04T19:35:37.163Z"
+      "createdAt": "2026-06-04T19:35:37.163Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_sara",
@@ -51,7 +58,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-06-24T19:35:37.331Z"
+      "createdAt": "2026-06-24T19:35:37.331Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_0",
@@ -60,7 +70,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-09-02T19:35:37.468Z"
+      "createdAt": "2026-09-02T19:35:37.468Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_1",
@@ -69,7 +82,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-30T19:35:37.603Z"
+      "createdAt": "2026-08-30T19:35:37.603Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_2",
@@ -78,7 +94,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-27T19:35:37.784Z"
+      "createdAt": "2026-08-27T19:35:37.784Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_3",
@@ -87,7 +106,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-24T19:35:37.945Z"
+      "createdAt": "2026-08-24T19:35:37.945Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_4",
@@ -96,7 +118,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-21T19:35:38.076Z"
+      "createdAt": "2026-08-21T19:35:38.076Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_5",
@@ -105,7 +130,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-18T19:35:38.207Z"
+      "createdAt": "2026-08-18T19:35:38.207Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_6",
@@ -114,7 +142,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-15T19:35:38.388Z"
+      "createdAt": "2026-08-15T19:35:38.388Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_7",
@@ -123,7 +154,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-12T19:35:38.525Z"
+      "createdAt": "2026-08-12T19:35:38.525Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_8",
@@ -132,7 +166,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-09T19:35:38.681Z"
+      "createdAt": "2026-08-09T19:35:38.681Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_9",
@@ -141,7 +178,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-06T19:35:38.846Z"
+      "createdAt": "2026-08-06T19:35:38.846Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_10",
@@ -150,7 +190,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-08-03T19:35:39.006Z"
+      "createdAt": "2026-08-03T19:35:39.006Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_11",
@@ -159,7 +202,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-31T19:35:39.159Z"
+      "createdAt": "2026-07-31T19:35:39.159Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_12",
@@ -168,7 +214,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-28T19:35:39.318Z"
+      "createdAt": "2026-07-28T19:35:39.318Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_13",
@@ -177,7 +226,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-25T19:35:39.469Z"
+      "createdAt": "2026-07-25T19:35:39.469Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_14",
@@ -186,7 +238,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-22T19:35:39.619Z"
+      "createdAt": "2026-07-22T19:35:39.619Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_15",
@@ -195,7 +250,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-19T19:35:39.759Z"
+      "createdAt": "2026-07-19T19:35:39.759Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_16",
@@ -204,7 +262,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-16T19:35:39.919Z"
+      "createdAt": "2026-07-16T19:35:39.919Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_17",
@@ -213,7 +274,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-13T19:35:40.072Z"
+      "createdAt": "2026-07-13T19:35:40.072Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_18",
@@ -222,7 +286,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-10T19:35:40.237Z"
+      "createdAt": "2026-07-10T19:35:40.237Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     },
     {
       "id": "usr_demo_19",
@@ -231,7 +298,10 @@
       "roles": [
         "CLIENT"
       ],
-      "createdAt": "2026-07-07T19:35:40.377Z"
+      "createdAt": "2026-07-07T19:35:40.377Z",
+      "active": true,
+      "emailVerified": true,
+      "archivedAt": null
     }
   ],
   "profiles": [
@@ -251,8 +321,8 @@
     {
       "id": "pro_admin",
       "userId": "usr_admin",
-      "firstName": "Admin",
-      "lastName": "Aljawarih",
+      "firstName": "Elhabib",
+      "lastName": "",
       "phone": "+212 5 28 00 00 00",
       "gender": "Staff",
       "audience": "adult"
@@ -661,7 +731,7 @@
       "planId": "plan_adult_4",
       "startDate": "2026-07-04T19:35:40.378Z",
       "expiryDate": "2026-08-28T19:35:40.378Z",
-      "status": "EXPIRED",
+      "status": "PENDING_PAYMENT",
       "paymentStatus": "OVERDUE"
     },
     {
@@ -724,7 +794,7 @@
       "planId": "plan_adult_month",
       "startDate": "2026-06-27T19:35:40.378Z",
       "expiryDate": "2026-08-28T19:35:40.378Z",
-      "status": "EXPIRED",
+      "status": "PENDING_PAYMENT",
       "paymentStatus": "OVERDUE"
     },
     {
@@ -787,7 +857,7 @@
       "planId": "plan_adult_month",
       "startDate": "2026-06-20T19:35:40.378Z",
       "expiryDate": "2026-08-28T19:35:40.378Z",
-      "status": "EXPIRED",
+      "status": "PENDING_PAYMENT",
       "paymentStatus": "OVERDUE"
     },
     {
@@ -1090,7 +1160,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": false,
+      "archivedAt": "2026-09-08T00:00:00.000Z"
     },
     {
       "id": "cls_1",
@@ -1103,7 +1174,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_2",
@@ -1116,7 +1188,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": false,
+      "archivedAt": "2026-09-08T00:00:00.000Z"
     },
     {
       "id": "cls_3",
@@ -1129,7 +1202,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_4",
@@ -1142,7 +1216,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": false,
+      "archivedAt": "2026-09-08T00:00:00.000Z"
     },
     {
       "id": "cls_5",
@@ -1155,7 +1230,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_6",
@@ -1168,7 +1244,8 @@
       "coachName": "Coach Rachid",
       "capacity": 16,
       "type": "Kids Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_7",
@@ -1181,7 +1258,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_8",
@@ -1194,7 +1272,8 @@
       "coachName": "Coach Rachid",
       "capacity": 16,
       "type": "Kids Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_9",
@@ -1207,7 +1286,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_10",
@@ -1220,7 +1300,8 @@
       "coachName": "Coach Rachid",
       "capacity": 16,
       "type": "Kids Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     },
     {
       "id": "cls_11",
@@ -1233,7 +1314,8 @@
       "coachName": "Coach Rachid",
       "capacity": 20,
       "type": "Group Training",
-      "active": true
+      "active": true,
+      "archivedAt": null
     }
   ],
   "bookings": [
@@ -1916,7 +1998,8 @@
       "capacity": 60,
       "coverImageUrl": "https://images.unsplash.com/photo-1517963879433-6ad2b056d712?auto=format&fit=crop&w=1200&q=80",
       "registrationOpen": true,
-      "participants": 10
+      "participants": 10,
+      "archivedAt": null
     },
     {
       "id": "evt_tournament",
@@ -1929,7 +2012,8 @@
       "capacity": 48,
       "coverImageUrl": "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80",
       "registrationOpen": true,
-      "participants": 17
+      "participants": 17,
+      "archivedAt": null
     },
     {
       "id": "evt_ramadan",
@@ -1942,7 +2026,8 @@
       "capacity": 40,
       "coverImageUrl": "https://images.unsplash.com/photo-1540497077202-7c8a3999166f?auto=format&fit=crop&w=1200&q=80",
       "registrationOpen": true,
-      "participants": 24
+      "participants": 24,
+      "archivedAt": null
     },
     {
       "id": "evt_kids",
@@ -1955,7 +2040,8 @@
       "capacity": 35,
       "coverImageUrl": "https://images.unsplash.com/photo-1599058917212-d750089bc07e?auto=format&fit=crop&w=1200&q=80",
       "registrationOpen": true,
-      "participants": 31
+      "participants": 31,
+      "archivedAt": null
     }
   ],
   "eventRegistrations": [],
@@ -2239,6 +2325,46 @@
       "body": "Morning Training 06:00-07:00",
       "readAt": null,
       "createdAt": "2026-09-02T19:42:48.990Z"
+    },
+    {
+      "id": "not_8066f9fd",
+      "userId": "usr_demo_4",
+      "type": "EXPIRING_SOON",
+      "title": "Abonnement bientôt expiré",
+      "body": "Votre abonnement expire le 2026-09-08T19:35:40.378Z.",
+      "automationKey": "membership:mem_5:EXPIRING_SOON",
+      "readAt": null,
+      "createdAt": "2026-09-08T17:19:11.303Z"
+    },
+    {
+      "id": "not_a9084ae6",
+      "userId": "usr_demo_9",
+      "type": "EXPIRING_SOON",
+      "title": "Abonnement bientôt expiré",
+      "body": "Votre abonnement expire le 2026-09-08T19:35:40.378Z.",
+      "automationKey": "membership:mem_10:EXPIRING_SOON",
+      "readAt": null,
+      "createdAt": "2026-09-08T17:19:11.303Z"
+    },
+    {
+      "id": "not_716bc7a5",
+      "userId": "usr_demo_14",
+      "type": "EXPIRING_SOON",
+      "title": "Abonnement bientôt expiré",
+      "body": "Votre abonnement expire le 2026-09-08T19:35:40.378Z.",
+      "automationKey": "membership:mem_15:EXPIRING_SOON",
+      "readAt": null,
+      "createdAt": "2026-09-08T17:19:11.303Z"
+    },
+    {
+      "id": "not_d967d5b8",
+      "userId": "usr_demo_19",
+      "type": "EXPIRING_SOON",
+      "title": "Abonnement bientôt expiré",
+      "body": "Votre abonnement expire le 2026-09-08T19:35:40.378Z.",
+      "automationKey": "membership:mem_20:EXPIRING_SOON",
+      "readAt": null,
+      "createdAt": "2026-09-08T17:19:11.303Z"
     }
   ],
   "families": [
@@ -2266,5 +2392,97 @@
       "profileId": "pro_demo_2",
       "relation": "Child"
     }
-  ]
+  ],
+  "coaches": [
+    {
+      "id": "coach_elhabib",
+      "firstName": "Elhabib",
+      "lastName": "",
+      "photoUrl": null,
+      "specialty": "",
+      "groups": [],
+      "userId": "usr_admin",
+      "active": true,
+      "archivedAt": null,
+      "createdAt": "2026-09-08T17:19:11.302Z"
+    },
+    {
+      "id": "coach_abderrahmane",
+      "firstName": "Abderrahmane",
+      "lastName": "",
+      "photoUrl": null,
+      "specialty": "",
+      "groups": [],
+      "userId": null,
+      "active": true,
+      "archivedAt": null,
+      "createdAt": "2026-09-08T17:19:11.302Z"
+    },
+    {
+      "id": "coach_youssef",
+      "firstName": "Youssef",
+      "lastName": "",
+      "photoUrl": null,
+      "specialty": "",
+      "groups": [],
+      "userId": null,
+      "active": true,
+      "archivedAt": null,
+      "createdAt": "2026-09-08T17:19:11.302Z"
+    },
+    {
+      "id": "coach_rachid",
+      "firstName": "Rachid",
+      "lastName": "",
+      "photoUrl": null,
+      "specialty": "",
+      "groups": [],
+      "userId": null,
+      "active": true,
+      "archivedAt": null,
+      "createdAt": "2026-09-08T17:19:11.302Z"
+    },
+    {
+      "id": "coach_brahim",
+      "firstName": "Brahim",
+      "lastName": "",
+      "photoUrl": null,
+      "specialty": "",
+      "groups": [],
+      "userId": null,
+      "active": true,
+      "archivedAt": null,
+      "createdAt": "2026-09-08T17:19:11.302Z"
+    },
+    {
+      "id": "coach_hicham",
+      "firstName": "Hicham",
+      "lastName": "",
+      "photoUrl": null,
+      "specialty": "",
+      "groups": [],
+      "userId": null,
+      "active": true,
+      "archivedAt": null,
+      "createdAt": "2026-09-08T17:19:11.302Z"
+    },
+    {
+      "id": "coach_abdelmajid",
+      "firstName": "Abdelmajid",
+      "lastName": "",
+      "photoUrl": null,
+      "specialty": "",
+      "groups": [],
+      "userId": null,
+      "active": true,
+      "archivedAt": null,
+      "createdAt": "2026-09-08T17:19:11.302Z"
+    }
+  ],
+  "financialEntries": [],
+  "auditLogs": [],
+  "emailTokens": [],
+  "passwordResetTokens": [],
+  "documents": [],
+  "supportRequests": []
 }

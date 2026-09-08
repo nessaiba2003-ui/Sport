@@ -47,6 +47,50 @@ const copy = {
 
 function tx(key) { return copy[state.lang]?.[key] || copy.fr[key] || key; }
 
+const arabicUi = {
+  "ALJAWARIH GYM": "نادي الجوارح", "Taroudant, Morocco": "تارودانت، المغرب", "MENU": "القائمة",
+  "Home": "الرئيسية", "About": "من نحن", "Memberships": "الاشتراكات", "Schedule": "البرنامج", "Events": "الأنشطة", "Memories": "الذكريات", "Virtual Gym": "الجيم الافتراضي", "Contact": "اتصال",
+  "My portal": "فضائي", "Logout": "خروج", "Login": "تسجيل الدخول", "Join the Club": "انضم للنادي",
+  "Admin Dashboard": "لوحة تحكم الإدارة", "Staff Dashboard": "لوحة تحكم المدربين", "Client Portal": "فضاء العضو",
+  "Overview": "نظرة عامة", "Dashboard": "لوحة التحكم", "Members": "الأعضاء", "Payments": "المدفوعات", "Bookings": "الحجوزات", "Attendance": "الحضور", "Equipment": "المعدات", "Analytics": "الإحصائيات", "Settings": "الإعدادات",
+  "Total Members": "مجموع الأعضاء", "Active Members": "الأعضاء النشطون", "Expired": "الاشتراكات المنتهية", "New Members": "الأعضاء الجدد", "Today Attendance": "حضور اليوم", "Monthly Revenue": "الدخل الشهري", "Pending Payments": "المدفوعات المعلقة", "Revenue growth": "تطور المداخيل",
+  "Member": "العضو", "Plan": "الاشتراك", "Expiry": "تاريخ الانتهاء", "Status": "الحالة", "Amount": "المبلغ", "Method": "طريقة الدفع", "Date": "التاريخ", "Source": "المصدر", "Client": "العضو", "Session": "الحصة", "Time": "الوقت",
+  "Membership": "الاشتراك", "Paiements": "المدفوعات", "Progress": "التقدم", "Workouts": "التدريبات", "Achievements": "الإنجازات", "Challenges": "التحديات", "Notifications": "الإشعارات", "Profile": "الملف الشخصي",
+  "Welcome back": "مرحباً بعودتك", "No membership": "لا يوجد اشتراك", "days remaining": "يوماً متبقياً", "Expires": "ينتهي في", "Total visits": "مجموع الزيارات", "Current streak": "الاستمرارية الحالية", "This month": "هذا الشهر", "Workouts completed": "التدريبات المنجزة", "Hours trained": "ساعات التدريب", "Strength progression": "تطور القوة", "Upcoming Bookings": "الحجوزات القادمة", "Quick actions": "إجراءات سريعة",
+  "Book a Session": "احجز حصة", "Explore Gym": "اكتشف القاعة", "Track Workout": "سجّل تمريناً", "Cancel": "إلغاء", "Mark as read": "تحديد كمقروء", "Reserve": "احجز", "FULL": "ممتلئ",
+  "Monday": "الاثنين", "Tuesday": "الثلاثاء", "Wednesday": "الأربعاء", "Thursday": "الخميس", "Friday": "الجمعة", "Saturday": "السبت", "Sunday": "الأحد",
+  "Morning Training": "تدريب صباحي", "Evening Training": "تدريب مسائي", "Kids Training": "تدريب الأطفال", "Group Training": "تدريب جماعي", "Private Session": "حصة خاصة",
+  "Assigned sessions": "الحصص المسندة", "Coach tools": "أدوات المدرب", "Check-in": "تسجيل الحضور", "Sessions": "الحصص", "Participants": "المشاركون", "QR Check-in": "تسجيل الحضور بالرمز", "QR token or client id": "رمز QR أو رقم العضو", "Record attendance": "تسجيل الحضور",
+  "Add membership plan": "إضافة اشتراك", "Audience": "الفئة", "Name": "الاسم", "Price DH": "السعر بالدرهم", "Duration days": "المدة بالأيام", "Create plan": "إنشاء الاشتراك", "Create class": "إنشاء حصة", "Day": "اليوم", "Starts": "البداية", "Ends": "النهاية", "Capacity": "السعة", "Create event": "إنشاء نشاط", "Title": "العنوان", "Category": "الفئة", "Description": "الوصف", "Create memory album": "إنشاء ألبوم ذكريات", "Year": "السنة", "Create album": "إنشاء الألبوم", "Add equipment": "إضافة معدات", "Difficulty": "المستوى", "Add equipment": "إضافة المعدات",
+  "Club settings": "إعدادات النادي", "Search": "بحث", "Load bookings": "تحميل الحجوزات", "Create Account": "إنشاء حساب", "Créer un compte": "إنشاء حساب", "Connexion": "تسجيل الدخول", "Prénom": "الاسم الشخصي", "Nom": "الاسم العائلي", "Téléphone": "الهاتف", "CIN / Carte Nationale": "البطاقة الوطنية", "Date de naissance": "تاريخ الازدياد", "Sexe / catégorie": "الجنس / الفئة", "Homme": "رجل", "Femme": "امرأة", "Type d'abonnement": "نوع الاشتراك", "Mot de passe": "كلمة المرور", "Créer le compte": "إنشاء الحساب", "Se connecter": "تسجيل الدخول", "Accès sécurisé": "ولوج آمن",
+  "First name": "الاسم الشخصي", "Last name": "الاسم العائلي", "Phone": "الهاتف", "Emergency contact": "رقم الطوارئ", "Save profile": "حفظ الملف", "Exercise": "التمرين", "Sets": "الجولات", "Reps": "التكرارات", "Weight kg": "الوزن بالكيلوغرام", "Save workout": "حفظ التمرين", "Track workout": "تسجيل تمرين",
+  "ACTIVE": "نشط", "EXPIRING_SOON": "قريب الانتهاء", "EXPIRED": "منتهي", "PENDING_PAYMENT": "في انتظار الدفع", "PAID": "مدفوع", "PENDING": "معلق", "CANCELLED": "ملغى",
+  "No scheduled session": "لا توجد حصة مبرمجة", "No notifications.": "لا توجد إشعارات.", "No achievements yet.": "لا توجد إنجازات بعد.", "Equipment not found.": "المعدة غير موجودة.", "Something needs attention": "حدث خطأ", "Authentication required": "يجب تسجيل الدخول", "Insufficient permissions": "ليست لديك الصلاحية", "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صحيحة", "Email verification required": "يجب تأكيد البريد الإلكتروني"
+};
+
+function localizeArabic(root) {
+  if (state.lang !== "ar") return;
+  const walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT);
+  const nodes = [];
+  while (walker.nextNode()) nodes.push(walker.currentNode);
+  nodes.forEach((node) => {
+    const original = node.nodeValue;
+    const trimmed = original.trim();
+    if (!trimmed) return;
+    let translated = arabicUi[trimmed];
+    if (!translated) {
+      translated = trimmed
+        .replace(/^Welcome back,\s*/i, "مرحباً بعودتك، ")
+        .replace(/\s+days remaining$/i, " يوماً متبقياً")
+        .replace(/^Expires:\s*/i, "ينتهي في: ");
+    }
+    if (translated !== trimmed) node.nodeValue = original.replace(trimmed, translated);
+  });
+  root.querySelectorAll("input[placeholder], textarea[placeholder]").forEach((element) => {
+    if (arabicUi[element.placeholder]) element.placeholder = arabicUi[element.placeholder];
+  });
+}
+
 const t = {
   fr: {
     join: "Rejoindre le club",
@@ -260,10 +304,9 @@ function schedulePreview() {
 }
 
 function scheduleGrid(classes, bookable = true) {
-  const coachNames = ["Coach Elhabib", "Coach Abderrahmane", "Coach Youssef", "Coach Rachid", "Coach Brahim", "Coach Hicham", "Coach Abdelmajid"];
   return `<div class="schedule">${days.slice(1).concat("Sunday").map((day) => {
     const list = classes.filter((c) => c.dayName === day);
-    return `<div class="day"><strong>${day}</strong>${list.length ? list.map((c) => { const n = Number(String(c.id).match(/\d+/)?.[0] || 0); return `<div class="class-item"><span class="pill">${c.type}</span><h3>${c.startsAt} - ${c.endsAt}</h3><p class="muted">${c.name}<br>${coachNames[n % coachNames.length]}<br>${c.available} / ${c.capacity} ${tx("available")}</p>${bookable ? `<button class="btn ${c.isFull ? "secondary" : ""}" data-book="${c.id}" ${c.isFull ? "disabled" : ""}>${c.isFull ? tx("full") : tx("reserve")}</button>` : ""}</div>`; }).join("") : `<p class="muted">${tx("noSession")}</p>`}</div>`;
+    return `<div class="day"><strong>${day}</strong>${list.length ? list.map((c) => `<div class="class-item"><span class="pill">${c.type}</span><h3>${c.startsAt} - ${c.endsAt}</h3><p class="muted">${c.name}</p>${bookable ? `<button class="btn" data-book="${c.id}">${tx("reserve")}</button>` : ""}</div>`).join("") : `<p class="muted">${tx("noSession")}</p>`}</div>`;
   }).join("")}</div>`;
 }
 
@@ -366,13 +409,13 @@ function contactPage() {
 }
 
 function loginPage(register = false) {
-  return `<div class="grid"><section class="card span-5"><h1>${register ? "Create Account" : "Login"}</h1><form class="form" data-auth="${register ? "register" : "login"}">${register ? `<div class="field"><label>First name</label><input name="firstName" required></div><div class="field"><label>Last name</label><input name="lastName" required></div><div class="field"><label>Phone</label><input name="phone" placeholder="+212 6 ..."></div>` : ""}<div class="field"><label>Email</label><input name="email" type="email" value="${register ? "" : "admin@aljawarih.demo"}" required></div><div class="field"><label>Password</label><input name="password" type="password" value="${register ? "" : "AdminDemo2026!"}" required></div><button class="btn">${register ? "Create account" : "Login"}</button></form></section><section class="card span-7"><h2>Demo access</h2><p class="muted">Admin: admin@aljawarih.demo / AdminDemo2026!</p><p class="muted">Coach: coach@aljawarih.demo / CoachDemo2026!</p><p class="muted">Client: sara@aljawarih.demo / ClientDemo2026!</p><p>Production credentials are configured by environment variables.</p></section></div>`;
+  return `<div class="grid"><section class="card span-5"><h1>${register ? "Créer un compte" : "Connexion"}</h1><form class="form" data-auth="${register ? "register" : "login"}">${register ? `<div class="field"><label>Prénom</label><input name="firstName" required></div><div class="field"><label>Nom</label><input name="lastName" required></div><div class="field"><label>Téléphone</label><input name="phone" placeholder="06..." required></div><div class="field"><label>CIN / Carte Nationale</label><input name="cin" required></div><div class="field"><label>Date de naissance</label><input name="dateOfBirth" type="date" required></div><div class="field"><label>Sexe / catégorie</label><select name="gender" required><option value="Male">Homme</option><option value="Female">Femme</option></select></div><div class="field"><label>Type d'abonnement</label><select name="planId" required>${state.data.membershipPlans.map((plan) => `<option value="${plan.id}">${plan.audience} — ${plan.name} — ${money(plan.priceMad)}</option>`).join("")}</select></div>` : ""}<div class="field"><label>Email</label><input name="email" type="email" value="${register ? "" : "admin@aljawarih.demo"}" required></div><div class="field"><label>Mot de passe</label><input name="password" type="password" value="${register ? "" : "AdminDemo2026!"}" minlength="10" required></div><button class="btn">${register ? "Créer le compte" : "Se connecter"}</button></form></section><section class="card span-7"><h2>Accès sécurisé</h2><p class="muted">Après l'inscription, un message de confirmation est envoyé à votre adresse e-mail.</p><p>Les comptes de démonstration restent configurables par l'administrateur.</p></section></div>`;
 }
 
 async function portalPage(section = "home") {
   if (!state.me) return loginPage();
   if (!state.portal) state.portal = await api("/api/portal");
-  const nav = [["home", "Home"], ["membership", "Membership"], ["schedule", "Schedule"], ["bookings", "Bookings"], ["attendance", "Attendance"], ["progress", "Progress"], ["workouts", "Workouts"], ["achievements", "Achievements"], ["challenges", "Challenges"], ["memories", "Memories"], ["gym", "Virtual Gym"], ["notifications", "Notifications"], ["profile", "Profile"]];
+  const nav = [["home", "Home"], ["membership", "Membership"], ["payments", "Paiements"], ["schedule", "Schedule"], ["bookings", "Bookings"], ["attendance", "Attendance"], ["progress", "Progress"], ["workouts", "Workouts"], ["achievements", "Achievements"], ["challenges", "Challenges"], ["memories", "Memories"], ["gym", "Virtual Gym"], ["notifications", "Notifications"], ["profile", "Profile"]];
   return dashboardLayout(nav, section, "Client Portal", renderPortalSection(section));
 }
 
@@ -389,6 +432,7 @@ function renderPortalSection(section) {
   if (section === "schedule") return scheduleGrid(state.data.classes, true);
   if (section === "bookings") return cardsOrEmpty(p.bookings.filter((b) => b.status === "BOOKED"), (b) => `<article class="card span-6"><h3>${b.class.name}</h3><p>${b.class.dayName} ${b.class.startsAt}-${b.class.endsAt}</p><button class="btn danger" data-cancel-booking="${b.id}">Cancel</button></article>`, "You haven't booked a session yet.");
   if (section === "attendance") return `<div class="grid"><article class="card span-4"><div class="stat">${p.attendance.length}</div><p>Total visits</p></article><article class="card span-4"><div class="stat">6</div><p>Current streak</p></article><article class="card span-4"><div class="stat">12</div><p>This month</p></article></div>${table(p.attendance, ["Date", "Source"], (a) => [date(a.checkedAt), a.source])}`;
+  if (section === "payments") return table(p.payments || [], ["Date", "Montant", "Méthode", "Statut"], (payment) => [date(payment.paidAt || payment.createdAt), `${payment.amountMad} MAD`, payment.method, payment.status]);
   if (section === "progress" || section === "workouts") return `<div class="grid"><article class="card span-4"><div class="stat">${p.workouts.length}</div><p>Workouts completed</p></article><article class="card span-4"><div class="stat">38h</div><p>Hours trained</p></article><article class="card span-4"><div class="stat">5</div><p>Achievements</p></article><article class="card span-12"><h3>Strength progression</h3>${chart([30, 35, 40, 45, 48, 52, 56])}</article></div>${workoutForm()}`;
   if (section === "achievements") return cardsOrEmpty(p.achievements, (a) => `<article class="card span-4"><span class="pill ok">+${a.achievement.xp} XP</span><h3>${a.achievement.name}</h3><p class="muted">${a.achievement.description}</p></article>`, "No achievements yet.");
   if (section === "challenges") return `<div class="grid">${p.challengeProgress.map((c) => `<article class="card span-6"><h3>${c.challenge.title}</h3><p>${c.challenge.goal}</p><div class="progress"><span style="width:${Math.min(100, c.progress / c.challenge.target * 100)}%"></span></div><p>${c.progress} / ${c.challenge.target} completed</p></article>`).join("")}</div>`;
@@ -604,6 +648,11 @@ document.addEventListener("submit", async (event) => {
     if (form.dataset.auth) {
       const endpoint = form.dataset.auth === "register" ? "/api/auth/register" : "/api/auth/login";
       const result = await api(endpoint, { method: "POST", body: JSON.stringify(values) });
+      if (result.verificationRequired) {
+        toast(result.emailSent ? "Consultez votre e-mail pour confirmer votre compte." : "Compte créé. La configuration SMTP doit être terminée par l'administrateur.");
+        navigate("/login");
+        return;
+      }
       localStorage.setItem("token", result.token);
       state.token = result.token;
       state.me = result.user;
