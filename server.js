@@ -11,6 +11,7 @@ const DATA_DIR = path.join(__dirname, "data");
 const DB_PATH = path.join(DATA_DIR, "db.json");
 const PUBLIC_DIR = path.join(__dirname, "public");
 const SESSION_SECRET = process.env.APP_SESSION_SECRET || "development-aljawarih-session-secret-change-me";
+const AUTH_CONFIGURED = process.env.NODE_ENV !== "production" || Boolean(process.env.APP_SESSION_SECRET && process.env.APP_SESSION_SECRET.length >= 32);
 const MOROCCO_TZ = "Africa/Casablanca";
 const TOKEN_TTL_MS = 1000 * 60 * 30;
 const loginAttempts = new Map();
@@ -696,6 +697,7 @@ function seedDb() {
 }
 
 async function getAuth(req, db) {
+  if (!AUTH_CONFIGURED) return null;
   const header = req.headers.authorization || "";
   const token = header.startsWith("Bearer ") ? header.slice(7) : null;
   const session = verifySession(token);
@@ -774,6 +776,7 @@ async function handleApi(req, res, pathname) {
   }
 
   if (method === "POST" && pathname === "/api/auth/login") {
+    if (!AUTH_CONFIGURED) throw httpError(503, "Authentication is temporarily unavailable: APP_SESSION_SECRET is not configured");
     const body = await readBody(req);
     const attemptKey = `${req.socket.remoteAddress}:${String(body.email || "").toLowerCase()}`;
     const attempt = loginAttempts.get(attemptKey) || { count: 0, resetAt: 0 };
@@ -794,6 +797,7 @@ async function handleApi(req, res, pathname) {
   }
 
   if (method === "POST" && pathname === "/api/auth/register") {
+    if (!AUTH_CONFIGURED) throw httpError(503, "Authentication is temporarily unavailable: APP_SESSION_SECRET is not configured");
     const body = await readBody(req);
     const email = String(body.email || "").trim().toLowerCase();
     if (!/^\S+@\S+\.\S+$/.test(email) || String(body.password || "").length < 10) throw httpError(422, "Valid email and 10+ character password required");
@@ -836,6 +840,7 @@ async function handleApi(req, res, pathname) {
   }
 
   if ((method === "GET" || method === "POST") && pathname === "/api/auth/verify-email") {
+    if (!AUTH_CONFIGURED) throw httpError(503, "Authentication is temporarily unavailable: APP_SESSION_SECRET is not configured");
     const token = method === "GET" ? new URL(req.url, `http://${req.headers.host}`).searchParams.get("token") : (await readBody(req)).token;
     const record = db.emailTokens.find((item) => !item.usedAt && new Date(item.expiresAt) > new Date() && safeEqualText(item.tokenHash, sha256(token)));
     if (!record) throw httpError(400, "Invalid or expired verification token");
@@ -849,6 +854,7 @@ async function handleApi(req, res, pathname) {
   }
 
   if (method === "POST" && pathname === "/api/auth/forgot-password") {
+    if (!AUTH_CONFIGURED) throw httpError(503, "Authentication is temporarily unavailable: APP_SESSION_SECRET is not configured");
     const body = await readBody(req);
     const account = db.users.find((item) => item.email.toLowerCase() === String(body.email || "").trim().toLowerCase());
     if (account) {
@@ -863,6 +869,7 @@ async function handleApi(req, res, pathname) {
   }
 
   if (method === "POST" && pathname === "/api/auth/reset-password") {
+    if (!AUTH_CONFIGURED) throw httpError(503, "Authentication is temporarily unavailable: APP_SESSION_SECRET is not configured");
     const body = await readBody(req);
     if (String(body.password || "").length < 10) throw httpError(422, "Password must contain at least 10 characters");
     const record = db.passwordResetTokens.find((item) => !item.usedAt && new Date(item.expiresAt) > new Date() && safeEqualText(item.tokenHash, sha256(body.token)));
@@ -1473,7 +1480,6 @@ async function serveStatic(req, res, pathname) {
 
 async function main() {
   const reqSeedOnly = process.argv.includes("--seed-only");
-  if (process.env.NODE_ENV === "production" && SESSION_SECRET.includes("development-aljawarih")) throw new Error("APP_SESSION_SECRET must be configured in production");
   await mkdir(DATA_DIR, { recursive: true });
   await mkdir(PUBLIC_DIR, { recursive: true });
   const db = seedDb();
