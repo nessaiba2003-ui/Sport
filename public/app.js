@@ -6,6 +6,7 @@ const state = {
   data: null,
   portal: null,
   admin: null,
+  adminEdit: null,
   route: location.pathname,
   theme: localStorage.getItem("theme") || "dark",
   mobileMenu: false,
@@ -392,7 +393,7 @@ function eventsSection(preview = false) {
 
 function memoriesSection(preview = false) {
   const items = preview ? state.data.memories.slice(0, 3) : state.data.memories;
-  return `<section class="section"><h2>${tx("memoriesTitle")}</h2><p class="section-lead">${tx("memoriesLead")}</p><div class="grid">${items.map((m) => `<article class="card span-4" style="min-height:18rem;background:linear-gradient(180deg,rgba(8,10,15,.25),rgba(8,10,15,.9)),url('${m.coverUrl}') center/cover"><span class="pill">${m.year}</span><h3>${m.title}</h3><p>${m.story}</p><p>${m.items} ${tx("photos")} ${m.videos ? `- ${m.videos} ${tx("videos")}` : ""}</p></article>`).join("")}</div></section>`;
+  return `<section class="section"><h2>${tx("memoriesTitle")}</h2><p class="section-lead">${tx("memoriesLead")}</p><div class="grid">${items.map((m) => `<article class="card span-4 memory-card" style="background-image:linear-gradient(180deg,rgba(8,10,15,.25),rgba(8,10,15,.92)),url('${safe(m.coverUrl || "")}')"><span class="pill">${m.year}</span><h3>${safe(m.title)}</h3><p>${safe(m.story)}</p><p>${Number(m.items || 0)} ${tx("photos")} ${m.videos ? `- ${Number(m.videos)} ${tx("videos")}` : ""}</p>${m.media?.length ? `<div class="memory-media">${m.media.slice(0, 6).map((media) => media.type?.startsWith("video/") ? `<video controls preload="metadata" src="${safe(media.url)}"></video>` : `<img src="${safe(media.url)}" alt="${safe(m.title)}" loading="lazy">`).join("")}</div>` : ""}</article>`).join("")}</div></section>`;
 }
 
 function testimonials() {
@@ -483,17 +484,29 @@ async function adminPage(section = "overview") {
 function renderAdminSection(section, analytics, clients, payments) {
   if (section === "members") return table(clients, ["Client", "Status", "Plan", "Visits"], (c) => [`${c.profile.firstName} ${c.profile.lastName}`, c.membership?.status, c.plan?.name, c.attendanceCount]);
   if (section === "payments") return table(payments, ["Client", "Amount", "Method", "Status"], (p) => [`${p.client?.firstName} ${p.client?.lastName}`, money(p.amountMad), p.method, p.status]);
-  if (section === "schedule") return `${scheduleGrid(state.data.classes, false)}${adminClassForm()}`;
-  if (section === "memberships") return `${membershipPreview()}${planForm()}`;
+  if (section === "schedule") return `${adminItems("Séances", "class", state.data.classes, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.dayName)} · ${safe(item.startsAt)}–${safe(item.endsAt)}</span>`)}${adminClassForm(editing("class", state.data.classes))}`;
+  if (section === "memberships") return `${adminItems("Formules d'abonnement", "plan", state.data.membershipPlans, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.audience)} · ${money(item.priceMad)}</span>`)}${planForm(editing("plan", state.data.membershipPlans))}`;
   if (section === "bookings") return adminBookings();
   if (section === "attendance") return staffCheckin();
-  if (section === "events") return `${eventsSection(false)}${eventForm()}`;
-  if (section === "memories") return `${memoriesSection(false)}${memoryForm()}`;
+  if (section === "events") return `${adminItems("Activités et événements", "event", state.data.events, (item) => `<strong>${safe(item.title)}</strong><span>${safe(item.category)} · ${date(item.startsAt)}</span>`)}${eventForm(editing("event", state.data.events))}`;
+  if (section === "memories") return `${adminItems("Albums souvenirs", "memory", state.data.memories, (item) => `<strong>${safe(item.title)}</strong><span>${Number(item.items || 0)} photos · ${Number(item.videos || 0)} vidéos</span>`)}${memoryForm(editing("memory", state.data.memories))}`;
   if (section === "gym") return virtualGymPage();
-  if (section === "equipment") return `<div class="grid">${state.data.equipment.map(equipmentCard).join("")}</div>${equipmentForm()}`;
+  if (section === "equipment") return `${adminItems("Équipements", "equipment", state.data.equipment, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.category)} · ${safe(item.difficulty)}</span>`)}${equipmentForm(editing("equipment", state.data.equipment))}`;
   if (section === "analytics") return analyticsView(analytics);
   if (section === "settings") return `<div class="grid"><article class="card span-6"><h3>Club settings</h3><p>${state.data.settings.clubName}</p><p>${state.data.settings.arabicName}</p><p class="muted">Settings API is prepared for production CMS expansion.</p></article><form class="card span-6 form" data-change-password><h3>Changer le mot de passe</h3><div class="field"><label>Mot de passe actuel</label><input name="currentPassword" type="password" autocomplete="current-password" required></div><div class="field"><label>Nouveau mot de passe</label><input name="newPassword" type="password" minlength="12" autocomplete="new-password" required></div><div class="field"><label>Confirmer le nouveau mot de passe</label><input name="confirmPassword" type="password" minlength="12" autocomplete="new-password" required></div><button class="btn">Enregistrer le nouveau mot de passe</button></form></div>`;
   return analyticsView(analytics);
+}
+
+function safe(value = "") {
+  return String(value).replace(/[&<>"']/g, (char) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" })[char]);
+}
+
+function editing(type, items) {
+  return state.adminEdit?.type === type ? items.find((item) => item.id === state.adminEdit.id) || null : null;
+}
+
+function adminItems(title, type, items, summary) {
+  return `<section class="admin-manager"><div class="dashboard-head"><h2>${title}</h2><span class="pill">${items.length}</span></div>${items.length ? `<div class="admin-list">${items.map((item) => `<article class="admin-row"><div>${summary(item)}</div><div class="actions"><button class="btn secondary" data-admin-edit="${type}" data-id="${item.id}">Modifier</button><button class="btn danger" data-admin-delete="${type}" data-id="${item.id}">Supprimer</button></div></article>`).join("")}</div>` : `<div class="empty">Aucun élément pour le moment.</div>`}</section>`;
 }
 
 function analyticsView(a) {
@@ -517,24 +530,29 @@ function staffCheckin() {
   return `<form class="card span-12 form" data-checkin><h3>QR Check-in</h3><p class="muted">Use client QR token format: qr:usr_sara. Camera scanner can be connected to this endpoint.</p><div class="field"><label>QR token or client id</label><input name="qrToken" value="qr:usr_sara"></div><button class="btn">Record attendance</button></form>`;
 }
 
-function planForm() {
-  return `<form class="card span-12 form" data-plan><h3>Add membership plan</h3><div class="grid"><div class="field span-3"><label>Audience</label><input name="audience" value="Adults"></div><div class="field span-3"><label>Name</label><input name="name" value="Premium Monthly"></div><div class="field span-3"><label>Price DH</label><input name="priceMad" type="number" value="350"></div><div class="field span-3"><label>Duration days</label><input name="durationDays" type="number" value="30"></div></div><button class="btn">Create plan</button></form>`;
+function formActions(item, createLabel) {
+  return `<div class="actions"><button class="btn">${item ? "Enregistrer les modifications" : createLabel}</button>${item ? `<button class="btn secondary" type="button" data-admin-cancel>Annuler</button>` : ""}</div>`;
 }
 
-function adminClassForm() {
-  return `<form class="card span-12 form" data-class><h3>Create class</h3><div class="grid"><div class="field span-3"><label>Name</label><input name="name" value="Private Session"></div><div class="field span-2"><label>Day</label><select name="dayName">${days.slice(1).map((d, i) => `<option value="${d}" data-day="${i + 1}">${d}</option>`)}</select></div><div class="field span-2"><label>Starts</label><input name="startsAt" value="10:00"></div><div class="field span-2"><label>Ends</label><input name="endsAt" value="11:00"></div><div class="field span-2"><label>Capacity</label><input name="capacity" type="number" value="1"></div></div><button class="btn">Create class</button></form>`;
+function planForm(item) {
+  return `<form class="card span-12 form" data-plan data-id="${item?.id || ""}"><h3>${item ? "Modifier la formule" : "Ajouter une formule"}</h3><div class="grid"><div class="field span-3"><label>Public</label><input name="audience" value="${safe(item?.audience || "Adultes")}" required></div><div class="field span-3"><label>Nom</label><input name="name" value="${safe(item?.name || "Abonnement mensuel")}" required></div><div class="field span-3"><label>Prix DH</label><input name="priceMad" type="number" min="0" value="${Number(item?.priceMad ?? 350)}" required></div><div class="field span-3"><label>Durée en jours</label><input name="durationDays" type="number" min="1" value="${Number(item?.durationDays ?? 30)}" required></div></div>${formActions(item, "Ajouter la formule")}</form>`;
 }
 
-function eventForm() {
-  return `<form class="card span-12 form" data-event><h3>Create event</h3><div class="grid"><div class="field span-4"><label>Title</label><input name="title" value="Workshop Nutrition"></div><div class="field span-3"><label>Category</label><input name="category" value="Workshop"></div><div class="field span-3"><label>Capacity</label><input name="capacity" type="number" value="30"></div></div><div class="field"><label>Description</label><textarea name="description">Session education et performance.</textarea></div><button class="btn">Create event</button></form>`;
+function adminClassForm(item) {
+  return `<form class="card span-12 form" data-class data-id="${item?.id || ""}"><h3>${item ? "Modifier la séance" : "Ajouter une séance"}</h3><div class="grid"><div class="field span-3"><label>Nom</label><input name="name" value="${safe(item?.name || "Entraînement de groupe")}" required></div><div class="field span-2"><label>Jour</label><select name="dayName">${days.slice(1).map((d) => `<option value="${d}" ${item?.dayName === d ? "selected" : ""}>${d}</option>`)}</select></div><div class="field span-2"><label>Début</label><input name="startsAt" type="time" value="${safe(item?.startsAt || "10:00")}" required></div><div class="field span-2"><label>Fin</label><input name="endsAt" type="time" value="${safe(item?.endsAt || "11:00")}" required></div><div class="field span-2"><label>Capacité</label><input name="capacity" type="number" min="1" value="${Number(item?.capacity ?? 20)}"></div></div>${formActions(item, "Ajouter la séance")}</form>`;
 }
 
-function memoryForm() {
-  return `<form class="card span-12 form" data-memory><h3>Create memory album</h3><div class="grid"><div class="field span-4"><label>Title</label><input name="title" value="Ramadan Event"></div><div class="field span-2"><label>Year</label><input name="year" type="number" value="2026"></div><div class="field span-3"><label>Category</label><input name="category" value="Ramadan"></div></div><button class="btn">Create album</button></form>`;
+function eventForm(item) {
+  const eventDate = item?.startsAt ? new Date(item.startsAt).toISOString().slice(0, 10) : new Date(Date.now() + 86400000 * 20).toISOString().slice(0, 10);
+  return `<form class="card span-12 form" data-event data-id="${item?.id || ""}"><h3>${item ? "Modifier l'activité" : "Ajouter une activité"}</h3><div class="grid"><div class="field span-4"><label>Titre</label><input name="title" value="${safe(item?.title || "Nouvelle activité")}" required></div><div class="field span-3"><label>Catégorie</label><input name="category" value="${safe(item?.category || "Club")}" required></div><div class="field span-2"><label>Date</label><input name="eventDate" type="date" value="${eventDate}" required></div><div class="field span-2"><label>Heure</label><input name="time" type="time" value="${safe(item?.time || "19:00")}"></div><div class="field span-3"><label>Capacité</label><input name="capacity" type="number" min="1" value="${Number(item?.capacity ?? 30)}"></div><div class="field span-5"><label>Lieu</label><input name="location" value="${safe(item?.location || "Taroudant, Morocco")}" required></div></div><div class="field"><label>Description</label><textarea name="description" required>${safe(item?.description || "")}</textarea></div>${formActions(item, "Ajouter l'activité")}</form>`;
 }
 
-function equipmentForm() {
-  return `<form class="card span-12 form" data-equipment><h3>Add equipment</h3><div class="grid"><div class="field span-4"><label>Name</label><input name="name" value="Cable Machine"></div><div class="field span-3"><label>Category</label><input name="category" value="Strength"></div><div class="field span-3"><label>Difficulty</label><input name="difficulty" value="Beginner"></div></div><div class="field"><label>Description</label><textarea name="description">Machine polyvalente pour exercices guides.</textarea></div><button class="btn">Add equipment</button></form>`;
+function memoryForm(item) {
+  return `<form class="card span-12 form" data-memory data-id="${item?.id || ""}"><h3>${item ? "Modifier l'album" : "Créer un album souvenir"}</h3><div class="grid"><div class="field span-4"><label>Titre</label><input name="title" value="${safe(item?.title || "Nouvel album")}" required></div><div class="field span-2"><label>Année</label><input name="year" type="number" min="2000" value="${Number(item?.year || new Date().getFullYear())}" required></div><div class="field span-3"><label>Catégorie</label><input name="category" value="${safe(item?.category || "Club")}"></div></div><div class="field"><label>Histoire / description</label><textarea name="story">${safe(item?.story || "")}</textarea></div><div class="grid"><div class="field span-6"><label>Photo de couverture (5 Mo max.)</label><input name="coverFile" type="file" accept="image/jpeg,image/png,image/webp"></div><div class="field span-6"><label>Photos et vidéos (25 Mo max. par fichier)</label><input name="mediaFiles" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple></div></div><p class="muted">Les fichiers sélectionnés seront envoyés et conservés dans l'espace de stockage du club.</p>${formActions(item, "Créer l'album")}</form>`;
+}
+
+function equipmentForm(item) {
+  return `<form class="card span-12 form" data-equipment data-id="${item?.id || ""}"><h3>${item ? "Modifier l'équipement" : "Ajouter un équipement"}</h3><div class="grid"><div class="field span-4"><label>Nom</label><input name="name" value="${safe(item?.name || "Nouvel équipement")}" required></div><div class="field span-3"><label>Catégorie</label><input name="category" value="${safe(item?.category || "Musculation")}" required></div><div class="field span-3"><label>Niveau</label><input name="difficulty" value="${safe(item?.difficulty || "Débutant")}"></div></div><div class="field"><label>Description</label><textarea name="description">${safe(item?.description || "")}</textarea></div>${formActions(item, "Ajouter l'équipement")}</form>`;
 }
 
 function chart(values) {
@@ -613,6 +631,27 @@ document.addEventListener("click", async (event) => {
     localStorage.setItem("theme", state.theme);
     render();
   }
+  if (target.dataset.adminEdit) {
+    state.adminEdit = { type: target.dataset.adminEdit, id: target.dataset.id };
+    await render();
+    document.querySelector("form[data-id]")?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
+  if (target.dataset.adminCancel !== undefined) {
+    state.adminEdit = null;
+    render();
+  }
+  if (target.dataset.adminDelete) {
+    const labels = { event: "cette activité", class: "cette séance", plan: "cette formule", memory: "cet album et ses références", equipment: "cet équipement" };
+    if (!confirm(`Supprimer ${labels[target.dataset.adminDelete] || "cet élément"} ?`)) return;
+    const roots = { event: "events", class: "classes", plan: "membership-plans", memory: "memories", equipment: "equipment" };
+    try {
+      await api(`/api/${roots[target.dataset.adminDelete]}/${target.dataset.id}`, { method: "DELETE" });
+      state.adminEdit = null;
+      state.data = null;
+      await refresh();
+      toast("Élément supprimé.");
+    } catch (err) { toast(err.message); }
+  }
   if (target.dataset.logout !== undefined) {
     localStorage.removeItem("token");
     state.token = "";
@@ -657,6 +696,22 @@ document.addEventListener("click", async (event) => {
     } catch (err) { toast(err.message); }
   }
 });
+
+function fileAsDataUrl(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = () => reject(new Error(`Impossible de lire ${file.name}`));
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadMedia(file) {
+  const isVideo = file.type.startsWith("video/");
+  const maxBytes = (isVideo ? 25 : 5) * 1024 * 1024;
+  if (file.size > maxBytes) throw new Error(`${file.name} dépasse la limite de ${isVideo ? 25 : 5} Mo.`);
+  return api("/api/admin/media", { method: "POST", body: JSON.stringify({ fileName: file.name, mimeType: file.type, dataBase64: await fileAsDataUrl(file) }) });
+}
 
 document.addEventListener("submit", async (event) => {
   event.preventDefault();
@@ -707,35 +762,53 @@ document.addEventListener("submit", async (event) => {
       toast(`Checked in ${result.client.profile.firstName}`);
     }
     if (form.dataset.plan !== undefined) {
-      await api("/api/membership-plans", { method: "POST", body: JSON.stringify({ ...values, priceMad: Number(values.priceMad), durationDays: Number(values.durationDays), benefits: ["Admin editable"], currency: "DH" }) });
+      const editingId = form.dataset.id;
+      await api(`/api/membership-plans${editingId ? `/${editingId}` : ""}`, { method: editingId ? "PUT" : "POST", body: JSON.stringify({ ...values, priceMad: Number(values.priceMad), durationDays: Number(values.durationDays), benefits: ["Admin editable"], currency: "DH" }) });
+      state.adminEdit = null;
       state.data = null;
       await refresh();
-      toast("Plan created");
+      toast(editingId ? "Formule modifiée." : "Formule ajoutée.");
     }
     if (form.dataset.class !== undefined) {
       const dayName = values.dayName;
-      await api("/api/classes", { method: "POST", body: JSON.stringify({ ...values, dayName, dayOfWeek: days.indexOf(dayName), capacity: Number(values.capacity), type: values.name, coachName: "Coach Elhabib" }) });
+      const editingId = form.dataset.id;
+      await api(`/api/classes${editingId ? `/${editingId}` : ""}`, { method: editingId ? "PUT" : "POST", body: JSON.stringify({ ...values, dayName, dayOfWeek: days.indexOf(dayName), capacity: Number(values.capacity), type: values.name }) });
+      state.adminEdit = null;
       state.data = null;
       await refresh();
-      toast("Class created");
+      toast(editingId ? "Séance modifiée." : "Séance ajoutée.");
     }
     if (form.dataset.event !== undefined) {
-      await api("/api/events", { method: "POST", body: JSON.stringify({ ...values, capacity: Number(values.capacity), startsAt: new Date(Date.now() + 86400000 * 20).toISOString(), time: "19:00", location: "Taroudant, Morocco", coverImageUrl: "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80" }) });
+      const editingId = form.dataset.id;
+      await api(`/api/events${editingId ? `/${editingId}` : ""}`, { method: editingId ? "PUT" : "POST", body: JSON.stringify({ ...values, capacity: Number(values.capacity), startsAt: new Date(`${values.eventDate}T${values.time || "19:00"}:00`).toISOString(), coverImageUrl: editingId ? undefined : "https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=1200&q=80" }) });
+      state.adminEdit = null;
       state.data = null;
       await refresh();
-      toast("Event created");
+      toast(editingId ? "Activité modifiée." : "Activité ajoutée.");
     }
     if (form.dataset.memory !== undefined) {
-      await api("/api/memories", { method: "POST", body: JSON.stringify({ ...values, year: Number(values.year), coverUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80", location: "Taroudant", story: "New club memory album." }) });
+      const editingId = form.dataset.id;
+      const current = editingId ? state.data.memories.find((item) => item.id === editingId) : null;
+      const coverFile = form.elements.coverFile.files[0];
+      const mediaFiles = [...form.elements.mediaFiles.files];
+      const cover = coverFile ? await uploadMedia(coverFile) : null;
+      const uploadedMedia = [];
+      for (const file of mediaFiles) uploadedMedia.push(await uploadMedia(file));
+      const media = [...(current?.media || []), ...uploadedMedia];
+      const payload = { title: values.title, year: Number(values.year), category: values.category, story: values.story, location: current?.location || "Taroudant", coverUrl: cover?.url || current?.coverUrl || media.find((asset) => asset.type.startsWith("image/"))?.url || "", media, items: media.filter((asset) => asset.type.startsWith("image/")).length, videos: media.filter((asset) => asset.type.startsWith("video/")).length };
+      await api(`/api/memories${editingId ? `/${editingId}` : ""}`, { method: editingId ? "PUT" : "POST", body: JSON.stringify(payload) });
+      state.adminEdit = null;
       state.data = null;
       await refresh();
-      toast("Album created");
+      toast(editingId ? "Album modifié." : "Album créé avec ses médias.");
     }
     if (form.dataset.equipment !== undefined) {
-      await api("/api/equipment", { method: "POST", body: JSON.stringify({ ...values, floorId: "floor_1", zoneId: "zone_placeholder_1", imageUrl: "https://images.unsplash.com/photo-1534368420009-621bfab424a8?auto=format&fit=crop&w=900&q=80", muscles: ["Full body"], instructions: ["Configure instructions"], safety: ["Configure safety notes"] }) });
+      const editingId = form.dataset.id;
+      await api(`/api/equipment${editingId ? `/${editingId}` : ""}`, { method: editingId ? "PUT" : "POST", body: JSON.stringify({ ...values, floorId: "floor_1", zoneId: "zone_placeholder_1", imageUrl: "https://images.unsplash.com/photo-1534368420009-621bfab424a8?auto=format&fit=crop&w=900&q=80", muscles: ["Full body"], instructions: ["Configure instructions"], safety: ["Configure safety notes"] }) });
+      state.adminEdit = null;
       state.data = null;
       await refresh();
-      toast("Equipment added");
+      toast(editingId ? "Équipement modifié." : "Équipement ajouté.");
     }
     render();
   } catch (err) {

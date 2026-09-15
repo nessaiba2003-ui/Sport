@@ -1041,6 +1041,16 @@ async function handleApi(req, res, pathname) {
     send(200, plan);
     return;
   }
+  if (method === "DELETE" && pathname.match(/^\/api\/membership-plans\/[^/]+$/)) {
+    const actor = requireRole(adminRoles);
+    const plan = db.membershipPlans.find((item) => item.id === pathname.split("/").pop());
+    if (!plan) throw httpError(404, "Plan not found");
+    plan.active = false;
+    plan.archivedAt = todayIso();
+    audit(db, actor, "ARCHIVE", "MembershipPlan", plan.id);
+    await saveDb(db);
+    return send(200, plan);
+  }
 
   if (method === "GET" && pathname === "/api/coaches") {
     return send(200, db.coaches.filter((item) => !item.archivedAt));
@@ -1415,11 +1425,30 @@ async function handleApi(req, res, pathname) {
 
   if (method === "GET" && pathname === "/api/memories") return send(200, db.memories);
   if (method === "POST" && pathname === "/api/memories") {
-    requireRole([...adminRoles, roles.CONTENT_MANAGER]);
+    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER]);
     const memory = { id: id("alb"), items: 0, videos: 0, ...(await readBody(req)) };
     db.memories.push(memory);
+    audit(db, actor, "CREATE", "Memory", memory.id);
     await saveDb(db);
     return send(201, memory);
+  }
+  if (method === "PUT" && pathname.match(/^\/api\/memories\/[^/]+$/)) {
+    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER]);
+    const memory = db.memories.find((item) => item.id === pathname.split("/").pop());
+    if (!memory) throw httpError(404, "Memory not found");
+    Object.assign(memory, await readBody(req), { updatedAt: todayIso() });
+    audit(db, actor, "UPDATE", "Memory", memory.id);
+    await saveDb(db);
+    return send(200, memory);
+  }
+  if (method === "DELETE" && pathname.match(/^\/api\/memories\/[^/]+$/)) {
+    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER]);
+    const index = db.memories.findIndex((item) => item.id === pathname.split("/").pop());
+    if (index < 0) throw httpError(404, "Memory not found");
+    const [memory] = db.memories.splice(index, 1);
+    audit(db, actor, "DELETE", "Memory", memory.id);
+    await saveDb(db);
+    return send(200, memory);
   }
 
   if (method === "GET" && pathname === "/api/gym/floors") return send(200, { floors: db.floors, zones: db.zones });
@@ -1432,12 +1461,31 @@ async function handleApi(req, res, pathname) {
   }
   if (method === "GET" && pathname === "/api/equipment") return send(200, db.equipment);
   if (method === "POST" && pathname === "/api/equipment") {
-    requireRole([...adminRoles, roles.CONTENT_MANAGER, roles.COACH]);
+    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER, roles.COACH]);
     const item = { id: id("eq"), ...(await readBody(req)) };
     item.qrPath = `/equipment/${item.id}`;
     db.equipment.push(item);
+    audit(db, actor, "CREATE", "Equipment", item.id);
     await saveDb(db);
     return send(201, item);
+  }
+  if (method === "PUT" && pathname.match(/^\/api\/equipment\/[^/]+$/)) {
+    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER, roles.COACH]);
+    const item = db.equipment.find((entry) => entry.id === pathname.split("/").pop());
+    if (!item) throw httpError(404, "Equipment not found");
+    Object.assign(item, await readBody(req), { updatedAt: todayIso() });
+    audit(db, actor, "UPDATE", "Equipment", item.id);
+    await saveDb(db);
+    return send(200, item);
+  }
+  if (method === "DELETE" && pathname.match(/^\/api\/equipment\/[^/]+$/)) {
+    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER]);
+    const index = db.equipment.findIndex((item) => item.id === pathname.split("/").pop());
+    if (index < 0) throw httpError(404, "Equipment not found");
+    const [item] = db.equipment.splice(index, 1);
+    audit(db, actor, "DELETE", "Equipment", item.id);
+    await saveDb(db);
+    return send(200, item);
   }
 
   if (method === "GET" && pathname === "/api/workouts") {
@@ -1521,12 +1569,13 @@ async function handleApi(req, res, pathname) {
 
   if (method === "POST" && pathname === "/api/admin/media") {
     const actor = requireRole(adminRoles);
-    const body = await readBody(req, 8 * 1024 * 1024);
-    const allowed = { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "application/pdf": ".pdf" };
+    const body = await readBody(req, 36 * 1024 * 1024);
+    const allowed = { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "video/mp4": ".mp4", "video/webm": ".webm", "application/pdf": ".pdf" };
     const extension = allowed[body.mimeType];
-    if (!extension || !body.dataBase64) throw httpError(422, "Supported media: JPEG, PNG, WEBP and PDF");
+    if (!extension || !body.dataBase64) throw httpError(422, "Supported media: JPEG, PNG, WEBP, MP4, WEBM and PDF");
     const data = Buffer.from(String(body.dataBase64).replace(/^data:[^;]+;base64,/, ""), "base64");
-    if (!data.length || data.length > 5 * 1024 * 1024) throw httpError(413, "Media must not exceed 5 MB");
+    const maxBytes = body.mimeType.startsWith("video/") ? 25 * 1024 * 1024 : 5 * 1024 * 1024;
+    if (!data.length || data.length > maxBytes) throw httpError(413, `Media must not exceed ${body.mimeType.startsWith("video/") ? 25 : 5} MB`);
     const fileName = `${crypto.randomUUID()}${extension}`;
     await mkdir(UPLOAD_DIR, { recursive: true });
     await writeFile(path.join(UPLOAD_DIR, fileName), data);

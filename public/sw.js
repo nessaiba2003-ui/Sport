@@ -1,4 +1,4 @@
-const CACHE = "aljawarih-shell-v8";
+const CACHE = "aljawarih-shell-v9";
 const SHELL = ["/", "/styles.css", "/app.js", "/manifest.webmanifest", "/icon.svg", "/assets/club/logo-aigle.jpg", "/assets/club/logo-association.jpg"];
 
 self.addEventListener("install", (event) => {

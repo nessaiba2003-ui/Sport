@@ -229,6 +229,72 @@ button {
   border-color: rgba(165, 55, 55, 0.5);
 }
 
+.admin-manager {
+  margin-bottom: 1.5rem;
+}
+
+.admin-list {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.admin-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid var(--line);
+  border-radius: 1rem;
+  background: var(--card);
+}
+
+.admin-row > div:first-child {
+  display: grid;
+  gap: 0.25rem;
+}
+
+.admin-row span {
+  color: var(--muted);
+}
+
+.memory-card {
+  min-height: 18rem;
+  background-position: center;
+  background-size: cover;
+}
+
+.memory-media {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.4rem;
+  margin-top: 1rem;
+}
+
+.memory-media img,
+.memory-media video {
+  width: 100%;
+  height: 6rem;
+  object-fit: cover;
+  border-radius: 0.55rem;
+  background: #000;
+}
+
+@media (max-width: 700px) {
+  .admin-row {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .admin-row .actions .btn {
+    flex: 1;
+  }
+
+  .memory-media {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 .main {
   width: min(1180px, calc(100% - 2rem));
   margin: 0 auto;
