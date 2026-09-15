@@ -2,6 +2,7 @@
   "name": "aljawarih-gym-platform",
   "version": "0.1.0",
   "private": true,
+  "packageManager": "npm@10.9.3",
   "description": "ALJAWARIH GYM TAROUDANT digital club platform",
   "type": "module",
   "scripts": {
@@ -12,16 +13,19 @@
     "check": "node --check server.js && node --check public/app.js"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=22"
   },
   "dependencies": {
     "docx": "^9.5.1",
     "exceljs": "^4.4.0",
     "nodemailer": "^10.0.1",
-    "pg": "^8.16.3",
-    "pdfkit": "^0.17.2"
+    "pdfkit": "^0.17.2",
+    "pg": "^8.16.3"
   },
   "overrides": {
     "uuid": "^11.1.1"
+  },
+  "devDependencies": {
+    "railway": "^3.11.0"
   }
 }

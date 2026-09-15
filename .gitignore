@@ -36,3 +36,5 @@ node_modules/
 !.env.example
 public/uploads/
 data/backups/
+.tools/
+.tmp/

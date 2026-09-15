@@ -8,17 +8,27 @@ import pg from "pg";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const PORT = Number(process.env.PORT || 3100);
-const DATA_DIR = path.join(__dirname, "data");
+const DATA_DIR = path.resolve(process.env.DATA_DIR || path.join(__dirname, "data"));
 const DB_PATH = path.join(DATA_DIR, "db.json");
 const PUBLIC_DIR = path.join(__dirname, "public");
+const UPLOAD_DIR = path.resolve(process.env.UPLOAD_DIR || path.join(PUBLIC_DIR, "uploads"));
 const SESSION_SECRET = process.env.APP_SESSION_SECRET || "development-aljawarih-session-secret-change-me";
 const AUTH_CONFIGURED = process.env.NODE_ENV !== "production" || Boolean(process.env.APP_SESSION_SECRET && process.env.APP_SESSION_SECRET.length >= 32);
+const IS_PRODUCTION = process.env.NODE_ENV === "production";
 const MOROCCO_TZ = "Africa/Casablanca";
 const TOKEN_TTL_MS = 1000 * 60 * 30;
 const loginAttempts = new Map();
 const USE_POSTGRES = Boolean(process.env.DATABASE_URL);
 const FILE_DATABASE_WRITABLE = USE_POSTGRES || !process.env.VERCEL;
-const postgres = USE_POSTGRES ? new pg.Pool({ connectionString: process.env.DATABASE_URL, ssl: process.env.NODE_ENV === "production" ? { rejectUnauthorized: false } : undefined, max: 5 }) : null;
+const databaseUrl = process.env.DATABASE_URL || "";
+const postgresSslDisabled = process.env.PGSSLMODE === "disable" || databaseUrl.includes(".railway.internal");
+const postgres = USE_POSTGRES ? new pg.Pool({
+  connectionString: databaseUrl,
+  ssl: postgresSslDisabled ? false : IS_PRODUCTION ? { rejectUnauthorized: false } : undefined,
+  max: Number(process.env.PG_POOL_MAX || 5),
+  connectionTimeoutMillis: 10000,
+  idleTimeoutMillis: 30000
+}) : null;
 
 const jsonHeaders = {
   "content-type": "application/json; charset=utf-8",
@@ -259,11 +269,11 @@ function hasRole(user, allowed) {
   return Boolean(user?.roles?.some((role) => allowed.includes(role)));
 }
 
-async function readBody(req) {
+async function readBody(req, maxBytes = 1024 * 1024) {
   let body = "";
   for await (const chunk of req) {
     body += chunk;
-    if (Buffer.byteLength(body) > 1024 * 1024) throw httpError(413, "Request body too large");
+    if (Buffer.byteLength(body) > maxBytes) throw httpError(413, "Request body too large");
   }
   if (!body) return {};
   try {
@@ -275,15 +285,27 @@ async function readBody(req) {
 
 async function sendEmail({ to, subject, text, html }) {
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) return { sent: false, reason: "SMTP_NOT_CONFIGURED" };
-  const { default: nodemailer } = await import("nodemailer");
-  const transporter = nodemailer.createTransport({
-    host: process.env.SMTP_HOST,
-    port: Number(process.env.SMTP_PORT || 587),
-    secure: String(process.env.SMTP_SECURE || "false") === "true",
-    auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS }
-  });
-  await transporter.sendMail({ from: process.env.SMTP_FROM || process.env.SMTP_USER, to, subject, text, html });
-  return { sent: true };
+  try {
+    const { default: nodemailer } = await import("nodemailer");
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: Number(process.env.SMTP_PORT || 587),
+      secure: String(process.env.SMTP_SECURE || "false") === "true",
+      auth: { user: process.env.SMTP_USER, pass: process.env.SMTP_PASS },
+      connectionTimeout: 10000,
+      greetingTimeout: 10000,
+      socketTimeout: 15000
+    });
+    await transporter.sendMail({ from: process.env.SMTP_FROM || process.env.SMTP_USER, to, subject, text, html });
+    return { sent: true };
+  } catch (error) {
+    console.error("Email delivery failed:", error?.code || error?.message || "UNKNOWN_SMTP_ERROR");
+    return { sent: false, reason: "SMTP_DELIVERY_FAILED" };
+  }
+}
+
+function publicBaseUrl(req) {
+  return String(process.env.PUBLIC_BASE_URL || `${req.headers["x-forwarded-proto"] || "http"}://${req.headers.host}`).replace(/\/$/, "");
 }
 
 function httpError(status, message) {
@@ -643,7 +665,7 @@ function seedDb() {
     }
   ];
 
-  return {
+  const seeded = {
     meta: {
       version: 1,
       seededAt: new Date().toISOString(),
@@ -712,6 +734,24 @@ function seedDb() {
       { id: "fm_3", familyId: "fam_ahmed", profileId: "pro_demo_2", relation: "Child" }
     ]
   };
+
+  if (IS_PRODUCTION) {
+    seeded.users = seeded.users.filter((item) => item.id === adminId);
+    seeded.profiles = seeded.profiles.filter((item) => item.userId === adminId);
+    seeded.memberships = [];
+    seeded.payments = [];
+    seeded.bookings = [];
+    seeded.attendances = [];
+    seeded.workouts = [];
+    seeded.userAchievements = [];
+    seeded.challengeProgress = [];
+    seeded.notifications = [];
+    seeded.families = [];
+    seeded.familyMembers = [];
+    seeded.classes.forEach((item) => { item.coachId = null; });
+  }
+
+  return seeded;
 }
 
 async function getAuth(req, db) {
@@ -774,6 +814,11 @@ async function handleApi(req, res, pathname) {
     if (!hasRole(current, allowed)) throw httpError(403, "Insufficient permissions");
     return current;
   };
+
+  if (method === "GET" && pathname === "/api/health") {
+    send(200, { status: "ok", database: USE_POSTGRES ? "postgresql" : "file", timestamp: new Date().toISOString() });
+    return;
+  }
 
   if (method === "GET" && pathname === "/api/bootstrap") {
     send(200, {
@@ -848,10 +893,29 @@ async function handleApi(req, res, pathname) {
     db.emailTokens.push({ id: id("evtkn"), userId: newUser.id, tokenHash: sha256(rawToken), expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), usedAt: null });
     audit(db, newUser, "REGISTER", "User", newUser.id);
     await saveDb(db);
-    const baseUrl = process.env.PUBLIC_BASE_URL || `http://${req.headers.host}`;
+    const baseUrl = publicBaseUrl(req);
     const verificationUrl = `${baseUrl}/api/auth/verify-email?token=${encodeURIComponent(rawToken)}`;
     const mail = await sendEmail({ to: email, subject: "Confirmez votre compte Aljawarih", text: `Confirmez votre adresse : ${verificationUrl}`, html: `<p>Bienvenue chez Aljawarih.</p><p><a href="${verificationUrl}">Confirmer mon adresse e-mail</a></p>` });
     send(201, { verificationRequired: true, emailSent: mail.sent, ...(process.env.NODE_ENV !== "production" && !mail.sent ? { developmentVerificationToken: rawToken } : {}) });
+    return;
+  }
+
+  if (method === "POST" && pathname === "/api/auth/resend-verification") {
+    if (!AUTH_CONFIGURED) throw httpError(503, "Authentication is temporarily unavailable");
+    const body = await readBody(req);
+    const email = String(body.email || "").trim().toLowerCase();
+    const account = db.users.find((item) => item.email.toLowerCase() === email && item.active && !item.archivedAt);
+    let emailSent = true;
+    if (account && !account.emailVerified) {
+      db.emailTokens.forEach((item) => { if (item.userId === account.id && !item.usedAt) item.usedAt = todayIso(); });
+      const rawToken = crypto.randomBytes(32).toString("hex");
+      db.emailTokens.push({ id: id("evtkn"), userId: account.id, tokenHash: sha256(rawToken), expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(), usedAt: null });
+      await saveDb(db);
+      const verificationUrl = `${publicBaseUrl(req)}/api/auth/verify-email?token=${encodeURIComponent(rawToken)}`;
+      const mail = await sendEmail({ to: account.email, subject: "Confirmez votre compte Aljawarih", text: `Confirmez votre adresse : ${verificationUrl}`, html: `<p>Bienvenue chez Aljawarih.</p><p><a href="${verificationUrl}">Confirmer mon adresse e-mail</a></p><p>Ce lien est valable pendant 24 heures.</p>` });
+      emailSent = mail.sent;
+    }
+    send(200, { accepted: true, emailSent });
     return;
   }
 
@@ -877,7 +941,7 @@ async function handleApi(req, res, pathname) {
       const rawToken = crypto.randomBytes(32).toString("hex");
       db.passwordResetTokens.push({ id: id("prt"), userId: account.id, tokenHash: sha256(rawToken), expiresAt: new Date(Date.now() + TOKEN_TTL_MS).toISOString(), usedAt: null });
       await saveDb(db);
-      const baseUrl = process.env.PUBLIC_BASE_URL || `http://${req.headers.host}`;
+      const baseUrl = publicBaseUrl(req);
       await sendEmail({ to: account.email, subject: "Réinitialisation du mot de passe Aljawarih", text: `${baseUrl}/reset-password?token=${rawToken}`, html: `<p><a href="${baseUrl}/reset-password?token=${rawToken}">Réinitialiser mon mot de passe</a></p>` });
     }
     send(200, { accepted: true });
@@ -896,6 +960,23 @@ async function handleApi(req, res, pathname) {
     audit(db, account, "RESET_PASSWORD", "User", account.id);
     await saveDb(db);
     send(200, { reset: true });
+    return;
+  }
+
+  if (method === "POST" && pathname === "/api/auth/change-password") {
+    const current = requireAuth();
+    const body = await readBody(req);
+    const currentPassword = String(body.currentPassword || "");
+    const newPassword = String(body.newPassword || "");
+    if (!verifyPassword(currentPassword, current.passwordHash)) throw httpError(401, "Current password is incorrect");
+    if (newPassword.length < 12 || !/[a-z]/.test(newPassword) || !/[A-Z]/.test(newPassword) || !/\d/.test(newPassword)) {
+      throw httpError(422, "New password must contain at least 12 characters, uppercase, lowercase and a number");
+    }
+    if (safeEqualText(currentPassword, newPassword)) throw httpError(422, "New password must be different");
+    current.passwordHash = hashPassword(newPassword);
+    audit(db, current, "CHANGE_PASSWORD", "User", current.id);
+    await saveDb(db);
+    send(200, { changed: true });
     return;
   }
 
@@ -1440,16 +1521,15 @@ async function handleApi(req, res, pathname) {
 
   if (method === "POST" && pathname === "/api/admin/media") {
     const actor = requireRole(adminRoles);
-    const body = await readBody(req);
+    const body = await readBody(req, 8 * 1024 * 1024);
     const allowed = { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "application/pdf": ".pdf" };
     const extension = allowed[body.mimeType];
     if (!extension || !body.dataBase64) throw httpError(422, "Supported media: JPEG, PNG, WEBP and PDF");
     const data = Buffer.from(String(body.dataBase64).replace(/^data:[^;]+;base64,/, ""), "base64");
     if (!data.length || data.length > 5 * 1024 * 1024) throw httpError(413, "Media must not exceed 5 MB");
     const fileName = `${crypto.randomUUID()}${extension}`;
-    const uploadDirectory = path.join(PUBLIC_DIR, "uploads");
-    await mkdir(uploadDirectory, { recursive: true });
-    await writeFile(path.join(uploadDirectory, fileName), data);
+    await mkdir(UPLOAD_DIR, { recursive: true });
+    await writeFile(path.join(UPLOAD_DIR, fileName), data);
     const media = { id: id("media"), type: body.mimeType, url: `/uploads/${fileName}`, originalName: String(body.fileName || "upload"), uploadedBy: actor.id, createdAt: todayIso(), archivedAt: null };
     db.documents.push(media);
     audit(db, actor, "UPLOAD", "MediaAsset", media.id);
@@ -1478,6 +1558,16 @@ async function handleApi(req, res, pathname) {
 }
 
 async function serveStatic(req, res, pathname) {
+  if (pathname.startsWith("/uploads/")) {
+    const requestedName = path.basename(pathname);
+    const uploadedPath = path.join(UPLOAD_DIR, requestedName);
+    if (!uploadedPath.startsWith(UPLOAD_DIR)) throw httpError(403, "Forbidden");
+    const uploadedStat = await stat(uploadedPath).catch(() => null);
+    if (!uploadedStat?.isFile()) throw httpError(404, "File not found");
+    res.writeHead(200, { "content-type": mime[path.extname(uploadedPath)] || "application/octet-stream", "cache-control": "public, max-age=86400" });
+    createReadStream(uploadedPath).pipe(res);
+    return;
+  }
   let filePath = pathname === "/" ? path.join(PUBLIC_DIR, "index.html") : path.join(PUBLIC_DIR, pathname);
   if (!filePath.startsWith(PUBLIC_DIR)) throw httpError(403, "Forbidden");
   try {
@@ -1498,6 +1588,13 @@ async function main() {
   const reqSeedOnly = process.argv.includes("--seed-only");
   await mkdir(DATA_DIR, { recursive: true });
   await mkdir(PUBLIC_DIR, { recursive: true });
+  await mkdir(UPLOAD_DIR, { recursive: true });
+  if (IS_PRODUCTION) {
+    if (!AUTH_CONFIGURED) throw new Error("APP_SESSION_SECRET must contain at least 32 characters in production");
+    if (!USE_POSTGRES) throw new Error("DATABASE_URL is required in production");
+    if (!process.env.DEMO_ADMIN_EMAIL || !process.env.DEMO_ADMIN_PASSWORD || process.env.DEMO_ADMIN_PASSWORD.length < 12) throw new Error("Production admin credentials are missing or too weak");
+    await loadDb();
+  }
   const db = seedDb();
   try {
     await stat(DB_PATH);
@@ -1533,6 +1630,20 @@ async function main() {
   server.listen(PORT, () => {
     console.log(`ALJAWARIH GYM platform running at http://localhost:${PORT}`);
   });
+
+  const shutdown = async (signal) => {
+    console.log(`${signal} received, shutting down`);
+    server.close(async () => {
+      if (postgres) await postgres.end().catch(() => {});
+      process.exit(0);
+    });
+    setTimeout(() => process.exit(1), 10000).unref();
+  };
+  process.once("SIGTERM", () => shutdown("SIGTERM"));
+  process.once("SIGINT", () => shutdown("SIGINT"));
 }
 
-main();
+main().catch((error) => {
+  console.error("Startup failed:", error?.message || error);
+  process.exit(1);
+});
