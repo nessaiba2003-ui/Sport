@@ -233,6 +233,17 @@ button {
   margin-bottom: 1.5rem;
 }
 
+.admin-quick {
+  margin-bottom: 1.5rem;
+}
+
+.admin-quick-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 1rem;
+}
+
 .admin-list {
   display: grid;
   gap: 0.75rem;

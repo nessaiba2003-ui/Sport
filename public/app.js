@@ -484,17 +484,21 @@ async function adminPage(section = "overview") {
 function renderAdminSection(section, analytics, clients, payments) {
   if (section === "members") return table(clients, ["Client", "Status", "Plan", "Visits"], (c) => [`${c.profile.firstName} ${c.profile.lastName}`, c.membership?.status, c.plan?.name, c.attendanceCount]);
   if (section === "payments") return table(payments, ["Client", "Amount", "Method", "Status"], (p) => [`${p.client?.firstName} ${p.client?.lastName}`, money(p.amountMad), p.method, p.status]);
-  if (section === "schedule") return `${adminItems("Séances", "class", state.data.classes, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.dayName)} · ${safe(item.startsAt)}–${safe(item.endsAt)}</span>`)}${adminClassForm(editing("class", state.data.classes))}`;
-  if (section === "memberships") return `${adminItems("Formules d'abonnement", "plan", state.data.membershipPlans, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.audience)} · ${money(item.priceMad)}</span>`)}${planForm(editing("plan", state.data.membershipPlans))}`;
+  if (section === "schedule") return `${adminClassForm(editing("class", state.data.classes))}${adminItems("Séances existantes", "class", state.data.classes, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.dayName)} · ${safe(item.startsAt)}–${safe(item.endsAt)}</span>`)}`;
+  if (section === "memberships") return `${planForm(editing("plan", state.data.membershipPlans))}${adminItems("Formules existantes", "plan", state.data.membershipPlans, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.audience)} · ${money(item.priceMad)}</span>`)}`;
   if (section === "bookings") return adminBookings();
   if (section === "attendance") return staffCheckin();
-  if (section === "events") return `${adminItems("Activités et événements", "event", state.data.events, (item) => `<strong>${safe(item.title)}</strong><span>${safe(item.category)} · ${date(item.startsAt)}</span>`)}${eventForm(editing("event", state.data.events))}`;
-  if (section === "memories") return `${adminItems("Albums souvenirs", "memory", state.data.memories, (item) => `<strong>${safe(item.title)}</strong><span>${Number(item.items || 0)} photos · ${Number(item.videos || 0)} vidéos</span>`)}${memoryForm(editing("memory", state.data.memories))}`;
+  if (section === "events") return `${eventForm(editing("event", state.data.events))}${adminItems("Activités existantes", "event", state.data.events, (item) => `<strong>${safe(item.title)}</strong><span>${safe(item.category)} · ${date(item.startsAt)}</span>`)}`;
+  if (section === "memories") return `${memoryForm(editing("memory", state.data.memories))}${adminItems("Albums existants", "memory", state.data.memories, (item) => `<strong>${safe(item.title)}</strong><span>${Number(item.items || 0)} photos · ${Number(item.videos || 0)} vidéos</span>`)}`;
   if (section === "gym") return virtualGymPage();
-  if (section === "equipment") return `${adminItems("Équipements", "equipment", state.data.equipment, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.category)} · ${safe(item.difficulty)}</span>`)}${equipmentForm(editing("equipment", state.data.equipment))}`;
+  if (section === "equipment") return `${equipmentForm(editing("equipment", state.data.equipment))}${adminItems("Équipements existants", "equipment", state.data.equipment, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.category)} · ${safe(item.difficulty)}</span>`)}`;
   if (section === "analytics") return analyticsView(analytics);
   if (section === "settings") return `<div class="grid"><article class="card span-6"><h3>Club settings</h3><p>${state.data.settings.clubName}</p><p>${state.data.settings.arabicName}</p><p class="muted">Settings API is prepared for production CMS expansion.</p></article><form class="card span-6 form" data-change-password><h3>Changer le mot de passe</h3><div class="field"><label>Mot de passe actuel</label><input name="currentPassword" type="password" autocomplete="current-password" required></div><div class="field"><label>Nouveau mot de passe</label><input name="newPassword" type="password" minlength="12" autocomplete="new-password" required></div><div class="field"><label>Confirmer le nouveau mot de passe</label><input name="confirmPassword" type="password" minlength="12" autocomplete="new-password" required></div><button class="btn">Enregistrer le nouveau mot de passe</button></form></div>`;
-  return analyticsView(analytics);
+  return `${adminQuickActions()}${analyticsView(analytics)}`;
+}
+
+function adminQuickActions() {
+  return `<section class="card admin-quick"><div><span class="eyebrow">GESTION DU CONTENU</span><h2>Que voulez-vous gérer ?</h2></div><div class="admin-quick-grid"><button class="btn" data-nav="/admin/events">+ Activité</button><button class="btn" data-nav="/admin/memories">+ Photos / vidéos</button><button class="btn secondary" data-nav="/admin/schedule">Planning</button><button class="btn secondary" data-nav="/admin/memberships">Abonnements</button><button class="btn secondary" data-nav="/admin/equipment">Équipements</button></div></section>`;
 }
 
 function safe(value = "") {
