@@ -39,6 +39,10 @@ Production never seeds the known coach/client demo accounts. Set the owner accou
 
 Railway injects `PORT`; `/api/health` is the deployment health check. Keep the web service at one replica because the current persistence adapter stores the application state as one transactional JSON document in PostgreSQL.
 
+### Transactional email
+
+On Railway Free, Trial or Hobby, use Brevo's HTTPS API by setting `BREVO_API_KEY` and `BREVO_FROM`. The sender address in `BREVO_FROM` must first be verified in Brevo. When the API key exists, Brevo is used before SMTP. SMTP variables remain supported for Railway Pro or hosts that allow outbound SMTP ports.
+
 ## Architecture Notes
 
 See [docs/architecture.md](C:/Users/HP%20PRO/Videos/Sport/docs/architecture.md) for system architecture, database schema summary, folder structure, route map, roles, permissions, and roadmap.

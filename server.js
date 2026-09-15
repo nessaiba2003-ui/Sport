@@ -284,6 +284,29 @@ async function readBody(req, maxBytes = 1024 * 1024) {
 }
 
 async function sendEmail({ to, subject, text, html }) {
+  if (process.env.BREVO_API_KEY) {
+    try {
+      const rawFrom = process.env.BREVO_FROM || process.env.SMTP_FROM || process.env.SMTP_USER || "";
+      const match = rawFrom.match(/^\s*(.*?)\s*<([^>]+)>\s*$/);
+      const sender = match ? { name: match[1] || "Association El Jawarih", email: match[2] } : { name: process.env.BREVO_FROM_NAME || "Association El Jawarih", email: rawFrom };
+      if (!/^\S+@\S+\.\S+$/.test(sender.email)) return { sent: false, reason: "BREVO_SENDER_NOT_CONFIGURED" };
+      const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+        method: "POST",
+        headers: { "content-type": "application/json", accept: "application/json", "api-key": process.env.BREVO_API_KEY },
+        body: JSON.stringify({ sender, to: [{ email: to }], subject, textContent: text, htmlContent: html }),
+        signal: AbortSignal.timeout(15000)
+      });
+      if (!response.ok) {
+        const details = await response.json().catch(() => ({}));
+        console.error("Brevo delivery failed:", response.status, details.code || details.message || "BREVO_API_ERROR");
+        return { sent: false, reason: "BREVO_DELIVERY_FAILED" };
+      }
+      return { sent: true, provider: "brevo" };
+    } catch (error) {
+      console.error("Brevo delivery failed:", error?.name || error?.message || "BREVO_NETWORK_ERROR");
+      return { sent: false, reason: "BREVO_DELIVERY_FAILED" };
+    }
+  }
   if (!process.env.SMTP_HOST || !process.env.SMTP_USER || !process.env.SMTP_PASS) return { sent: false, reason: "SMTP_NOT_CONFIGURED" };
   try {
     const { default: nodemailer } = await import("nodemailer");
