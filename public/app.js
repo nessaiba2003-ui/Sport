@@ -20,7 +20,7 @@ const copy = {
     pricing: "Abonnements & tarifs", pricingLead: "Des formules simples pour adultes, enfants et séances privées.", viewPlans: "Voir les formules", scheduleTitle: "Planning des entraînements", noSession: "Aucune séance", available: "places disponibles", reserve: "Réserver", full: "COMPLET",
     galleryTitle: "Découvrez le club", galleryLead: "Explorez l'accueil, le hammam beldi, la salle d'aérobic et l'espace cinéma, puis les machines, la boxe et le stretching au sous-sol.",
     eventsTitle: "Événements du club", participants: "participants", register: "S'inscrire", memoriesTitle: "Souvenirs Aljawarih", memoriesLead: "Nos sorties, tournois, activités pour enfants et moments partagés.", photos: "photos", videos: "vidéos",
-    coachesTitle: "Vos coachs", coachesLead: "Une équipe proche, motivante et engagée dans votre progression.", clubQuote: "Notre club, notre force.", quote: "Chaque séance est une nouvelle occasion de progresser ensemble.",
+    coachesTitle: "Vos coachs", coachesLead: "Une équipe proche, motivante et engagée dans votre progression.", historyTitle: "L'histoire du club", historyLead: "Des archives authentiques qui racontent la naissance et l'identité d'Aljawarih.", beginnings1997: "Les débuts en 1997", clubEmblem: "L'emblème du club", clubAnthem: "L'hymne du club", foundingMembers: "Les membres fondateurs", clubQuote: "Notre club, notre force.", quote: "Chaque séance est une nouvelle occasion de progresser ensemble.",
     aboutTitle: "À propos d'Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT est un club sportif où les membres s'entraînent, progressent et représentent fièrement leur communauté.", membershipPageLead: "Choisissez la formule adaptée à votre objectif.", scheduleLead: "Consultez le planning et réservez votre séance.", exploreTitle: "Explorez Aljawarih Gym", exploreLead: "Découvrez en images tous les espaces du club, du rez-de-chaussée au sous-sol.", equipment: "Équipements", difficulty: "Niveau", targets: "Muscles ciblés", viewQr: "Voir la fiche",
     contactTitle: "Contact", club: "Club", phone: "Téléphone", instagram: "Instagram", name: "Nom", message: "Message", send: "Envoyer", contactLead: "Une question ? Contactez-nous directement ou venez nous rencontrer à Taroudant.", light: "Mode clair", dark: "Mode sombre"
   },
@@ -30,7 +30,7 @@ const copy = {
     pricing: "Memberships & pricing", pricingLead: "Simple plans for adults, children and private sessions.", viewPlans: "View plans", scheduleTitle: "Training schedule", noSession: "No session", available: "spots available", reserve: "Reserve", full: "FULL",
     galleryTitle: "Discover the club", galleryLead: "Explore reception, the traditional hammam, aerobics and cinema space, then machines, boxing and stretching downstairs.",
     eventsTitle: "Club events", participants: "participants", register: "Register", memoriesTitle: "Aljawarih memories", memoriesLead: "Our outings, tournaments, children's activities and shared moments.", photos: "photos", videos: "videos",
-    coachesTitle: "Meet your coaches", coachesLead: "A supportive, motivating team committed to your progress.", clubQuote: "Our club, our strength.", quote: "Every session is a new opportunity to grow together.",
+    coachesTitle: "Meet your coaches", coachesLead: "A supportive, motivating team committed to your progress.", historyTitle: "Club history", historyLead: "Authentic archives that tell the story of Aljawarih's beginnings and identity.", beginnings1997: "The beginnings in 1997", clubEmblem: "The club emblem", clubAnthem: "The club anthem", foundingMembers: "The founding members", clubQuote: "Our club, our strength.", quote: "Every session is a new opportunity to grow together.",
     aboutTitle: "About Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT is a sports club where members train, improve and proudly represent their community.", membershipPageLead: "Choose the plan that fits your goal.", scheduleLead: "Check the timetable and reserve your session.", exploreTitle: "Explore Aljawarih Gym", exploreLead: "Discover every club space, from the ground floor to the basement.", equipment: "Equipment", difficulty: "Level", targets: "Target muscles", viewQr: "View details",
     contactTitle: "Contact", club: "Club", phone: "Phone", instagram: "Instagram", name: "Name", message: "Message", send: "Send", contactLead: "Have a question? Contact us directly or visit us in Taroudant.", light: "Light mode", dark: "Dark mode"
   },
@@ -40,7 +40,7 @@ const copy = {
     pricing: "الاشتراكات والأسعار", pricingLead: "عروض بسيطة للكبار والأطفال والحصص الخاصة.", viewPlans: "عرض الاشتراكات", scheduleTitle: "برنامج التدريبات", noSession: "لا توجد حصة", available: "أماكن متاحة", reserve: "احجز", full: "ممتلئ",
     galleryTitle: "اكتشف النادي", galleryLead: "اكتشف الاستقبال والحمام البلدي وقاعة الأيروبيك وفضاء السينما، ثم الآلات والملاكمة والتمدد في الطابق السفلي.",
     eventsTitle: "أنشطة النادي", participants: "مشارك", register: "سجل", memoriesTitle: "ذكريات الجوارح", memoriesLead: "رحلاتنا وبطولاتنا وأنشطة الأطفال ولحظاتنا المشتركة.", photos: "صور", videos: "فيديوهات",
-    coachesTitle: "مدربوكم", coachesLead: "فريق قريب ومحفز وملتزم بتطوركم.", clubQuote: "نادينا، قوتنا.", quote: "كل حصة فرصة جديدة لنتطور معاً.",
+    coachesTitle: "مدربوكم", coachesLead: "فريق قريب ومحفز وملتزم بتطوركم.", historyTitle: "تاريخ النادي", historyLead: "صور ووثائق أصلية تحكي بداية نادي الجوارح وهويته.", beginnings1997: "بداية عام 1997", clubEmblem: "شعار النادي", clubAnthem: "نشيد النادي", foundingMembers: "الأعضاء المؤسسون للنادي", clubQuote: "نادينا، قوتنا.", quote: "كل حصة فرصة جديدة لنتطور معاً.",
     aboutTitle: "عن نادي الجوارح", aboutText: "نادي الجوارح تارودانت فضاء رياضي يتدرب فيه الأعضاء ويتطورون ويمثلون مجتمعهم بفخر.", membershipPageLead: "اختر العرض المناسب لهدفك.", scheduleLead: "اطلع على البرنامج واحجز حصتك.", exploreTitle: "اكتشف نادي الجوارح", exploreLead: "شاهد جميع فضاءات النادي من الطابق الأرضي إلى الطابق السفلي.", equipment: "المعدات", difficulty: "المستوى", targets: "العضلات المستهدفة", viewQr: "عرض التفاصيل",
     contactTitle: "اتصل بنا", club: "النادي", phone: "الهاتف", instagram: "إنستغرام", name: "الاسم", message: "الرسالة", send: "إرسال", contactLead: "لديك سؤال؟ تواصل معنا مباشرة أو زرنا في تارودانت.", light: "الوضع الفاتح", dark: "الوضع الداكن"
   }
@@ -308,7 +308,7 @@ function storySection() {
 
 function coachesSection() {
   const coaches = [
-    { name: "Elhabib" },
+    { name: "Elhabib", photo: "/assets/coaches/elhabib.jpg" },
     { name: "Abderrahmane", photo: "/assets/coaches/abderrahmane.jpg" },
     { name: "Youssef", photo: "/assets/coaches/youssef.jpg" },
     { name: "Rachid" },
@@ -317,6 +317,16 @@ function coachesSection() {
     { name: "Abdelmajid", photo: "/assets/coaches/abdelmajid.jpg" }
   ];
   return `<section class="section coaches"><div><h2>${tx("coachesTitle")}</h2><p class="section-lead">${tx("coachesLead")}</p></div><div class="coach-list">${coaches.map((coach, i) => `<article class="coach-card">${coach.photo ? `<img src="${coach.photo}" alt="Coach ${coach.name}" loading="lazy">` : `<div class="coach-placeholder" aria-hidden="true">${coach.name.charAt(0)}</div>`}<div class="coach-overlay"></div><span>0${i + 1}</span><div class="coach-info"><h3>${coach.name}</h3><p>COACH</p></div></article>`).join("")}</div></section>`;
+}
+
+function historySection() {
+  const archives = [
+    { image: "/assets/history/beginnings-1997.jpg", title: tx("beginnings1997") },
+    { image: "/assets/history/club-emblem.jpg", title: tx("clubEmblem") },
+    { image: "/assets/history/club-anthem.jpg", title: tx("clubAnthem") },
+    { image: "/assets/history/founding-members.jpg", title: tx("foundingMembers") }
+  ];
+  return `<section class="section club-history"><h2>${tx("historyTitle")}</h2><p class="section-lead">${tx("historyLead")}</p><div class="history-grid">${archives.map((archive, index) => `<figure class="history-card"><img src="${archive.image}" alt="${safe(archive.title)}" loading="lazy"><figcaption><span>0${index + 1}</span><strong>${safe(archive.title)}</strong></figcaption></figure>`).join("")}</div></section>`;
 }
 
 function membershipPreview(showHeading = true) {
@@ -413,7 +423,7 @@ function testimonials() {
 }
 
 function aboutPage() {
-  return `<div class="page-title"><h1>${tx("aboutTitle")}</h1><p>${tx("aboutText")}</p></div>${storySection()}${coachesSection()}`;
+  return `<div class="page-title"><h1>${tx("aboutTitle")}</h1><p>${tx("aboutText")}</p></div>${storySection()}${historySection()}${coachesSection()}`;
 }
 
 function membershipsPage() {
