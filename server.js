@@ -1660,7 +1660,17 @@ async function main() {
     if (!AUTH_CONFIGURED) throw new Error("APP_SESSION_SECRET must contain at least 32 characters in production");
     if (!USE_POSTGRES) throw new Error("DATABASE_URL is required in production");
     if (!process.env.DEMO_ADMIN_EMAIL || !process.env.DEMO_ADMIN_PASSWORD || process.env.DEMO_ADMIN_PASSWORD.length < 12) throw new Error("Production admin credentials are missing or too weak");
-    await loadDb();
+    const persisted = await loadDb();
+    const configuredEmail = process.env.DEMO_ADMIN_EMAIL.trim().toLowerCase();
+    const configuredAdmin = persisted.users.find((item) => item.id === "usr_admin");
+    if (!configuredAdmin) throw new Error("Production admin account is missing");
+    const emailConflict = persisted.users.some((item) => item.id !== configuredAdmin.id && item.email.toLowerCase() === configuredEmail);
+    if (emailConflict) throw new Error("DEMO_ADMIN_EMAIL already belongs to another account");
+    if (configuredAdmin.email.toLowerCase() !== configuredEmail || !configuredAdmin.emailVerified) {
+      configuredAdmin.email = configuredEmail;
+      configuredAdmin.emailVerified = true;
+      await saveDb(persisted);
+    }
   }
   const db = seedDb();
   try {
