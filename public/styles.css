@@ -471,25 +471,58 @@ button {
 
 .coach-card {
   position: relative;
-  min-height: 9rem;
-  padding: 1.25rem;
+  min-height: 18rem;
   border: 1px solid var(--line);
   border-radius: 1rem;
-  background: linear-gradient(145deg, color-mix(in srgb, var(--panel) 95%, transparent), color-mix(in srgb, var(--gold) 10%, var(--panel)));
+  background: color-mix(in srgb, var(--panel) 88%, var(--gold));
   overflow: hidden;
+}
+
+.coach-card img,
+.coach-placeholder {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 22%;
+}
+
+.coach-placeholder {
+  display: grid;
+  place-items: center;
+  color: var(--gold-2);
+  font-size: 6rem;
+  font-weight: 900;
+  opacity: 0.32;
+}
+
+.coach-overlay {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 38%, rgba(5, 7, 10, 0.9) 100%);
+}
+
+.coach-info {
+  position: absolute;
+  inset-inline: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 2;
 }
 
 .coach-card span {
   position: absolute;
   inset-inline-end: -0.2rem;
-  bottom: -1rem;
+  top: 0.8rem;
+  bottom: auto;
   color: var(--gold-2);
   font-size: 5rem;
   font-weight: 900;
-  opacity: 0.11;
+  opacity: 0.18;
+  z-index: 2;
 }
 
-.coach-card h3 { margin: 1.5rem 0 0.3rem; font-size: 1.4rem; }
+.coach-card h3 { margin: 0 0 0.3rem; color: #fff; font-size: 1.4rem; }
 .coach-card p { margin: 0; color: var(--gold-2); font-size: 0.75rem; letter-spacing: 0.14em; }
 
 .quote-section {

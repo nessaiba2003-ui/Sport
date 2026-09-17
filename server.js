@@ -586,7 +586,7 @@ function seedDb() {
     participants: index * 7 + 10
   }));
 
-  const activityAlbum = (idValue, slug, title, year, category, location, story, count, coverIndex = 1) => ({
+  const activityAlbum = (idValue, slug, title, year, category, location, story, count, coverIndex = 1, startIndex = 1) => ({
     id: idValue,
     title,
     year,
@@ -596,7 +596,7 @@ function seedDb() {
     items: count,
     videos: 0,
     story,
-    media: Array.from({ length: count }, (_, index) => ({ type: "image/jpeg", url: `/assets/activities/${slug}/${String(index + 1).padStart(2, "0")}.jpg` }))
+    media: Array.from({ length: count }, (_, index) => ({ type: "image/jpeg", url: `/assets/activities/${slug}/${String(index + startIndex).padStart(2, "0")}.jpg` }))
   });
 
   const memories = [
@@ -607,7 +607,7 @@ function seedDb() {
     activityAlbum("alb_toubkal_2026", "toubkal-2026", "Ascension du Toubkal 2026", 2026, "Randonnée", "Toubkal", "Une aventure collective au sommet, symbole de dépassement de soi et de solidarité.", 16),
     activityAlbum("alb_taskint", "sortie-taskint", "Randonnée dans la région de Taskint", 2026, "Randonnée", "Taskint", "Découverte d’une région montagneuse dans un esprit d’entraide et d’exploration.", 6),
     activityAlbum("alb_maher", "petit-dejeuner-piscine-maher", "Petit-déjeuner à la piscine Maher", 2026, "Communauté", "Piscine Maher", "Un moment de détente et de convivialité partagé après l’effort.", 4),
-    activityAlbum("alb_villa_limoun", "villa-limoun", "Stage sportif à Villa Limoun", 2026, "Stage", "Villa Limoun", "Entraînement en plein air, ateliers sportifs et cohésion d’équipe.", 31, 30),
+    activityAlbum("alb_villa_limoun", "villa-limoun", "Stage sportif à Villa Limoun", 2026, "Stage", "Villa Limoun", "Entraînement en plein air, ateliers sportifs et cohésion d’équipe.", 23, 30, 9),
     activityAlbum("alb_dr_belghiti", "rencontre-dr-belghiti", "Rencontre avec le Dr Belghiti", 2026, "Santé", "Taroudant", "Un échange consacré à la santé, à la prévention et à la pratique sportive responsable.", 2),
     activityAlbum("alb_dr_bouras", "rencontre-dr-bouras", "Rencontre avec le Dr Bouras", 2026, "Santé", "ALJAWARIH GYM", "Conseils, sensibilisation et dialogue autour de la santé des sportifs.", 4)
   ];

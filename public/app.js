@@ -307,8 +307,16 @@ function storySection() {
 }
 
 function coachesSection() {
-  const coaches = ["Elhabib", "Abderrahmane", "Youssef", "Rachid", "Brahim", "Hicham", "Abdelmajid"];
-  return `<section class="section coaches"><div><h2>${tx("coachesTitle")}</h2><p class="section-lead">${tx("coachesLead")}</p></div><div class="coach-list">${coaches.map((name, i) => `<article class="coach-card"><span>0${i + 1}</span><h3>${name}</h3><p>COACH</p></article>`).join("")}</div></section>`;
+  const coaches = [
+    { name: "Elhabib" },
+    { name: "Abderrahmane", photo: "/assets/coaches/abderrahmane.jpg" },
+    { name: "Youssef", photo: "/assets/coaches/youssef.jpg" },
+    { name: "Rachid" },
+    { name: "Brahim", photo: "/assets/coaches/brahim.jpg" },
+    { name: "Hicham", photo: "/assets/coaches/hicham.jpg" },
+    { name: "Abdelmajid", photo: "/assets/coaches/abdelmajid.jpg" }
+  ];
+  return `<section class="section coaches"><div><h2>${tx("coachesTitle")}</h2><p class="section-lead">${tx("coachesLead")}</p></div><div class="coach-list">${coaches.map((coach, i) => `<article class="coach-card">${coach.photo ? `<img src="${coach.photo}" alt="Coach ${coach.name}" loading="lazy">` : `<div class="coach-placeholder" aria-hidden="true">${coach.name.charAt(0)}</div>`}<div class="coach-overlay"></div><span>0${i + 1}</span><div class="coach-info"><h3>${coach.name}</h3><p>COACH</p></div></article>`).join("")}</div></section>`;
 }
 
 function membershipPreview(showHeading = true) {
