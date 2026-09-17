@@ -568,22 +568,27 @@ function seedDb() {
   }));
 
   const events = [
-    ["evt_trip", "Sortie club Anti-Atlas", "Trip", "Une journee de communaute, marche et souvenirs.", 60, 18],
-    ["evt_tournament", "Tournoi Aljawarih Warrior", "Competition", "Defis sportifs, equipe, energie et recompenses.", 48, 35],
-    ["evt_ramadan", "Ramadan Training Night", "Ramadan event", "Session nocturne speciale avec ambiance club.", 40, 52],
-    ["evt_kids", "Kids Activity Day", "Kids activity", "Activites encadrees pour les jeunes athletes.", 35, 12]
-  ].map(([eid, title, category, description, capacity, days], index) => ({
+    ["evt_villa_limoun", "Stage sportif à Villa Limoun", "Stage", "Entraînement en plein air, ateliers sportifs et cohésion d’équipe.", "2026-01-01", "Villa Limoun", "/assets/activities/villa-limoun/30.jpg"],
+    ["evt_toubkal", "Ascension du Toubkal 2026", "Randonnée", "Une aventure collective au sommet fondée sur l’entraide et le dépassement de soi.", "2026-01-01", "Toubkal", "/assets/activities/toubkal-2026/01.jpg"],
+    ["evt_walk", "Marche sportive de 12 km", "Marche", "Une marche sportive organisée par le club dans une ambiance conviviale.", "2023-01-01", "Taroudant", "/assets/activities/marche-12km-2023/01.jpg"],
+    ["evt_taskint", "Randonnée dans la région de Taskint", "Randonnée", "Découverte de la région montagneuse de Taskint avec les membres du club.", "2026-01-01", "Taskint", "/assets/activities/sortie-taskint/01.jpg"],
+    ["evt_mrbih", "Stage d’entraînement à la salle Mribih", "Entraînement", "Une rencontre sportive intense animée par les coachs du club.", "2026-01-01", "Salle Mribih", "/assets/activities/entrainement-mrbih/12.jpg"],
+    ["evt_school", "Entraînement des élèves de l’école Moulay Zidane", "Jeunes", "Initiation sportive et partage avec les jeunes élèves.", "2026-01-01", "École Moulay Zidane", "/assets/activities/ecole-moulay-zidane/01.jpg"],
+    ["evt_maher", "Petit-déjeuner à la piscine Maher", "Communauté", "Un moment de détente et de convivialité partagé après l’effort.", "2026-01-01", "Piscine Maher", "/assets/activities/petit-dejeuner-piscine-maher/01.jpg"],
+    ["evt_belghiti", "Rencontre avec le Dr Belghiti", "Santé", "Échange autour de la santé, de la prévention et de la pratique sportive responsable.", "2026-01-01", "Taroudant", "/assets/activities/rencontre-dr-belghiti/01.jpg"],
+    ["evt_bouras", "Rencontre avec le Dr Bouras", "Santé", "Conseils et sensibilisation autour de la santé des sportifs.", "2026-01-01", "ALJAWARIH GYM", "/assets/activities/rencontre-dr-bouras/01.jpg"]
+  ].map(([eid, title, category, description, startsAt, location, coverImageUrl]) => ({
     id: eid,
     title,
     category,
     description,
-    startsAt: todayIso(days),
-    time: index % 2 ? "19:00" : "09:30",
-    location: "Taroudant, Morocco",
-    capacity,
-    coverImageUrl: `https://images.unsplash.com/photo-${["1517963879433-6ad2b056d712", "1571019613454-1cb2f99b2d8b", "1540497077202-7c8a3999166f", "1599058917212-d750089bc07e"][index]}?auto=format&fit=crop&w=1200&q=80`,
-    registrationOpen: true,
-    participants: index * 7 + 10
+    startsAt,
+    time: "",
+    location,
+    capacity: 0,
+    coverImageUrl,
+    registrationOpen: false,
+    participants: 0
   }));
 
   const activityAlbum = (idValue, slug, title, year, category, location, story, count, coverIndex = 1, startIndex = 1) => ({

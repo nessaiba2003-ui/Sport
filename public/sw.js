@@ -1,5 +1,5 @@
-const CACHE = "aljawarih-shell-v14";
-const SHELL = ["/", "/styles.css?v=14", "/app.js?v=14", "/manifest.webmanifest", "/icon.svg", "/assets/club/logo-aigle.jpg", "/assets/club/logo-association.jpg"];
+const CACHE = "aljawarih-shell-v15";
+const SHELL = ["/", "/styles.css?v=15", "/app.js?v=15", "/manifest.webmanifest", "/icon.svg", "/assets/club/logo-aigle.jpg", "/assets/club/logo-association.jpg"];
 
 self.addEventListener("install", (event) => {
   event.waitUntil(caches.open(CACHE).then((cache) => cache.addAll(SHELL)));

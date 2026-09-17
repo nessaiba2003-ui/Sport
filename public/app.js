@@ -406,7 +406,7 @@ function gymMap(floorId = "floor_1") {
 
 function eventsSection(preview = false) {
   const items = preview ? state.data.events.slice(0, 3) : state.data.events;
-  return `<section class="section"><h2>${tx("eventsTitle")}</h2><div class="grid">${items.map((e) => `<article class="card span-4"><span class="pill">${e.category}</span><h3>${e.title}</h3><p class="muted">${e.description}</p><p>${date(e.startsAt)} - ${e.location}</p><p class="muted">${e.participants}/${e.capacity} ${tx("participants")}</p>${state.me ? `<button class="btn secondary" data-event-register="${e.id}">${tx("register")}</button>` : ""}</article>`).join("")}</div></section>`;
+  return `<section class="section"><h2>${tx("eventsTitle")}</h2><div class="grid">${items.map((e) => `<article class="card span-4 event-card">${e.coverImageUrl ? `<img src="${safe(e.coverImageUrl)}" alt="${safe(e.title)}" loading="lazy">` : ""}<div class="event-card-body"><span class="pill">${safe(e.category)}</span><h3>${safe(e.title)}</h3><p class="muted">${safe(e.description)}</p><p>${date(e.startsAt)} - ${safe(e.location)}</p>${e.capacity ? `<p class="muted">${Number(e.participants)}/${Number(e.capacity)} ${tx("participants")}</p>` : ""}${state.me && e.registrationOpen ? `<button class="btn secondary" data-event-register="${e.id}">${tx("register")}</button>` : ""}</div></article>`).join("")}</div></section>`;
 }
 
 function memoriesSection(preview = false) {
