@@ -393,7 +393,11 @@ function eventsSection(preview = false) {
 
 function memoriesSection(preview = false) {
   const items = preview ? state.data.memories.slice(0, 3) : state.data.memories;
-  return `<section class="section"><h2>${tx("memoriesTitle")}</h2><p class="section-lead">${tx("memoriesLead")}</p><div class="grid">${items.map((m) => `<article class="card span-4 memory-card" style="background-image:linear-gradient(180deg,rgba(8,10,15,.25),rgba(8,10,15,.92)),url('${safe(m.coverUrl || "")}')"><span class="pill">${m.year}</span><h3>${safe(m.title)}</h3><p>${safe(m.story)}</p><p>${Number(m.items || 0)} ${tx("photos")} ${m.videos ? `- ${Number(m.videos)} ${tx("videos")}` : ""}</p>${m.media?.length ? `<div class="memory-media">${m.media.slice(0, 6).map((media) => media.type?.startsWith("video/") ? `<video controls preload="metadata" src="${safe(media.url)}"></video>` : `<img src="${safe(media.url)}" alt="${safe(m.title)}" loading="lazy">`).join("")}</div>` : ""}</article>`).join("")}</div></section>`;
+  return `<section class="section"><h2>${tx("memoriesTitle")}</h2><p class="section-lead">${tx("memoriesLead")}</p><div class="grid">${items.map((m) => `<article class="card span-4 memory-card" style="background-image:linear-gradient(180deg,rgba(8,10,15,.2),rgba(8,10,15,.94)),url('${safe(m.coverUrl || "")}')"><span class="pill">${m.year}</span><h3>${safe(m.title)}</h3><p>${safe(m.story)}</p><p>${Number(m.items || 0)} ${tx("photos")} ${m.videos ? `- ${Number(m.videos)} ${tx("videos")}` : ""}</p>${m.media?.length ? `<div class="memory-media">${m.media.slice(0, 4).map(memoryMedia).join("")}</div>${preview ? "" : `<details class="memory-gallery"><summary>Voir toutes les photos</summary><div class="memory-media memory-media-all">${m.media.map(memoryMedia).join("")}</div></details>`}` : ""}</article>`).join("")}</div></section>`;
+}
+
+function memoryMedia(media) {
+  return media.type?.startsWith("video/") ? `<video controls preload="metadata" src="${safe(media.url)}"></video>` : `<img src="${safe(media.url)}" alt="Photo du club Aljawarih" loading="lazy">`;
 }
 
 function testimonials() {

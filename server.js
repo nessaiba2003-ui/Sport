@@ -586,40 +586,30 @@ function seedDb() {
     participants: index * 7 + 10
   }));
 
+  const activityAlbum = (idValue, slug, title, year, category, location, story, count, coverIndex = 1) => ({
+    id: idValue,
+    title,
+    year,
+    category,
+    location,
+    coverUrl: `/assets/activities/${slug}/${String(coverIndex).padStart(2, "0")}.jpg`,
+    items: count,
+    videos: 0,
+    story,
+    media: Array.from({ length: count }, (_, index) => ({ type: "image/jpeg", url: `/assets/activities/${slug}/${String(index + 1).padStart(2, "0")}.jpg` }))
+  });
+
   const memories = [
-    {
-      id: "alb_summer",
-      title: "Summer Trip",
-      year: 2026,
-      category: "Trip",
-      location: "Taroudant",
-      coverUrl: "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1200&q=80",
-      items: 87,
-      videos: 12,
-      story: "Moments de voyage, effort et fierte partagee."
-    },
-    {
-      id: "alb_tournament",
-      title: "Tournament",
-      year: 2026,
-      category: "Competition",
-      location: "ALJAWARIH GYM",
-      coverUrl: "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?auto=format&fit=crop&w=1200&q=80",
-      items: 54,
-      videos: 8,
-      story: "La communaute en mode competition."
-    },
-    {
-      id: "alb_kids",
-      title: "Kids Activity",
-      year: 2026,
-      category: "Kids",
-      location: "ALJAWARIH GYM",
-      coverUrl: "https://images.unsplash.com/photo-1518310383802-640c2de311b2?auto=format&fit=crop&w=1200&q=80",
-      items: 42,
-      videos: 0,
-      story: "Les jeunes athletes construisent leurs premiers souvenirs."
-    }
+    activityAlbum("alb_training_2022", "entrainement-2022", "Entraînement du club 2022", 2022, "Entraînement", "Taroudant", "Une séance collective qui rassemble les adhérents autour de l’effort, de la discipline et de l’esprit d’équipe.", 11),
+    activityAlbum("alb_mrbih", "entrainement-mrbih", "Stage d’entraînement à la salle Mribih", 2026, "Entraînement", "Salle Mribih", "Une rencontre sportive intense animée par les coachs du club.", 20, 12),
+    activityAlbum("alb_moulay_zidane", "ecole-moulay-zidane", "Entraînement des élèves de l’école Moulay Zidane", 2026, "Jeunes", "École Moulay Zidane", "Initiation sportive, énergie et partage avec les jeunes élèves.", 6),
+    activityAlbum("alb_walk_2023", "marche-12km-2023", "Marche sportive de 12 km", 2023, "Marche", "Taroudant", "Douze kilomètres parcourus ensemble dans une ambiance sportive et conviviale.", 10),
+    activityAlbum("alb_toubkal_2026", "toubkal-2026", "Ascension du Toubkal 2026", 2026, "Randonnée", "Toubkal", "Une aventure collective au sommet, symbole de dépassement de soi et de solidarité.", 16),
+    activityAlbum("alb_taskint", "sortie-taskint", "Randonnée dans la région de Taskint", 2026, "Randonnée", "Taskint", "Découverte d’une région montagneuse dans un esprit d’entraide et d’exploration.", 6),
+    activityAlbum("alb_maher", "petit-dejeuner-piscine-maher", "Petit-déjeuner à la piscine Maher", 2026, "Communauté", "Piscine Maher", "Un moment de détente et de convivialité partagé après l’effort.", 4),
+    activityAlbum("alb_villa_limoun", "villa-limoun", "Stage sportif à Villa Limoun", 2026, "Stage", "Villa Limoun", "Entraînement en plein air, ateliers sportifs et cohésion d’équipe.", 31, 30),
+    activityAlbum("alb_dr_belghiti", "rencontre-dr-belghiti", "Rencontre avec le Dr Belghiti", 2026, "Santé", "Taroudant", "Un échange consacré à la santé, à la prévention et à la pratique sportive responsable.", 2),
+    activityAlbum("alb_dr_bouras", "rencontre-dr-bouras", "Rencontre avec le Dr Bouras", 2026, "Santé", "ALJAWARIH GYM", "Conseils, sensibilisation et dialogue autour de la santé des sportifs.", 4)
   ];
 
   const floors = [

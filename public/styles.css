@@ -291,6 +291,20 @@ button {
   background: #000;
 }
 
+.memory-gallery {
+  margin-top: 0.85rem;
+}
+
+.memory-gallery summary {
+  cursor: pointer;
+  color: var(--gold-2);
+  font-weight: 800;
+}
+
+.memory-media-all {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
 @media (max-width: 700px) {
   .admin-row {
     align-items: stretch;
