@@ -313,7 +313,7 @@ function coachesSection() {
     { name: "Elhabib", photo: "/assets/coaches/elhabib.jpg" },
     { name: "Abderrahmane", photo: "/assets/coaches/abderrahmane.jpg" },
     { name: "Youssef", photo: "/assets/coaches/youssef.jpg" },
-    { name: "Rachid" },
+    { name: "Rachid", photo: "/assets/coaches/rachid.jpg" },
     { name: "Hamid", photo: "/assets/coaches/hamid.jpg" },
     { name: "Brahim", photo: "/assets/coaches/brahim.jpg" },
     { name: "Hicham", photo: "/assets/coaches/hicham.jpg" },
