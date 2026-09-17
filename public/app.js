@@ -1,4 +1,6 @@
 const app = document.querySelector("#app");
+let lightboxItems = [];
+let lightboxIndex = 0;
 const state = {
   lang: localStorage.getItem("lang") || "fr",
   token: localStorage.getItem("token") || "",
@@ -312,11 +314,13 @@ function coachesSection() {
     { name: "Abderrahmane", photo: "/assets/coaches/abderrahmane.jpg" },
     { name: "Youssef", photo: "/assets/coaches/youssef.jpg" },
     { name: "Rachid" },
+    { name: "Hamid", photo: "/assets/coaches/hamid.jpg" },
     { name: "Brahim", photo: "/assets/coaches/brahim.jpg" },
     { name: "Hicham", photo: "/assets/coaches/hicham.jpg" },
-    { name: "Abdelmajid", photo: "/assets/coaches/abdelmajid.jpg" }
+    { name: "Abdelmajid", photo: "/assets/coaches/abdelmajid.jpg" },
+    { name: "Brahim Elyasini", photo: "/assets/coaches/brahim-elyasini.jpg" }
   ];
-  return `<section class="section coaches"><div><h2>${tx("coachesTitle")}</h2><p class="section-lead">${tx("coachesLead")}</p></div><div class="coach-list">${coaches.map((coach, i) => `<article class="coach-card">${coach.photo ? `<img src="${coach.photo}" alt="Coach ${coach.name}" loading="lazy">` : `<div class="coach-placeholder" aria-hidden="true">${coach.name.charAt(0)}</div>`}<div class="coach-overlay"></div><span>0${i + 1}</span><div class="coach-info"><h3>${coach.name}</h3><p>COACH</p></div></article>`).join("")}</div></section>`;
+  return `<section class="section coaches"><div><h2>${tx("coachesTitle")}</h2><p class="section-lead">${tx("coachesLead")}</p></div><div class="coach-list">${coaches.map((coach, i) => `<article class="coach-card">${coach.photo ? `<img src="${coach.photo}" alt="Coach ${coach.name}" loading="lazy" data-lightbox-src="${coach.photo}" data-lightbox-alt="Coach ${coach.name}">` : `<div class="coach-placeholder" aria-hidden="true">${coach.name.charAt(0)}</div>`}<div class="coach-overlay"></div><span>${String(i + 1).padStart(2, "0")}</span><div class="coach-info"><h3>${coach.name}</h3><p>COACH</p></div></article>`).join("")}</div></section>`;
 }
 
 function historySection() {
@@ -326,7 +330,7 @@ function historySection() {
     { image: "/assets/history/club-anthem.jpg", title: tx("clubAnthem") },
     { image: "/assets/history/founding-members.jpg", title: tx("foundingMembers") }
   ];
-  return `<section class="section club-history"><h2>${tx("historyTitle")}</h2><p class="section-lead">${tx("historyLead")}</p><div class="history-grid">${archives.map((archive, index) => `<figure class="history-card"><img src="${archive.image}" alt="${safe(archive.title)}" loading="lazy"><figcaption><span>0${index + 1}</span><strong>${safe(archive.title)}</strong></figcaption></figure>`).join("")}</div></section>`;
+  return `<section class="section club-history"><h2>${tx("historyTitle")}</h2><p class="section-lead">${tx("historyLead")}</p><div class="history-grid">${archives.map((archive, index) => `<figure class="history-card"><img src="${archive.image}" alt="${safe(archive.title)}" loading="lazy" data-lightbox-src="${archive.image}" data-lightbox-alt="${safe(archive.title)}"><figcaption><span>0${index + 1}</span><strong>${safe(archive.title)}</strong></figcaption></figure>`).join("")}</div></section>`;
 }
 
 function membershipPreview(showHeading = true) {
@@ -395,7 +399,7 @@ function clubGallery() {
       ]
     }
   ];
-  return `<div class="club-gallery">${sections.map((section) => `<section class="gallery-section"><div class="gallery-heading"><h3>${section.title}</h3><p class="muted">${section.description}</p></div><div class="photo-grid photo-grid-${section.photos.length}">${section.photos.map(([src, alt], index) => `<figure class="club-photo ${index === 0 ? "featured" : ""}"><img src="${src}" alt="${alt}" loading="lazy"><figcaption>${alt}</figcaption></figure>`).join("")}</div></section>`).join("")}</div>`;
+  return `<div class="club-gallery">${sections.map((section) => `<section class="gallery-section"><div class="gallery-heading"><h3>${section.title}</h3><p class="muted">${section.description}</p></div><div class="photo-grid photo-grid-${section.photos.length}">${section.photos.map(([src, alt], index) => `<figure class="club-photo ${index === 0 ? "featured" : ""}"><img src="${src}" alt="${alt}" loading="lazy" data-lightbox-src="${src}" data-lightbox-alt="${alt}"><figcaption>${alt}</figcaption></figure>`).join("")}</div></section>`).join("")}</div>`;
 }
 
 function gymMap(floorId = "floor_1") {
@@ -406,7 +410,7 @@ function gymMap(floorId = "floor_1") {
 
 function eventsSection(preview = false) {
   const items = preview ? state.data.events.slice(0, 3) : state.data.events;
-  return `<section class="section"><h2>${tx("eventsTitle")}</h2><div class="grid">${items.map((e) => `<article class="card span-4 event-card">${e.coverImageUrl ? `<img src="${safe(e.coverImageUrl)}" alt="${safe(e.title)}" loading="lazy">` : ""}<div class="event-card-body"><span class="pill">${safe(e.category)}</span><h3>${safe(e.title)}</h3><p class="muted">${safe(e.description)}</p><p>${date(e.startsAt)} - ${safe(e.location)}</p>${e.capacity ? `<p class="muted">${Number(e.participants)}/${Number(e.capacity)} ${tx("participants")}</p>` : ""}${state.me && e.registrationOpen ? `<button class="btn secondary" data-event-register="${e.id}">${tx("register")}</button>` : ""}</div></article>`).join("")}</div></section>`;
+  return `<section class="section"><h2>${tx("eventsTitle")}</h2><div class="grid">${items.map((e) => `<article class="card span-4 event-card">${e.coverImageUrl ? `<img src="${safe(e.coverImageUrl)}" alt="${safe(e.title)}" loading="lazy" data-lightbox-src="${safe(e.coverImageUrl)}" data-lightbox-alt="${safe(e.title)}">` : ""}<div class="event-card-body"><span class="pill">${safe(e.category)}</span><h3>${safe(e.title)}</h3><p class="muted">${safe(e.description)}</p><p>${date(e.startsAt)} - ${safe(e.location)}</p>${e.capacity ? `<p class="muted">${Number(e.participants)}/${Number(e.capacity)} ${tx("participants")}</p>` : ""}${state.me && e.registrationOpen ? `<button class="btn secondary" data-event-register="${e.id}">${tx("register")}</button>` : ""}</div></article>`).join("")}</div></section>`;
 }
 
 function memoriesSection(preview = false) {
@@ -415,7 +419,20 @@ function memoriesSection(preview = false) {
 }
 
 function memoryMedia(media) {
-  return media.type?.startsWith("video/") ? `<video controls preload="metadata" src="${safe(media.url)}"></video>` : `<img src="${safe(media.url)}" alt="Photo du club Aljawarih" loading="lazy">`;
+  return media.type?.startsWith("video/") ? `<video controls preload="metadata" src="${safe(media.url)}"></video>` : `<img src="${safe(media.url)}" alt="Photo du club Aljawarih" loading="lazy" data-lightbox-src="${safe(media.url)}" data-lightbox-alt="Photo du club Aljawarih">`;
+}
+
+function showLightbox() {
+  document.querySelector(".lightbox")?.remove();
+  const item = lightboxItems[lightboxIndex];
+  if (!item) return;
+  document.body.insertAdjacentHTML("beforeend", `<div class="lightbox" role="dialog" aria-modal="true" aria-label="Visionneuse photo"><button class="lightbox-close" data-lightbox-close aria-label="Fermer">×</button>${lightboxItems.length > 1 ? `<button class="lightbox-nav lightbox-prev" data-lightbox-prev aria-label="Photo précédente">‹</button>` : ""}<figure><img src="${safe(item.src)}" alt="${safe(item.alt)}"><figcaption>${safe(item.alt)}</figcaption></figure>${lightboxItems.length > 1 ? `<button class="lightbox-nav lightbox-next" data-lightbox-next aria-label="Photo suivante">›</button><span class="lightbox-count">${lightboxIndex + 1} / ${lightboxItems.length}</span>` : ""}</div>`);
+  document.body.classList.add("lightbox-open");
+}
+
+function closeLightbox() {
+  document.querySelector(".lightbox")?.remove();
+  document.body.classList.remove("lightbox-open");
 }
 
 function testimonials() {
@@ -637,6 +654,19 @@ async function render() {
 }
 
 document.addEventListener("click", async (event) => {
+  const photo = event.target.closest("[data-lightbox-src]");
+  if (photo) {
+    const gallery = photo.closest(".memory-card, .club-gallery, .club-history, .coach-list, .event-card") || document;
+    const nodes = [...gallery.querySelectorAll("[data-lightbox-src]")];
+    lightboxItems = nodes.map((node) => ({ src: node.dataset.lightboxSrc, alt: node.dataset.lightboxAlt || node.alt || "Photo Aljawarih" }));
+    lightboxIndex = Math.max(0, nodes.indexOf(photo));
+    showLightbox();
+    return;
+  }
+  if (event.target.closest("[data-lightbox-close]")) { closeLightbox(); return; }
+  if (event.target.closest("[data-lightbox-prev]")) { lightboxIndex = (lightboxIndex - 1 + lightboxItems.length) % lightboxItems.length; showLightbox(); return; }
+  if (event.target.closest("[data-lightbox-next]")) { lightboxIndex = (lightboxIndex + 1) % lightboxItems.length; showLightbox(); return; }
+  if (event.target.classList.contains("lightbox")) { closeLightbox(); return; }
   const target = event.target.closest("button");
   if (!target) return;
   if (target.dataset.nav) {
@@ -721,6 +751,13 @@ document.addEventListener("click", async (event) => {
       if (mount) mount.innerHTML = table(rows, ["Client", "Session", "Time", "Status"], (b) => [`${b.client?.firstName || ""} ${b.client?.lastName || ""}`, b.class?.name, `${b.class?.dayName} ${b.class?.startsAt}-${b.class?.endsAt}`, b.status]);
     } catch (err) { toast(err.message); }
   }
+});
+
+document.addEventListener("keydown", (event) => {
+  if (!document.querySelector(".lightbox")) return;
+  if (event.key === "Escape") closeLightbox();
+  if (event.key === "ArrowLeft") { lightboxIndex = (lightboxIndex - 1 + lightboxItems.length) % lightboxItems.length; showLightbox(); }
+  if (event.key === "ArrowRight") { lightboxIndex = (lightboxIndex + 1) % lightboxItems.length; showLightbox(); }
 });
 
 function fileAsDataUrl(file) {

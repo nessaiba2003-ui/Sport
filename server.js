@@ -572,7 +572,7 @@ function seedDb() {
     ["evt_toubkal", "Ascension du Toubkal 2026", "Randonnée", "Une aventure collective au sommet fondée sur l’entraide et le dépassement de soi.", "2026-01-01", "Toubkal", "/assets/activities/toubkal-2026/01.jpg"],
     ["evt_walk", "Marche sportive de 12 km", "Marche", "Une marche sportive organisée par le club dans une ambiance conviviale.", "2023-01-01", "Taroudant", "/assets/activities/marche-12km-2023/01.jpg"],
     ["evt_taskint", "Randonnée dans la région de Taskint", "Randonnée", "Découverte de la région montagneuse de Taskint avec les membres du club.", "2026-01-01", "Taskint", "/assets/activities/sortie-taskint/01.jpg"],
-    ["evt_mrbih", "Stage d’entraînement à la salle Mribih", "Entraînement", "Une rencontre sportive intense animée par les coachs du club.", "2026-01-01", "Salle Mribih", "/assets/activities/entrainement-mrbih/12.jpg"],
+    ["evt_mrbih", "Stage d’entraînement à la salle Mourbih", "Entraînement", "Une rencontre sportive intense animée par les coachs du club.", "2026-01-01", "Salle Mourbih", "/assets/activities/entrainement-mrbih/12.jpg"],
     ["evt_school", "Entraînement des élèves de l’école Moulay Zidane", "Jeunes", "Initiation sportive et partage avec les jeunes élèves.", "2026-01-01", "École Moulay Zidane", "/assets/activities/ecole-moulay-zidane/01.jpg"],
     ["evt_maher", "Petit-déjeuner à la piscine Maher", "Communauté", "Un moment de détente et de convivialité partagé après l’effort.", "2026-01-01", "Piscine Maher", "/assets/activities/petit-dejeuner-piscine-maher/01.jpg"],
     ["evt_belghiti", "Rencontre avec le Dr Belghiti", "Santé", "Échange autour de la santé, de la prévention et de la pratique sportive responsable.", "2026-01-01", "Taroudant", "/assets/activities/rencontre-dr-belghiti/01.jpg"],
@@ -606,7 +606,7 @@ function seedDb() {
 
   const memories = [
     activityAlbum("alb_training_2022", "entrainement-2022", "Entraînement du club 2022", 2022, "Entraînement", "Taroudant", "Une séance collective qui rassemble les adhérents autour de l’effort, de la discipline et de l’esprit d’équipe.", 11),
-    activityAlbum("alb_mrbih", "entrainement-mrbih", "Stage d’entraînement à la salle Mribih", 2026, "Entraînement", "Salle Mribih", "Une rencontre sportive intense animée par les coachs du club.", 20, 12),
+    activityAlbum("alb_mrbih", "entrainement-mrbih", "Stage d’entraînement à la salle Mourbih", 2026, "Entraînement", "Salle Mourbih", "Une rencontre sportive intense animée par les coachs du club.", 20, 12),
     activityAlbum("alb_moulay_zidane", "ecole-moulay-zidane", "Entraînement des élèves de l’école Moulay Zidane", 2026, "Jeunes", "École Moulay Zidane", "Initiation sportive, énergie et partage avec les jeunes élèves.", 6),
     activityAlbum("alb_walk_2023", "marche-12km-2023", "Marche sportive de 12 km", 2023, "Marche", "Taroudant", "Douze kilomètres parcourus ensemble dans une ambiance sportive et conviviale.", 10),
     activityAlbum("alb_toubkal_2026", "toubkal-2026", "Ascension du Toubkal 2026", 2026, "Randonnée", "Toubkal", "Une aventure collective au sommet, symbole de dépassement de soi et de solidarité.", 16),

@@ -7,6 +7,18 @@ $auth = Invoke-RestMethod -Method Post -Uri "$base/api/auth/login" -ContentType 
 $headers = @{ Authorization = "Bearer $($auth.token)" }
 $current = Invoke-RestMethod -Uri "$base/api/bootstrap" -TimeoutSec 30
 
+$oldMourbihEvent = $current.events | Where-Object title -eq "Stage d'entraînement à la salle Mribih"
+if ($oldMourbihEvent) {
+  Invoke-RestMethod -Method Put -Uri "$base/api/events/$($oldMourbihEvent.id)" -Headers $headers -ContentType "application/json" -Body (@{ title = "Stage d'entraînement à la salle Mourbih"; location = "Salle Mourbih" } | ConvertTo-Json) -TimeoutSec 30 | Out-Null
+  $oldMourbihEvent.title = "Stage d'entraînement à la salle Mourbih"
+}
+
+$oldMourbihAlbum = $current.memories | Where-Object title -eq "Stage d'entraînement à la salle Mribih"
+if ($oldMourbihAlbum) {
+  Invoke-RestMethod -Method Put -Uri "$base/api/memories/$($oldMourbihAlbum.id)" -Headers $headers -ContentType "application/json" -Body (@{ title = "Stage d'entraînement à la salle Mourbih"; location = "Salle Mourbih" } | ConvertTo-Json) -TimeoutSec 30 | Out-Null
+  $oldMourbihAlbum.title = "Stage d'entraînement à la salle Mourbih"
+}
+
 foreach ($id in @("evt_trip", "evt_tournament", "evt_ramadan", "evt_kids")) {
   if ($current.events.id -contains $id) {
     Invoke-RestMethod -Method Delete -Uri "$base/api/events/$id" -Headers $headers -TimeoutSec 30 | Out-Null
@@ -24,7 +36,7 @@ $events = @(
   @{ title = "Ascension du Toubkal 2026"; category = "Randonnée"; description = "Une aventure collective au sommet fondée sur l'entraide et le dépassement de soi."; startsAt = "2026-01-01T09:00:00Z"; location = "Toubkal"; coverImageUrl = "/assets/activities/toubkal-2026/01.jpg" },
   @{ title = "Marche sportive de 12 km"; category = "Marche"; description = "Une marche sportive organisée par le club dans une ambiance conviviale."; startsAt = "2023-01-01T09:00:00Z"; location = "Taroudant"; coverImageUrl = "/assets/activities/marche-12km-2023/01.jpg" },
   @{ title = "Randonnée dans la région de Taskint"; category = "Randonnée"; description = "Découverte de la région montagneuse de Taskint avec les membres du club."; startsAt = "2026-01-01T09:00:00Z"; location = "Taskint"; coverImageUrl = "/assets/activities/sortie-taskint/01.jpg" },
-  @{ title = "Stage d'entraînement à la salle Mribih"; category = "Entraînement"; description = "Une rencontre sportive intense animée par les coachs du club."; startsAt = "2026-01-01T09:00:00Z"; location = "Salle Mribih"; coverImageUrl = "/assets/activities/entrainement-mrbih/12.jpg" },
+  @{ title = "Stage d'entraînement à la salle Mourbih"; category = "Entraînement"; description = "Une rencontre sportive intense animée par les coachs du club."; startsAt = "2026-01-01T09:00:00Z"; location = "Salle Mourbih"; coverImageUrl = "/assets/activities/entrainement-mrbih/12.jpg" },
   @{ title = "Entraînement des élèves de l'école Moulay Zidane"; category = "Jeunes"; description = "Initiation sportive et partage avec les jeunes élèves."; startsAt = "2026-01-01T09:00:00Z"; location = "École Moulay Zidane"; coverImageUrl = "/assets/activities/ecole-moulay-zidane/01.jpg" },
   @{ title = "Petit-déjeuner à la piscine Maher"; category = "Communauté"; description = "Un moment de détente et de convivialité partagé après l'effort."; startsAt = "2026-01-01T09:00:00Z"; location = "Piscine Maher"; coverImageUrl = "/assets/activities/petit-dejeuner-piscine-maher/01.jpg" },
   @{ title = "Rencontre avec le Dr Belghiti"; category = "Santé"; description = "Échange autour de la santé, de la prévention et de la pratique sportive responsable."; startsAt = "2026-01-01T09:00:00Z"; location = "Taroudant"; coverImageUrl = "/assets/activities/rencontre-dr-belghiti/01.jpg" },
@@ -41,7 +53,7 @@ foreach ($event in $events) {
 
 $albums = @(
   @{ slug = "entrainement-2022"; title = "Entraînement du club 2022"; year = 2022; category = "Entraînement"; location = "Taroudant"; story = "Une séance collective qui rassemble les adhérents autour de l'effort, de la discipline et de l'esprit d'équipe."; count = 11; cover = 1; start = 1 },
-  @{ slug = "entrainement-mrbih"; title = "Stage d'entraînement à la salle Mribih"; year = 2026; category = "Entraînement"; location = "Salle Mribih"; story = "Une rencontre sportive intense animée par les coachs du club."; count = 20; cover = 12; start = 1 },
+  @{ slug = "entrainement-mrbih"; title = "Stage d'entraînement à la salle Mourbih"; year = 2026; category = "Entraînement"; location = "Salle Mourbih"; story = "Une rencontre sportive intense animée par les coachs du club."; count = 20; cover = 12; start = 1 },
   @{ slug = "ecole-moulay-zidane"; title = "Entraînement des élèves de l'école Moulay Zidane"; year = 2026; category = "Jeunes"; location = "École Moulay Zidane"; story = "Initiation sportive, énergie et partage avec les jeunes élèves."; count = 6; cover = 1; start = 1 },
   @{ slug = "marche-12km-2023"; title = "Marche sportive de 12 km"; year = 2023; category = "Marche"; location = "Taroudant"; story = "Douze kilomètres parcourus ensemble dans une ambiance sportive et conviviale."; count = 10; cover = 1; start = 1 },
   @{ slug = "toubkal-2026"; title = "Ascension du Toubkal 2026"; year = 2026; category = "Randonnée"; location = "Toubkal"; story = "Une aventure collective au sommet, symbole de dépassement de soi et de solidarité."; count = 16; cover = 1; start = 1 },

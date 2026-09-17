@@ -295,6 +295,45 @@ button {
   background: #000;
 }
 
+[data-lightbox-src] { cursor: zoom-in; }
+body.lightbox-open { overflow: hidden; }
+
+.lightbox {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: grid;
+  place-items: center;
+  padding: 4rem 5rem;
+  background: rgba(3, 4, 7, 0.95);
+  backdrop-filter: blur(12px);
+}
+
+.lightbox figure {
+  display: grid;
+  place-items: center;
+  gap: 0.8rem;
+  max-width: 100%;
+  max-height: 100%;
+  margin: 0;
+}
+
+.lightbox figure img {
+  max-width: min(92vw, 1400px);
+  max-height: 82vh;
+  border-radius: 0.8rem;
+  object-fit: contain;
+  box-shadow: 0 1.5rem 5rem rgba(0, 0, 0, 0.55);
+}
+
+.lightbox figcaption { color: #fff; text-align: center; }
+.lightbox button { position: fixed; z-index: 2; border: 0; color: #fff; background: rgba(255,255,255,.12); cursor: pointer; }
+.lightbox-close { top: 1rem; inset-inline-end: 1rem; width: 3rem; height: 3rem; border-radius: 50%; font-size: 2rem; }
+.lightbox-nav { top: 50%; width: 3.5rem; height: 4.5rem; border-radius: 0.8rem; font-size: 3rem; transform: translateY(-50%); }
+.lightbox-prev { inset-inline-start: 1rem; }
+.lightbox-next { inset-inline-end: 1rem; }
+.lightbox-count { position: fixed; bottom: 1rem; color: #fff; font-weight: 800; }
+
 .memory-gallery {
   margin-top: 0.85rem;
 }
@@ -1178,6 +1217,9 @@ button {
 
   .history-card,
   .history-card img { min-height: 18rem; }
+
+  .lightbox { padding: 4rem 0.75rem; }
+  .lightbox-nav { width: 2.8rem; height: 3.8rem; font-size: 2.2rem; }
 
   .photo-grid {
     grid-auto-rows: 18rem;
