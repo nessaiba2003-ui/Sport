@@ -1666,9 +1666,17 @@ async function main() {
     if (!configuredAdmin) throw new Error("Production admin account is missing");
     const emailConflict = persisted.users.some((item) => item.id !== configuredAdmin.id && item.email.toLowerCase() === configuredEmail);
     if (emailConflict) throw new Error("DEMO_ADMIN_EMAIL already belongs to another account");
+    let adminChanged = false;
     if (configuredAdmin.email.toLowerCase() !== configuredEmail || !configuredAdmin.emailVerified) {
       configuredAdmin.email = configuredEmail;
       configuredAdmin.emailVerified = true;
+      adminChanged = true;
+    }
+    if (!verifyPassword(process.env.DEMO_ADMIN_PASSWORD, configuredAdmin.passwordHash)) {
+      configuredAdmin.passwordHash = hashPassword(process.env.DEMO_ADMIN_PASSWORD);
+      adminChanged = true;
+    }
+    if (adminChanged) {
       await saveDb(persisted);
     }
   }
