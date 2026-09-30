@@ -1,0 +1,15 @@
+.git/
+.github/
+.agents/
+.idea/
+.railway/
+.tmp/
+.tools/
+node_modules/
+data/
+docs/
+public/uploads/
+*.iml
+.env
+.env.*
+!.env.example
