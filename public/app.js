@@ -484,7 +484,7 @@ function renderPortalSection(section) {
   if (section === "schedule") return scheduleGrid(state.data.classes, true);
   if (section === "bookings") return cardsOrEmpty(p.bookings.filter((b) => b.status === "BOOKED"), (b) => `<article class="card span-6"><h3>${b.class.name}</h3><p>${b.class.dayName} ${b.class.startsAt}-${b.class.endsAt}</p><button class="btn danger" data-cancel-booking="${b.id}">Cancel</button></article>`, "You haven't booked a session yet.");
   if (section === "attendance") return `<div class="grid"><article class="card span-4"><div class="stat">${p.attendance.length}</div><p>Total visits</p></article><article class="card span-4"><div class="stat">6</div><p>Current streak</p></article><article class="card span-4"><div class="stat">12</div><p>This month</p></article></div>${table(p.attendance, ["Date", "Source"], (a) => [date(a.checkedAt), a.source])}`;
-  if (section === "payments") return table(p.payments || [], ["Date", "Montant", "Méthode", "Statut"], (payment) => [date(payment.paidAt || payment.createdAt), `${payment.amountMad} MAD`, payment.method, payment.status]);
+  if (section === "payments") return clientPaymentsView(p, membership, plan);
   if (section === "progress" || section === "workouts") return `<div class="grid"><article class="card span-4"><div class="stat">${p.workouts.length}</div><p>Workouts completed</p></article><article class="card span-4"><div class="stat">38h</div><p>Hours trained</p></article><article class="card span-4"><div class="stat">5</div><p>Achievements</p></article><article class="card span-12"><h3>Strength progression</h3>${chart([30, 35, 40, 45, 48, 52, 56])}</article></div>${workoutForm()}`;
   if (section === "achievements") return cardsOrEmpty(p.achievements, (a) => `<article class="card span-4"><span class="pill ok">+${a.achievement.xp} XP</span><h3>${a.achievement.name}</h3><p class="muted">${a.achievement.description}</p></article>`, "No achievements yet.");
   if (section === "challenges") return `<div class="grid">${p.challengeProgress.map((c) => `<article class="card span-6"><h3>${c.challenge.title}</h3><p>${c.challenge.goal}</p><div class="progress"><span style="width:${Math.min(100, c.progress / c.challenge.target * 100)}%"></span></div><p>${c.progress} / ${c.challenge.target} completed</p></article>`).join("")}</div>`;
@@ -508,12 +508,18 @@ function profileForm(profile) {
   return `<form class="card span-12 form" data-profile><div class="grid"><div class="field span-6"><label>First name</label><input name="firstName" value="${profile.firstName || ""}"></div><div class="field span-6"><label>Last name</label><input name="lastName" value="${profile.lastName || ""}"></div><div class="field span-6"><label>Phone</label><input name="phone" value="${profile.phone || ""}"></div><div class="field span-6"><label>Emergency contact</label><input name="emergencyContact" value="${profile.emergencyContact || ""}"></div></div><button class="btn">Save profile</button></form>`;
 }
 
+function clientPaymentsView(portal, membership, plan) {
+  const requests = portal.paymentRequests || [];
+  return `<div class="grid"><form class="card span-12 form" data-payment-request><h3>Déclarer un paiement</h3><p class="muted">Votre déclaration sera visible immédiatement par l’administrateur. Elle sera ajoutée à votre historique après validation.</p><div class="grid"><div class="field span-3"><label>Abonnement</label><input value="${safe(plan?.name || "Abonnement actuel")}" disabled></div><div class="field span-2"><label>Montant (DH)</label><input name="amountMad" type="number" min="0" step="0.01" value="${Number(plan?.priceMad || 0)}" required></div><div class="field span-3"><label>Mode</label><select name="method"><option value="BANK_TRANSFER">Virement bancaire</option><option value="CASH">Cash remis au club</option></select></div><div class="field span-4"><label>Référence du virement</label><input name="reference" placeholder="Ex. TRX-2026-001"></div><div class="field span-6"><label>Justificatif (image ou PDF, 5 Mo max.)</label><input name="proofFile" type="file" accept="image/jpeg,image/png,image/webp,application/pdf"></div><div class="field span-6"><label>Note</label><input name="note" placeholder="Information facultative"></div></div><button class="btn" ${!membership || requests.some((item) => item.status === "PENDING") ? "disabled" : ""}>Envoyer à l’administrateur</button></form><article class="card span-12"><h3>Déclarations envoyées</h3>${table(requests, ["Date", "Montant", "Mode", "Statut", "Référence", "Justificatif"], (item) => [date(item.createdAt), money(item.amountMad), item.method === "CASH" ? "Cash" : "Virement", item.status === "PENDING" ? "En attente" : item.status === "APPROVED" ? "Validé" : "Refusé", item.reference || "—", item.proofUrl ? `<a href="${safe(item.proofUrl)}" target="_blank" rel="noopener">Voir</a>` : "—"])}</article><article class="card span-12"><h3>Historique des paiements validés</h3>${table(portal.payments || [], ["Date", "Montant", "Méthode", "Statut"], (payment) => [date(payment.paidAt || payment.createdAt), money(payment.amountMad), payment.method === "CASH" ? "Cash" : "Virement", payment.status])}</article></div>`;
+}
+
 async function adminPage(section = "overview") {
   if (!isAdmin()) return loginPage();
-  const [analytics, clients, payments, finance] = await Promise.all([api("/api/admin/analytics"), api("/api/admin/clients"), api("/api/admin/payments"), api(`/api/admin/finance?year=${new Date().getFullYear()}`)]);
+  const [analytics, clients, payments, paymentRequests, finance] = await Promise.all([api("/api/admin/analytics"), api("/api/admin/clients"), api("/api/admin/payments"), api("/api/admin/payment-requests"), api(`/api/admin/finance?year=${new Date().getFullYear()}`)]);
   state.admin = analytics;
   state.adminClients = clients;
   state.adminPayments = payments;
+  state.paymentRequests = paymentRequests;
   state.finance = finance;
   const nav = [["overview", "Dashboard"], ["members", "Members"], ["memberships", "Memberships"], ["payments", "Payments"], ["bookings", "Bookings"], ["attendance", "Présences"], ["schedule", "Groupes & planning"], ["events", "Events"], ["memories", "Memories"], ["gym", "Gym"], ["analytics", "Analytics & finances"], ["settings", "Settings"]];
   return dashboardLayout(nav, section, "Admin Dashboard", renderAdminSection(section, analytics, clients, payments));
@@ -521,7 +527,7 @@ async function adminPage(section = "overview") {
 
 function renderAdminSection(section, analytics, clients, payments) {
   if (section === "members") return membersManager(clients);
-  if (section === "payments") return paymentsManager(clients, payments);
+  if (section === "payments") return paymentsManager(clients, payments, state.paymentRequests || []);
   if (section === "schedule") return `${adminClassForm(editing("class", state.data.classes))}${adminItems("Séances existantes", "class", state.data.classes, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.dayName)} · ${safe(item.startsAt)}–${safe(item.endsAt)}</span>`)}`;
   if (section === "memberships") return `${planForm(editing("plan", state.data.membershipPlans))}${adminItems("Formules existantes", "plan", state.data.membershipPlans, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.audience)} · ${money(item.priceMad)}</span>`)}`;
   if (section === "bookings") return adminBookings();
@@ -590,9 +596,9 @@ function attendanceSheet(data) {
   return `<form class="card form" data-attendance-session data-class-id="${data.class.id}" data-session-date="${data.sessionDate}"><h3>${safe(data.class.groupName || data.class.name)}</h3><p>${date(data.sessionDate)} · ${safe(data.class.dayName)} · ${safe(data.class.startsAt)}–${safe(data.class.endsAt)} · ${safe(data.class.coachName || "Coach à définir")}</p>${data.members.length ? `<table class="table"><thead><tr><th>Client</th><th>Présence</th></tr></thead><tbody>${rows}</tbody></table><button class="btn">Enregistrer la feuille</button>` : `<div class="empty">Aucun client affecté à ce groupe.</div>`}</form>`;
 }
 
-function paymentsManager(clients, payments) {
+function paymentsManager(clients, payments, requests = []) {
   const options = clients.filter((c) => c.membership).map((c) => `<option value="${c.membership.id}">${safe(`${c.profile.firstName} ${c.profile.lastName}`)} · ${safe(c.plan?.name || "Abonnement")}</option>`).join("");
-  return `<div class="grid"><form class="card span-12 form" data-payment><h3>Enregistrer un paiement</h3><div class="grid"><div class="field span-4"><label>Client / abonnement</label><select name="membershipId" required>${options}</select></div><div class="field span-2"><label>Montant (DH)</label><input type="number" min="0" step="0.01" name="amountMad" required></div><div class="field span-3"><label>Mode</label><select name="method"><option value="CASH">Cash</option><option value="BANK_TRANSFER">Virement bancaire</option></select></div><div class="field span-3"><label>Date</label><input type="datetime-local" name="paidAt" value="${new Date().toISOString().slice(0, 16)}"></div><div class="field span-4"><label>Référence du virement (optionnelle)</label><input name="reference"></div></div><button class="btn">Enregistrer</button></form><article class="card span-12"><h3>Historique / preuves de paiement</h3>${table(payments, ["ID", "Client", "Abonnement", "Montant", "Mode", "Date", "Statut", "Référence", "Actions"], (p) => [p.id, `${p.client?.firstName || ""} ${p.client?.lastName || ""}`, p.plan?.name, money(p.amountMad), p.method === "CASH" ? "Cash" : "Virement", date(p.paidAt || p.createdAt), p.status, p.reference || "—", `<div class="actions"><button class="btn secondary" type="button" data-payment-edit="${p.id}">Modifier</button><button class="btn danger" type="button" data-payment-cancel="${p.id}" ${p.status === "CANCELLED" ? "disabled" : ""}>Annuler</button></div>`])}</article></div>`;
+  return `<div class="grid"><article class="card span-12"><h3>Déclarations reçues des clients</h3>${table(requests, ["Date", "Client", "Abonnement", "Montant", "Mode", "Référence", "Justificatif", "Statut", "Actions"], (r) => [date(r.createdAt), `${r.client?.firstName || ""} ${r.client?.lastName || ""}`, r.plan?.name, money(r.amountMad), r.method === "CASH" ? "Cash" : "Virement", r.reference || "—", r.proofUrl ? `<a href="${safe(r.proofUrl)}" target="_blank" rel="noopener">Voir</a>` : "—", r.status === "PENDING" ? "En attente" : r.status === "APPROVED" ? "Validé" : "Refusé", r.status === "PENDING" ? `<div class="actions"><button class="btn" type="button" data-request-review="${r.id}" data-status="APPROVED">Valider</button><button class="btn danger" type="button" data-request-review="${r.id}" data-status="REJECTED">Refuser</button></div>` : "—"])}</article><form class="card span-12 form" data-payment><h3>Enregistrer un paiement directement</h3><div class="grid"><div class="field span-4"><label>Client / abonnement</label><select name="membershipId" required>${options}</select></div><div class="field span-2"><label>Montant (DH)</label><input type="number" min="0" step="0.01" name="amountMad" required></div><div class="field span-3"><label>Mode</label><select name="method"><option value="CASH">Cash</option><option value="BANK_TRANSFER">Virement bancaire</option></select></div><div class="field span-3"><label>Date</label><input type="datetime-local" name="paidAt" value="${new Date().toISOString().slice(0, 16)}"></div><div class="field span-4"><label>Référence du virement (optionnelle)</label><input name="reference"></div></div><button class="btn">Enregistrer</button></form><article class="card span-12"><h3>Historique / preuves de paiement</h3>${table(payments, ["ID", "Client", "Abonnement", "Montant", "Mode", "Date", "Statut", "Référence", "Actions"], (p) => [p.id, `${p.client?.firstName || ""} ${p.client?.lastName || ""}`, p.plan?.name, money(p.amountMad), p.method === "CASH" ? "Cash" : "Virement", date(p.paidAt || p.createdAt), p.status, p.reference || "—", `<div class="actions"><button class="btn secondary" type="button" data-payment-edit="${p.id}">Modifier</button><button class="btn danger" type="button" data-payment-cancel="${p.id}" ${p.status === "CANCELLED" ? "disabled" : ""}>Annuler</button></div>`])}</article></div>`;
 }
 
 function financeManager() {
@@ -797,6 +803,12 @@ document.addEventListener("click", async (event) => {
     const reference = method === "BANK_TRANSFER" ? prompt("Référence du virement", payment.reference || "") : "";
     try { await api(`/api/payments/${payment.id}`, { method: "PUT", body: JSON.stringify({ amountMad: Number(amountMad), method, status: payment.status === "CANCELLED" ? "PAID" : payment.status, reference }) }); state.data = null; state.portal = null; await refresh(); await render(); toast("Paiement modifié et synchronisé."); } catch (err) { toast(err.message); }
   }
+  if (target.dataset.requestReview) {
+    const approved = target.dataset.status === "APPROVED";
+    const adminNote = approved ? "" : (prompt("Motif du refus (visible par le client)", "Justificatif ou informations insuffisants") ?? "");
+    if (!approved && adminNote === "") return;
+    try { await api(`/api/admin/payment-requests/${target.dataset.requestReview}`, { method: "PUT", body: JSON.stringify({ status: target.dataset.status, adminNote }) }); state.data = null; state.portal = null; await refresh(); await render(); toast(approved ? "Paiement validé et synchronisé." : "Déclaration refusée."); } catch (err) { toast(err.message); }
+  }
 });
 
 document.addEventListener("keydown", (event) => {
@@ -822,11 +834,22 @@ async function uploadMedia(file) {
   return api("/api/admin/media", { method: "POST", body: JSON.stringify({ fileName: file.name, mimeType: file.type, dataBase64: await fileAsDataUrl(file) }) });
 }
 
+async function uploadPaymentProof(file) {
+  if (!file) return null;
+  if (file.size > 5 * 1024 * 1024) throw new Error("Le justificatif dépasse 5 Mo.");
+  return api("/api/payment-proofs", { method: "POST", body: JSON.stringify({ fileName: file.name, mimeType: file.type, dataBase64: await fileAsDataUrl(file) }) });
+}
+
 document.addEventListener("submit", async (event) => {
   event.preventDefault();
   const form = event.target;
   const values = Object.fromEntries(new FormData(form).entries());
   try {
+    if (form.dataset.paymentRequest !== undefined) {
+      const proof = await uploadPaymentProof(form.elements.proofFile.files[0]);
+      await api("/api/payment-requests", { method: "POST", body: JSON.stringify({ amountMad: Number(values.amountMad), method: values.method, reference: values.reference, note: values.note, proofUrl: proof?.url || null }) });
+      state.portal = null; state.data = null; await refresh(); await render(); toast("Déclaration envoyée à l’administrateur."); return;
+    }
     if (form.dataset.sessionLoad !== undefined) {
       const sheet = await api(`/api/admin/attendance-session?classId=${encodeURIComponent(values.classId)}&date=${encodeURIComponent(values.sessionDate)}`);
       const mount = document.querySelector("#attendanceSheet");

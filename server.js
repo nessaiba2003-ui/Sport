@@ -136,7 +136,7 @@ function membershipStatus(membership, now = new Date()) {
 }
 
 function normalizeDb(db) {
-  const arrays = ["coaches", "financialEntries", "auditLogs", "emailTokens", "passwordResetTokens", "documents", "supportRequests"];
+  const arrays = ["coaches", "financialEntries", "paymentRequests", "auditLogs", "emailTokens", "passwordResetTokens", "documents", "supportRequests"];
   arrays.forEach((key) => { if (!Array.isArray(db[key])) db[key] = []; });
   if (!db.coaches.length) {
     ["Elhabib", "Abderrahmane", "Youssef", "Rachid", "Brahim", "Hicham", "Abdelmajid"].forEach((firstName, index) => db.coaches.push({ id: `coach_${firstName.toLowerCase()}`, firstName, lastName: "", photoUrl: null, specialty: "", groups: [], userId: index === 0 ? "usr_admin" : null, active: true, archivedAt: null, createdAt: todayIso() }));
@@ -1039,6 +1039,7 @@ async function handleApi(req, res, pathname) {
     const workouts = db.workouts.filter((w) => w.userId === current.id);
     const notifications = db.notifications.filter((n) => !n.userId || n.userId === current.id);
     const payments = db.payments.filter((item) => item.userId === current.id && !item.archivedAt);
+    const paymentRequests = db.paymentRequests.filter((item) => item.userId === current.id && !item.archivedAt);
     const eventRegistrations = db.eventRegistrations.filter((item) => item.userId === current.id).map((item) => ({ ...item, event: db.events.find((event) => event.id === item.eventId) }));
     const achievements = db.userAchievements
       .filter((a) => a.userId === current.id)
@@ -1046,8 +1047,39 @@ async function handleApi(req, res, pathname) {
     const challengeProgress = db.challengeProgress
       .filter((c) => c.userId === current.id)
       .map((p) => ({ ...p, challenge: db.challenges.find((c) => c.id === p.challengeId) }));
-    send(200, { profile: withProfile(db, current), bookings, attendance, workouts, payments, eventRegistrations, notifications, achievements, challengeProgress });
+    send(200, { profile: withProfile(db, current), bookings, attendance, workouts, payments, paymentRequests, eventRegistrations, notifications, achievements, challengeProgress });
     return;
+  }
+
+  if (method === "POST" && pathname === "/api/payment-proofs") {
+    const current = requireAuth();
+    const body = await readBody(req, 8 * 1024 * 1024);
+    const allowed = { "image/jpeg": ".jpg", "image/png": ".png", "image/webp": ".webp", "application/pdf": ".pdf" };
+    const extension = allowed[body.mimeType];
+    if (!extension || !body.dataBase64) throw httpError(422, "Justificatif accepté : JPG, PNG, WEBP ou PDF");
+    const data = Buffer.from(String(body.dataBase64).replace(/^data:[^;]+;base64,/, ""), "base64");
+    if (!data.length || data.length > 5 * 1024 * 1024) throw httpError(413, "Le justificatif ne doit pas dépasser 5 Mo");
+    const fileName = `${crypto.randomUUID()}${extension}`;
+    await mkdir(UPLOAD_DIR, { recursive: true });
+    await writeFile(path.join(UPLOAD_DIR, fileName), data);
+    const media = { id: id("proof"), type: body.mimeType, url: `/uploads/${fileName}`, originalName: String(body.fileName || "justificatif"), uploadedBy: current.id, createdAt: todayIso(), archivedAt: null };
+    db.documents.push(media);
+    await saveDb(db);
+    return send(201, media);
+  }
+
+  if (method === "POST" && pathname === "/api/payment-requests") {
+    const current = requireRole([roles.CLIENT]);
+    const body = await readBody(req);
+    const membership = currentMembership(db, current.id);
+    if (!membership) throw httpError(422, "Aucun abonnement associé à ce compte");
+    const methodValue = ["CASH", "BANK_TRANSFER"].includes(body.method) ? body.method : "BANK_TRANSFER";
+    if (db.paymentRequests.some((item) => item.userId === current.id && item.membershipId === membership.id && item.status === "PENDING")) throw httpError(409, "Une déclaration de paiement est déjà en attente");
+    const request = { id: id("preq"), userId: current.id, membershipId: membership.id, planId: membership.planId, amountMad: requireMoney(body.amountMad), method: methodValue, reference: methodValue === "BANK_TRANSFER" ? String(body.reference || "") : null, proofUrl: body.proofUrl || null, note: String(body.note || ""), status: "PENDING", createdAt: todayIso(), reviewedAt: null, reviewedBy: null, archivedAt: null };
+    db.paymentRequests.push(request);
+    db.notifications.push({ id: id("not"), userId: current.id, type: "PAYMENT_DECLARED", title: "Paiement déclaré", body: "Votre déclaration a été transmise à l’administrateur pour validation.", readAt: null, createdAt: todayIso() });
+    await saveDb(db);
+    return send(201, request);
   }
 
   if (method === "GET" && pathname === "/api/membership-plans") {
@@ -1399,6 +1431,35 @@ async function handleApi(req, res, pathname) {
     requireRole(adminRoles);
     send(200, db.payments.filter((p) => !p.archivedAt).map((p) => ({ ...p, client: db.profiles.find((profile) => profile.userId === p.userId), plan: db.membershipPlans.find((plan) => plan.id === p.planId), membership: db.memberships.find((membership) => membership.id === p.membershipId) })));
     return;
+  }
+  if (method === "GET" && pathname === "/api/admin/payment-requests") {
+    requireRole(adminRoles);
+    return send(200, db.paymentRequests.filter((item) => !item.archivedAt).map((item) => ({ ...item, client: db.profiles.find((profile) => profile.userId === item.userId), plan: db.membershipPlans.find((plan) => plan.id === item.planId) })).sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt)));
+  }
+  if (method === "PUT" && pathname.match(/^\/api\/admin\/payment-requests\/[^/]+$/)) {
+    const actor = requireRole(adminRoles);
+    const request = db.paymentRequests.find((item) => item.id === pathname.split("/").pop() && !item.archivedAt);
+    if (!request) throw httpError(404, "Payment request not found");
+    if (request.status !== "PENDING") throw httpError(409, "Payment request already reviewed");
+    const body = await readBody(req);
+    if (!["APPROVED", "REJECTED"].includes(body.status)) throw httpError(422, "Status must be APPROVED or REJECTED");
+    request.status = body.status;
+    request.reviewedAt = todayIso();
+    request.reviewedBy = actor.id;
+    request.adminNote = String(body.adminNote || "");
+    if (body.status === "APPROVED") {
+      const membership = db.memberships.find((item) => item.id === request.membershipId && !item.archivedAt);
+      if (!membership) throw httpError(404, "Membership not found");
+      const payment = { id: id("pay"), userId: request.userId, membershipId: membership.id, planId: membership.planId, amountMad: request.amountMad, currency: "MAD", method: request.method, status: "PAID", reference: request.reference, proofUrl: request.proofUrl, paidAt: request.createdAt, createdAt: todayIso(), sourceRequestId: request.id, archivedAt: null };
+      db.payments.push(payment);
+      request.paymentId = payment.id;
+      membership.paymentStatus = "PAID";
+      membership.status = membershipStatus(membership);
+    }
+    db.notifications.push({ id: id("not"), userId: request.userId, type: "PAYMENT_REVIEWED", title: body.status === "APPROVED" ? "Paiement validé" : "Paiement refusé", body: body.status === "APPROVED" ? "Votre paiement a été validé et ajouté à votre historique." : `Votre déclaration a été refusée.${request.adminNote ? ` ${request.adminNote}` : ""}`, readAt: null, createdAt: todayIso() });
+    audit(db, actor, body.status, "PaymentRequest", request.id);
+    await saveDb(db);
+    return send(200, request);
   }
   if (method === "GET" && pathname === "/api/admin/analytics") {
     requireRole(adminRoles);
