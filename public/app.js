@@ -23,7 +23,7 @@ const copy = {
     galleryTitle: "Découvrez le club", galleryLead: "Explorez l'accueil, le hammam beldi, la salle d'aérobic et l'espace cinéma, puis les machines, la boxe et le stretching au sous-sol.",
     eventsTitle: "Événements du club", participants: "participants", register: "S'inscrire", memoriesTitle: "Souvenirs Aljawarih", memoriesLead: "Nos sorties, tournois, activités pour enfants et moments partagés.", photos: "photos", videos: "vidéos",
     coachesTitle: "Vos coachs", coachesLead: "Une équipe proche, motivante et engagée dans votre progression.", historyTitle: "L'histoire du club", historyLead: "Des archives authentiques qui racontent la naissance et l'identité d'Aljawarih.", beginnings1997: "Les débuts en 1997", clubEmblem: "L'emblème du club", clubAnthem: "L'hymne du club", foundingMembers: "Les membres fondateurs", clubQuote: "Notre club, notre force.", quote: "Chaque séance est une nouvelle occasion de progresser ensemble.",
-    aboutTitle: "À propos d'Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT est un club sportif où les membres s'entraînent, progressent et représentent fièrement leur communauté.", membershipPageLead: "Choisissez la formule adaptée à votre objectif.", scheduleLead: "Consultez le planning et réservez votre séance.", exploreTitle: "Explorez Aljawarih Gym", exploreLead: "Découvrez en images tous les espaces du club, du rez-de-chaussée au sous-sol.", equipment: "Équipements", difficulty: "Niveau", targets: "Muscles ciblés", viewQr: "Voir la fiche",
+    aboutTitle: "À propos d'Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT est un club sportif où les membres s'entraînent, progressent et représentent fièrement leur communauté.", membershipPageLead: "Choisissez la formule adaptée à votre objectif.", scheduleLead: "Consultez le planning et réservez votre séance.", exploreTitle: "Explorez Aljawarih Gym", exploreLead: "Découvrez en images tous les espaces du club, du rez-de-chaussée au sous-sol.",
     contactTitle: "Contact", club: "Club", phone: "Téléphone", instagram: "Instagram", name: "Nom", message: "Message", send: "Envoyer", contactLead: "Une question ? Contactez-nous directement ou venez nous rencontrer à Taroudant.", light: "Mode clair", dark: "Mode sombre"
   },
   en: {
@@ -33,7 +33,7 @@ const copy = {
     galleryTitle: "Discover the club", galleryLead: "Explore reception, the traditional hammam, aerobics and cinema space, then machines, boxing and stretching downstairs.",
     eventsTitle: "Club events", participants: "participants", register: "Register", memoriesTitle: "Aljawarih memories", memoriesLead: "Our outings, tournaments, children's activities and shared moments.", photos: "photos", videos: "videos",
     coachesTitle: "Meet your coaches", coachesLead: "A supportive, motivating team committed to your progress.", historyTitle: "Club history", historyLead: "Authentic archives that tell the story of Aljawarih's beginnings and identity.", beginnings1997: "The beginnings in 1997", clubEmblem: "The club emblem", clubAnthem: "The club anthem", foundingMembers: "The founding members", clubQuote: "Our club, our strength.", quote: "Every session is a new opportunity to grow together.",
-    aboutTitle: "About Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT is a sports club where members train, improve and proudly represent their community.", membershipPageLead: "Choose the plan that fits your goal.", scheduleLead: "Check the timetable and reserve your session.", exploreTitle: "Explore Aljawarih Gym", exploreLead: "Discover every club space, from the ground floor to the basement.", equipment: "Equipment", difficulty: "Level", targets: "Target muscles", viewQr: "View details",
+    aboutTitle: "About Aljawarih", aboutText: "ALJAWARIH GYM TAROUDANT is a sports club where members train, improve and proudly represent their community.", membershipPageLead: "Choose the plan that fits your goal.", scheduleLead: "Check the timetable and reserve your session.", exploreTitle: "Explore Aljawarih Gym", exploreLead: "Discover every club space, from the ground floor to the basement.",
     contactTitle: "Contact", club: "Club", phone: "Phone", instagram: "Instagram", name: "Name", message: "Message", send: "Send", contactLead: "Have a question? Contact us directly or visit us in Taroudant.", light: "Light mode", dark: "Dark mode"
   },
   ar: {
@@ -43,7 +43,7 @@ const copy = {
     galleryTitle: "اكتشف النادي", galleryLead: "اكتشف الاستقبال والحمام البلدي وقاعة الأيروبيك وفضاء السينما، ثم الآلات والملاكمة والتمدد في الطابق السفلي.",
     eventsTitle: "أنشطة النادي", participants: "مشارك", register: "سجل", memoriesTitle: "ذكريات الجوارح", memoriesLead: "رحلاتنا وبطولاتنا وأنشطة الأطفال ولحظاتنا المشتركة.", photos: "صور", videos: "فيديوهات",
     coachesTitle: "مدربوكم", coachesLead: "فريق قريب ومحفز وملتزم بتطوركم.", historyTitle: "تاريخ النادي", historyLead: "صور ووثائق أصلية تحكي بداية نادي الجوارح وهويته.", beginnings1997: "بداية عام 1997", clubEmblem: "شعار النادي", clubAnthem: "نشيد النادي", foundingMembers: "الأعضاء المؤسسون للنادي", clubQuote: "نادينا، قوتنا.", quote: "كل حصة فرصة جديدة لنتطور معاً.",
-    aboutTitle: "عن نادي الجوارح", aboutText: "نادي الجوارح تارودانت فضاء رياضي يتدرب فيه الأعضاء ويتطورون ويمثلون مجتمعهم بفخر.", membershipPageLead: "اختر العرض المناسب لهدفك.", scheduleLead: "اطلع على البرنامج واحجز حصتك.", exploreTitle: "اكتشف نادي الجوارح", exploreLead: "شاهد جميع فضاءات النادي من الطابق الأرضي إلى الطابق السفلي.", equipment: "المعدات", difficulty: "المستوى", targets: "العضلات المستهدفة", viewQr: "عرض التفاصيل",
+    aboutTitle: "عن نادي الجوارح", aboutText: "نادي الجوارح تارودانت فضاء رياضي يتدرب فيه الأعضاء ويتطورون ويمثلون مجتمعهم بفخر.", membershipPageLead: "اختر العرض المناسب لهدفك.", scheduleLead: "اطلع على البرنامج واحجز حصتك.", exploreTitle: "اكتشف نادي الجوارح", exploreLead: "شاهد جميع فضاءات النادي من الطابق الأرضي إلى الطابق السفلي.",
     contactTitle: "اتصل بنا", club: "النادي", phone: "الهاتف", instagram: "إنستغرام", name: "الاسم", message: "الرسالة", send: "إرسال", contactLead: "لديك سؤال؟ تواصل معنا مباشرة أو زرنا في تارودانت.", light: "الوضع الفاتح", dark: "الوضع الداكن"
   }
 };
@@ -64,7 +64,7 @@ const arabicUi = {
   "Monday": "الاثنين", "Tuesday": "الثلاثاء", "Wednesday": "الأربعاء", "Thursday": "الخميس", "Friday": "الجمعة", "Saturday": "السبت", "Sunday": "الأحد",
   "Morning Training": "تدريب صباحي", "Evening Training": "تدريب مسائي", "Kids Training": "تدريب الأطفال", "Group Training": "تدريب جماعي", "Private Session": "حصة خاصة",
   "Adults": "الكبار", "Children": "الأطفال", "Private": "خاص", "Registration": "واجب التسجيل", "Monthly": "شهري", "4 Months": "4 أشهر", "11 Months": "11 شهراً", "Single Session": "حصة واحدة", "Individual Session": "حصة فردية", "Private coaching": "تدريب خاص", "View plans": "عرض الاشتراكات",
-  "Assigned sessions": "الحصص المسندة", "Coach tools": "أدوات المدرب", "Check-in": "تسجيل الحضور", "Sessions": "الحصص", "Participants": "المشاركون", "QR Check-in": "تسجيل الحضور بالرمز", "QR token or client id": "رمز QR أو رقم العضو", "Record attendance": "تسجيل الحضور",
+  "Assigned sessions": "الحصص المسندة", "Coach tools": "أدوات المدرب", "Check-in": "تسجيل الحضور", "Sessions": "الحصص", "Participants": "المشاركون", "Record attendance": "تسجيل الحضور",
   "Add membership plan": "إضافة اشتراك", "Audience": "الفئة", "Name": "الاسم", "Price DH": "السعر بالدرهم", "Duration days": "المدة بالأيام", "Create plan": "إنشاء الاشتراك", "Create class": "إنشاء حصة", "Day": "اليوم", "Starts": "البداية", "Ends": "النهاية", "Capacity": "السعة", "Create event": "إنشاء نشاط", "Title": "العنوان", "Category": "الفئة", "Description": "الوصف", "Create memory album": "إنشاء ألبوم ذكريات", "Year": "السنة", "Create album": "إنشاء الألبوم", "Add equipment": "إضافة معدات", "Difficulty": "المستوى", "Add equipment": "إضافة المعدات",
   "Club settings": "إعدادات النادي", "Search": "بحث", "Load bookings": "تحميل الحجوزات", "Create Account": "إنشاء حساب", "Créer un compte": "إنشاء حساب", "Connexion": "تسجيل الدخول", "Prénom": "الاسم الشخصي", "Nom": "الاسم العائلي", "Téléphone": "الهاتف", "CIN / Carte Nationale": "البطاقة الوطنية", "Date de naissance": "تاريخ الازدياد", "Sexe / catégorie": "الجنس / الفئة", "Homme": "رجل", "Femme": "امرأة", "Type d'abonnement": "نوع الاشتراك", "Mot de passe": "كلمة المرور", "Créer le compte": "إنشاء الحساب", "Se connecter": "تسجيل الدخول", "Accès sécurisé": "ولوج آمن", "Après l'inscription, un message de confirmation est envoyé à votre adresse e-mail.": "بعد التسجيل، ستصلك رسالة لتأكيد بريدك الإلكتروني.", "Les comptes de démonstration restent configurables par l'administrateur.": "يمكن للإدارة ضبط الحسابات التجريبية.",
   "Vous n'avez pas reçu le message ?": "لم تتوصل برسالة التأكيد؟", "Email du compte": "البريد الإلكتروني للحساب", "Renvoyer l'e-mail de confirmation": "إعادة إرسال رسالة التأكيد", "Un nouveau message de confirmation a été envoyé.": "تم إرسال رسالة تأكيد جديدة.", "Impossible d'envoyer le message. Vérifiez la configuration SMTP.": "تعذر إرسال الرسالة. يرجى التحقق من إعدادات البريد.",
@@ -75,7 +75,7 @@ const arabicUi = {
   "Premium Monthly": "اشتراك شهري مميز", "Workshop Nutrition": "ورشة التغذية", "Cable Machine": "آلة الكابلات", "Bench Press": "تمرين ضغط الصدر", "Session education et performance.": "حصة للتوعية وتحسين الأداء.", "Machine polyvalente pour exercices guides.": "آلة متعددة الاستعمالات للتمارين الموجّهة.",
   "Signed out": "تم تسجيل الخروج", "Reservation confirmed": "تم تأكيد الحجز", "Booking cancelled": "تم إلغاء الحجز", "Event registration saved": "تم التسجيل في النشاط", "Notification marked as read": "تم تحديد الإشعار كمقروء", "Profile updated": "تم تحديث الملف الشخصي", "Workout tracked": "تم تسجيل التمرين", "Plan created": "تم إنشاء الاشتراك", "Class created": "تم إنشاء الحصة", "Event created": "تم إنشاء النشاط", "Album created": "تم إنشاء الألبوم", "Equipment added": "تمت إضافة المعدات",
   "No data yet.": "لا توجد بيانات بعد.", "No scheduled session": "لا توجد حصة مبرمجة", "No notifications.": "لا توجد إشعارات.", "No achievements yet.": "لا توجد إنجازات بعد.", "Equipment not found.": "المعدة غير موجودة.", "Something needs attention": "حدث خطأ", "Authentication required": "يجب تسجيل الدخول", "Insufficient permissions": "ليست لديك الصلاحية", "Invalid email or password": "البريد الإلكتروني أو كلمة المرور غير صحيحة", "Email verification required": "يجب تأكيد البريد الإلكتروني",
-  "Settings API is prepared for production CMS expansion.": "إعدادات النظام جاهزة للإدارة والتطوير.", "Booking data is available through /api/bookings with staff scoping.": "بيانات الحجوزات متاحة حسب صلاحيات المستخدم.", "Mark attendance, view participants and add workout notes.": "سجّل الحضور واطلع على المشاركين وأضف ملاحظات التدريب.", "Use client QR token format: qr:usr_sara. Camera scanner can be connected to this endpoint.": "استخدم رمز العضو أو امسح رمز QR لتسجيل الحضور.",
+  "Settings API is prepared for production CMS expansion.": "إعدادات النظام جاهزة للإدارة والتطوير.", "Booking data is available through /api/bookings with staff scoping.": "بيانات الحجوزات متاحة حسب صلاحيات المستخدم.", "Mark attendance, view participants and add workout notes.": "سجّل الحضور واطلع على المشاركين وأضف ملاحظات التدريب.",
   "Entrée principale d'Aljawarih Gym": "المدخل الرئيسي لنادي الجوارح", "Tableau d'affichage et emploi du temps": "لوحة الإعلانات والبرنامج", "Vestiaires du hammam beldi": "غرف تبديل الملابس بالحمام البلدي", "Cabines du hammam beldi": "مرافق الحمام البلدي", "Espace de préparation du hammam beldi": "فضاء الاستعداد بالحمام البلدي", "Salle d'aérobic au rez-de-chaussée": "قاعة الأيروبيك بالطابق الأرضي", "Espace d'entraînement et matériel d'aérobic": "فضاء ومعدات الأيروبيك", "Espace cinéma avec écran et vidéoprojecteur": "فضاء السينما مع الشاشة وجهاز العرض", "Vue générale de la salle du rez-de-chaussée": "منظر عام لقاعة الطابق الأرضي", "Espace boxe au sous-sol": "فضاء الملاكمة بالطابق السفلي", "Sacs de frappe et zone d'entraînement": "أكياس الملاكمة ومنطقة التدريب", "Machines et zone de musculation": "الآلات ومنطقة كمال الأجسام", "Zone de stretching et renforcement": "منطقة التمدد والتقوية", "Équipements de musculation au sous-sol": "معدات كمال الأجسام بالطابق السفلي"
 };
 
@@ -452,11 +452,7 @@ function schedulePage() {
 }
 
 function virtualGymPage() {
-  return `<div class="page-title"><h1>${tx("exploreTitle")}</h1><p>${tx("exploreLead")}</p></div>${clubGallery()}<section class="section"><h2>${tx("equipment")}</h2><div class="grid">${state.data.equipment.map(equipmentCard).join("")}</div></section>`;
-}
-
-function equipmentCard(eq) {
-  return `<article class="card span-6"><span class="pill">${eq.category}</span><h3>${eq.name}</h3><p class="muted">${eq.description}</p><p><strong>${tx("difficulty")}:</strong> ${eq.difficulty}</p><p><strong>${tx("targets")}:</strong> ${eq.muscles.join(", ")}</p><div class="qr" title="${location.origin}${eq.qrPath}"></div><button class="btn secondary" data-nav="${eq.qrPath}">${tx("viewQr")}</button></article>`;
+  return `<div class="page-title"><h1>${tx("exploreTitle")}</h1><p>${tx("exploreLead")}</p></div>${clubGallery()}`;
 }
 
 function contactPage() {
@@ -514,30 +510,32 @@ function profileForm(profile) {
 
 async function adminPage(section = "overview") {
   if (!isAdmin()) return loginPage();
-  const [analytics, clients, payments] = await Promise.all([api("/api/admin/analytics"), api("/api/admin/clients"), api("/api/admin/payments")]);
+  const [analytics, clients, payments, finance] = await Promise.all([api("/api/admin/analytics"), api("/api/admin/clients"), api("/api/admin/payments"), api(`/api/admin/finance?year=${new Date().getFullYear()}`)]);
   state.admin = analytics;
-  const nav = [["overview", "Dashboard"], ["members", "Members"], ["memberships", "Memberships"], ["payments", "Payments"], ["bookings", "Bookings"], ["attendance", "Attendance"], ["schedule", "Schedule"], ["events", "Events"], ["memories", "Memories"], ["gym", "Gym"], ["equipment", "Equipment"], ["analytics", "Analytics"], ["settings", "Settings"]];
+  state.adminClients = clients;
+  state.adminPayments = payments;
+  state.finance = finance;
+  const nav = [["overview", "Dashboard"], ["members", "Members"], ["memberships", "Memberships"], ["payments", "Payments"], ["bookings", "Bookings"], ["attendance", "Présences"], ["schedule", "Groupes & planning"], ["events", "Events"], ["memories", "Memories"], ["gym", "Gym"], ["analytics", "Analytics & finances"], ["settings", "Settings"]];
   return dashboardLayout(nav, section, "Admin Dashboard", renderAdminSection(section, analytics, clients, payments));
 }
 
 function renderAdminSection(section, analytics, clients, payments) {
-  if (section === "members") return table(clients, ["Client", "Status", "Plan", "Visits"], (c) => [`${c.profile.firstName} ${c.profile.lastName}`, c.membership?.status, c.plan?.name, c.attendanceCount]);
-  if (section === "payments") return table(payments, ["Client", "Amount", "Method", "Status"], (p) => [`${p.client?.firstName} ${p.client?.lastName}`, money(p.amountMad), p.method, p.status]);
+  if (section === "members") return membersManager(clients);
+  if (section === "payments") return paymentsManager(clients, payments);
   if (section === "schedule") return `${adminClassForm(editing("class", state.data.classes))}${adminItems("Séances existantes", "class", state.data.classes, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.dayName)} · ${safe(item.startsAt)}–${safe(item.endsAt)}</span>`)}`;
   if (section === "memberships") return `${planForm(editing("plan", state.data.membershipPlans))}${adminItems("Formules existantes", "plan", state.data.membershipPlans, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.audience)} · ${money(item.priceMad)}</span>`)}`;
   if (section === "bookings") return adminBookings();
-  if (section === "attendance") return staffCheckin();
+  if (section === "attendance") return attendanceManager();
   if (section === "events") return `${eventForm(editing("event", state.data.events))}${adminItems("Activités existantes", "event", state.data.events, (item) => `<strong>${safe(item.title)}</strong><span>${safe(item.category)} · ${date(item.startsAt)}</span>`)}`;
   if (section === "memories") return `${memoryForm(editing("memory", state.data.memories))}${adminItems("Albums existants", "memory", state.data.memories, (item) => `<strong>${safe(item.title)}</strong><span>${Number(item.items || 0)} photos · ${Number(item.videos || 0)} vidéos</span>`)}`;
   if (section === "gym") return virtualGymPage();
-  if (section === "equipment") return `${equipmentForm(editing("equipment", state.data.equipment))}${adminItems("Équipements existants", "equipment", state.data.equipment, (item) => `<strong>${safe(item.name)}</strong><span>${safe(item.category)} · ${safe(item.difficulty)}</span>`)}`;
   if (section === "analytics") return analyticsView(analytics);
   if (section === "settings") return `<div class="grid"><article class="card span-6"><h3>Club settings</h3><p>${state.data.settings.clubName}</p><p>${state.data.settings.arabicName}</p><p class="muted">Settings API is prepared for production CMS expansion.</p></article><form class="card span-6 form" data-change-password><h3>Changer le mot de passe</h3><div class="field"><label>Mot de passe actuel</label><input name="currentPassword" type="password" autocomplete="current-password" required></div><div class="field"><label>Nouveau mot de passe</label><input name="newPassword" type="password" minlength="12" autocomplete="new-password" required></div><div class="field"><label>Confirmer le nouveau mot de passe</label><input name="confirmPassword" type="password" minlength="12" autocomplete="new-password" required></div><button class="btn">Enregistrer le nouveau mot de passe</button></form></div>`;
   return `${adminQuickActions()}${analyticsView(analytics)}`;
 }
 
 function adminQuickActions() {
-  return `<section class="card admin-quick"><div><span class="eyebrow">GESTION DU CONTENU</span><h2>Que voulez-vous gérer ?</h2></div><div class="admin-quick-grid"><button class="btn" data-nav="/admin/events">+ Activité</button><button class="btn" data-nav="/admin/memories">+ Photos / vidéos</button><button class="btn secondary" data-nav="/admin/schedule">Planning</button><button class="btn secondary" data-nav="/admin/memberships">Abonnements</button><button class="btn secondary" data-nav="/admin/equipment">Équipements</button></div></section>`;
+  return `<section class="card admin-quick"><div><span class="eyebrow">GESTION DU CLUB</span><h2>Que voulez-vous gérer ?</h2></div><div class="admin-quick-grid"><button class="btn" data-nav="/admin/attendance">Présences</button><button class="btn" data-nav="/admin/payments">+ Paiement</button><button class="btn secondary" data-nav="/admin/schedule">Groupes</button><button class="btn secondary" data-nav="/admin/analytics">Finances</button><button class="btn secondary" data-nav="/admin/events">Activités</button></div></section>`;
 }
 
 function safe(value = "") {
@@ -553,8 +551,14 @@ function adminItems(title, type, items, summary) {
 }
 
 function analyticsView(a) {
-  const stats = [["Total Members", a.totalMembers], ["Active Members", a.activeMembers], ["Expired", a.expiredMemberships], ["New Members", a.newMembers], ["Today Attendance", a.todayAttendance], ["Bookings", a.todayBookings], ["Monthly Revenue", money(a.monthlyRevenue)], ["Pending Payments", a.pendingPayments]];
-  return `<div class="grid">${stats.map(([label, value]) => `<article class="card span-3"><div class="stat">${value}</div><p>${label}</p></article>`).join("")}<article class="card span-6"><h3>Revenue growth</h3>${chart(a.revenueTrend)}</article><article class="card span-6"><h3>Attendance</h3>${chart(a.attendanceTrend)}</article></div>`;
+  const stats = [["Clients", a.totalMembers], ["Abonnements actifs", a.activeMembers], ["Expirés", a.expiredMemberships], ["Présences", a.totalPresent], ["Absences", a.totalAbsent], ["Taux de présence", `${a.attendanceRate}%`], ["Revenus", money(a.totalRevenue)], ["Cash", money(a.cashRevenue)], ["Virements", money(a.bankRevenue)], ["Dépenses", money(a.expensesMad)], ["Dons", money(a.donationsMad)], ["Solde", money(a.balanceMad)]];
+  const groupRows = a.groups || [];
+  const months = state.finance?.report?.months || [];
+  return `${reportExportButtons("Télécharger le rapport complet : présences, paiements, groupes, finances et analytics")}<div class="grid">${stats.map(([label, value]) => `<article class="card span-3"><div class="stat">${value}</div><p>${label}</p></article>`).join("")}<article class="card span-6"><h3>Revenus mensuels</h3>${chart(a.revenueTrend)}</article><article class="card span-6"><h3>Séances mensuelles</h3>${chart(a.attendanceTrend)}</article><article class="card span-12"><h3>Statistiques par groupe</h3>${table(groupRows, ["Groupe", "Membres", "Présents", "Absents", "Taux"], (g) => [g.name, g.members, g.present, g.absent, `${g.rate}%`])}</article><article class="card span-12"><h3>Suivi mensuel automatique</h3>${table(months, ["Mois", "Nouveaux clients", "Séances", "Recettes", "Dépenses", "Dons", "Résultat"], (m) => [m.month, m.members, m.sessions, money(m.revenueMad), money(m.expensesMad), money(m.donationsMad), money(m.revenueMad - m.expensesMad - m.donationsMad)])}</article>${financeManager()}</div>`;
+}
+
+function reportExportButtons(title) {
+  return `<section class="card export-center"><div><h3>${title}</h3><p class="muted">Le fichier contient les données réelles de l'année ${new Date().getFullYear()} avec les totaux calculés.</p></div><div class="actions"><button class="btn" type="button" data-report-format="pdf">PDF</button><button class="btn secondary" type="button" data-report-format="docx">Word</button><button class="btn secondary" type="button" data-report-format="xlsx">Excel</button></div></section>`;
 }
 
 function adminBookings() {
@@ -569,8 +573,31 @@ async function staffPage(section = "overview") {
 }
 
 function staffCheckin() {
-  const clients = state.adminClients || [];
-  return `<form class="card span-12 form" data-checkin><h3>QR Check-in</h3><p class="muted">Use client QR token format: qr:usr_sara. Camera scanner can be connected to this endpoint.</p><div class="field"><label>QR token or client id</label><input name="qrToken" value="qr:usr_sara"></div><button class="btn">Record attendance</button></form>`;
+  return attendanceManager();
+}
+
+function attendanceManager() {
+  const today = new Date().toISOString().slice(0, 10);
+  return `<section class="grid"><form class="card span-12 form" data-session-load><h3>Présence manuelle par groupe</h3><p class="muted">Choisissez une séance et une date. Chaque client affecté au groupe sera marqué présent ou absent.</p><div class="grid"><div class="field span-6"><label>Groupe / séance</label><select name="classId" required>${state.data.classes.map((c) => `<option value="${c.id}">${safe(c.groupName || c.name)} · ${safe(c.dayName)} ${safe(c.startsAt)}–${safe(c.endsAt)} · ${safe(c.coachName || "Coach à définir")}</option>`)}</select></div><div class="field span-4"><label>Date</label><input type="date" name="sessionDate" value="${today}" required></div></div><button class="btn">Ouvrir la feuille de présence</button></form><div class="span-12" id="attendanceSheet"></div></section>`;
+}
+
+function membersManager(clients) {
+  return `<section class="card"><h3>Clients et affectation aux groupes</h3>${table(clients, ["Client", "Statut", "Formule", "Groupe", "Présences"], (c) => [`${c.profile.firstName} ${c.profile.lastName}`, c.membership?.status, c.plan?.name, c.membership ? `<form class="inline-form" data-group-assign data-user-id="${c.user.id}"><select name="groupId"><option value="">Non affecté</option>${state.data.classes.map((x) => `<option value="${x.id}" ${x.id === c.membership.groupId ? "selected" : ""}>${safe(x.groupName || x.name)}</option>`)}</select><button class="btn secondary">Enregistrer</button></form>` : "Abonnement requis", c.attendanceCount])}</section>`;
+}
+
+function attendanceSheet(data) {
+  const rows = data.members.map((m) => `<tr><td>${safe(`${m.profile?.firstName || ""} ${m.profile?.lastName || ""}`)}</td><td><select name="status_${m.userId}"><option value="PRESENT" ${m.status === "PRESENT" ? "selected" : ""}>Présent</option><option value="ABSENT" ${m.status === "ABSENT" ? "selected" : ""}>Absent</option></select></td></tr>`).join("");
+  return `<form class="card form" data-attendance-session data-class-id="${data.class.id}" data-session-date="${data.sessionDate}"><h3>${safe(data.class.groupName || data.class.name)}</h3><p>${date(data.sessionDate)} · ${safe(data.class.dayName)} · ${safe(data.class.startsAt)}–${safe(data.class.endsAt)} · ${safe(data.class.coachName || "Coach à définir")}</p>${data.members.length ? `<table class="table"><thead><tr><th>Client</th><th>Présence</th></tr></thead><tbody>${rows}</tbody></table><button class="btn">Enregistrer la feuille</button>` : `<div class="empty">Aucun client affecté à ce groupe.</div>`}</form>`;
+}
+
+function paymentsManager(clients, payments) {
+  const options = clients.filter((c) => c.membership).map((c) => `<option value="${c.membership.id}">${safe(`${c.profile.firstName} ${c.profile.lastName}`)} · ${safe(c.plan?.name || "Abonnement")}</option>`).join("");
+  return `<div class="grid"><form class="card span-12 form" data-payment><h3>Enregistrer un paiement</h3><div class="grid"><div class="field span-4"><label>Client / abonnement</label><select name="membershipId" required>${options}</select></div><div class="field span-2"><label>Montant (DH)</label><input type="number" min="0" step="0.01" name="amountMad" required></div><div class="field span-3"><label>Mode</label><select name="method"><option value="CASH">Cash</option><option value="BANK_TRANSFER">Virement bancaire</option></select></div><div class="field span-3"><label>Date</label><input type="datetime-local" name="paidAt" value="${new Date().toISOString().slice(0, 16)}"></div><div class="field span-4"><label>Référence du virement (optionnelle)</label><input name="reference"></div></div><button class="btn">Enregistrer</button></form><article class="card span-12"><h3>Historique / preuves de paiement</h3>${table(payments, ["ID", "Client", "Abonnement", "Montant", "Mode", "Date", "Statut", "Référence", "Actions"], (p) => [p.id, `${p.client?.firstName || ""} ${p.client?.lastName || ""}`, p.plan?.name, money(p.amountMad), p.method === "CASH" ? "Cash" : "Virement", date(p.paidAt || p.createdAt), p.status, p.reference || "—", `<div class="actions"><button class="btn secondary" type="button" data-payment-edit="${p.id}">Modifier</button><button class="btn danger" type="button" data-payment-cancel="${p.id}" ${p.status === "CANCELLED" ? "disabled" : ""}>Annuler</button></div>`])}</article></div>`;
+}
+
+function financeManager() {
+  const entries = state.finance?.entries || [];
+  return `<form class="card span-12 form" data-finance><h3>Recettes, dépenses et dons</h3><div class="grid"><div class="field span-2"><label>Type</label><select name="type"><option value="INCOME">Recette</option><option value="EXPENSE">Dépense</option><option value="DONATION">Don</option></select></div><div class="field span-3"><label>Catégorie</label><input name="category" required placeholder="Électricité, téléphone, cotisation…"></div><div class="field span-2"><label>Montant DH</label><input type="number" min="0" step="0.01" name="amountMad" required></div><div class="field span-2"><label>Date</label><input type="date" name="date" value="${new Date().toISOString().slice(0, 10)}" required></div><div class="field span-3"><label>Description</label><input name="description"></div></div><button class="btn">Ajouter l'écriture</button><h3>Journal financier</h3>${table(entries, ["Date", "Type", "Catégorie", "Montant", "Description"], (e) => [date(e.date), e.type, e.category, money(e.amountMad), e.description])}</form>`;
 }
 
 function formActions(item, createLabel) {
@@ -592,10 +619,6 @@ function eventForm(item) {
 
 function memoryForm(item) {
   return `<form class="card span-12 form" data-memory data-id="${item?.id || ""}"><h3>${item ? "Modifier l'album" : "Créer un album souvenir"}</h3><div class="grid"><div class="field span-4"><label>Titre</label><input name="title" value="${safe(item?.title || "Nouvel album")}" required></div><div class="field span-2"><label>Année</label><input name="year" type="number" min="2000" value="${Number(item?.year || new Date().getFullYear())}" required></div><div class="field span-3"><label>Catégorie</label><input name="category" value="${safe(item?.category || "Club")}"></div></div><div class="field"><label>Histoire / description</label><textarea name="story">${safe(item?.story || "")}</textarea></div><div class="grid"><div class="field span-6"><label>Photo de couverture (5 Mo max.)</label><input name="coverFile" type="file" accept="image/jpeg,image/png,image/webp"></div><div class="field span-6"><label>Photos et vidéos (25 Mo max. par fichier)</label><input name="mediaFiles" type="file" accept="image/jpeg,image/png,image/webp,video/mp4,video/webm" multiple></div></div><p class="muted">Les fichiers sélectionnés seront envoyés et conservés dans l'espace de stockage du club.</p>${formActions(item, "Créer l'album")}</form>`;
-}
-
-function equipmentForm(item) {
-  return `<form class="card span-12 form" data-equipment data-id="${item?.id || ""}"><h3>${item ? "Modifier l'équipement" : "Ajouter un équipement"}</h3><div class="grid"><div class="field span-4"><label>Nom</label><input name="name" value="${safe(item?.name || "Nouvel équipement")}" required></div><div class="field span-3"><label>Catégorie</label><input name="category" value="${safe(item?.category || "Musculation")}" required></div><div class="field span-3"><label>Niveau</label><input name="difficulty" value="${safe(item?.difficulty || "Débutant")}"></div></div><div class="field"><label>Description</label><textarea name="description">${safe(item?.description || "")}</textarea></div>${formActions(item, "Ajouter l'équipement")}</form>`;
 }
 
 function chart(values) {
@@ -636,10 +659,6 @@ async function screen() {
   if (state.route.startsWith("/portal")) return portalPage(routeSection("/portal"));
   if (state.route.startsWith("/admin")) return adminPage(routeSection("/admin"));
   if (state.route.startsWith("/staff")) return staffPage(routeSection("/staff"));
-  if (state.route.startsWith("/equipment/")) {
-    const eq = state.data.equipment.find((item) => item.id === state.route.split("/").pop());
-    return eq ? `<div class="page-title"><h1>${eq.name}</h1><p>${eq.description}</p></div><div class="grid">${equipmentCard(eq)}<article class="card span-6"><h3>How to use</h3>${eq.instructions.map((x) => `<p>${x}</p>`).join("")}<h3>Safety</h3>${eq.safety.map((x) => `<p class="muted">${x}</p>`).join("")}</article></div>` : `<div class="empty">Equipment not found.</div>`;
-  }
   return publicHome();
 }
 
@@ -697,9 +716,9 @@ document.addEventListener("click", async (event) => {
     render();
   }
   if (target.dataset.adminDelete) {
-    const labels = { event: "cette activité", class: "cette séance", plan: "cette formule", memory: "cet album et ses références", equipment: "cet équipement" };
+    const labels = { event: "cette activité", class: "cette séance", plan: "cette formule", memory: "cet album et ses références" };
     if (!confirm(`Supprimer ${labels[target.dataset.adminDelete] || "cet élément"} ?`)) return;
-    const roots = { event: "events", class: "classes", plan: "membership-plans", memory: "memories", equipment: "equipment" };
+    const roots = { event: "events", class: "classes", plan: "membership-plans", memory: "memories" };
     try {
       await api(`/api/${roots[target.dataset.adminDelete]}/${target.dataset.id}`, { method: "DELETE" });
       state.adminEdit = null;
@@ -717,6 +736,19 @@ document.addEventListener("click", async (event) => {
     navigate("/");
   }
   if (target.dataset.toast) toast(target.dataset.toast);
+  if (target.dataset.reportFormat) {
+    const format = target.dataset.reportFormat;
+    try {
+      const response = await fetch(`/api/admin/report?year=${new Date().getFullYear()}&format=${format}`, { headers: { authorization: `Bearer ${state.token}` } });
+      if (!response.ok) throw new Error((await response.json().catch(() => ({}))).error || "Export impossible");
+      const blob = await response.blob();
+      const link = document.createElement("a");
+      link.href = URL.createObjectURL(blob);
+      link.download = `aljawarih-rapport-${new Date().getFullYear()}.${format}`;
+      document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(link.href);
+      toast(`Rapport ${format.toUpperCase()} téléchargé.`);
+    } catch (err) { toast(err.message); }
+  }
   if (target.dataset.book) {
     try {
       await api("/api/bookings", { method: "POST", body: JSON.stringify({ classId: target.dataset.book }) });
@@ -751,6 +783,20 @@ document.addEventListener("click", async (event) => {
       if (mount) mount.innerHTML = table(rows, ["Client", "Session", "Time", "Status"], (b) => [`${b.client?.firstName || ""} ${b.client?.lastName || ""}`, b.class?.name, `${b.class?.dayName} ${b.class?.startsAt}-${b.class?.endsAt}`, b.status]);
     } catch (err) { toast(err.message); }
   }
+  if (target.dataset.paymentCancel) {
+    if (!confirm("Annuler ce paiement ? Le client verra immédiatement le statut Annulé.")) return;
+    try { await api(`/api/payments/${target.dataset.paymentCancel}`, { method: "DELETE" }); state.data = null; await refresh(); await render(); toast("Paiement annulé."); } catch (err) { toast(err.message); }
+  }
+  if (target.dataset.paymentEdit) {
+    const payment = state.adminPayments?.find((item) => item.id === target.dataset.paymentEdit);
+    if (!payment) return;
+    const amountMad = prompt("Nouveau montant (DH)", payment.amountMad);
+    if (amountMad === null) return;
+    const method = prompt("Mode : CASH ou BANK_TRANSFER", payment.method);
+    if (method === null) return;
+    const reference = method === "BANK_TRANSFER" ? prompt("Référence du virement", payment.reference || "") : "";
+    try { await api(`/api/payments/${payment.id}`, { method: "PUT", body: JSON.stringify({ amountMad: Number(amountMad), method, status: payment.status === "CANCELLED" ? "PAID" : payment.status, reference }) }); state.data = null; state.portal = null; await refresh(); await render(); toast("Paiement modifié et synchronisé."); } catch (err) { toast(err.message); }
+  }
 });
 
 document.addEventListener("keydown", (event) => {
@@ -781,6 +827,29 @@ document.addEventListener("submit", async (event) => {
   const form = event.target;
   const values = Object.fromEntries(new FormData(form).entries());
   try {
+    if (form.dataset.sessionLoad !== undefined) {
+      const sheet = await api(`/api/admin/attendance-session?classId=${encodeURIComponent(values.classId)}&date=${encodeURIComponent(values.sessionDate)}`);
+      const mount = document.querySelector("#attendanceSheet");
+      if (mount) mount.innerHTML = attendanceSheet(sheet);
+      return;
+    }
+    if (form.dataset.attendanceSession !== undefined) {
+      const records = [...form.querySelectorAll("select[name^='status_']")].map((select) => ({ userId: select.name.replace("status_", ""), status: select.value }));
+      await api("/api/admin/attendance-session", { method: "PUT", body: JSON.stringify({ classId: form.dataset.classId, sessionDate: form.dataset.sessionDate, records }) });
+      state.data = null; await refresh(); await render(); toast("Feuille de présence enregistrée."); return;
+    }
+    if (form.dataset.groupAssign !== undefined) {
+      await api(`/api/admin/clients/${form.dataset.userId}`, { method: "PUT", body: JSON.stringify({ groupId: values.groupId }) });
+      state.data = null; await refresh(); await render(); toast("Groupe du client mis à jour."); return;
+    }
+    if (form.dataset.payment !== undefined) {
+      await api("/api/payments", { method: "POST", body: JSON.stringify({ ...values, amountMad: Number(values.amountMad), status: "PAID", paidAt: values.paidAt ? new Date(values.paidAt).toISOString() : undefined }) });
+      state.data = null; state.portal = null; await refresh(); await render(); toast("Paiement enregistré et synchronisé avec le client."); return;
+    }
+    if (form.dataset.finance !== undefined) {
+      await api("/api/admin/finance", { method: "POST", body: JSON.stringify({ ...values, amountMad: Number(values.amountMad) }) });
+      state.data = null; await refresh(); await render(); toast("Écriture financière ajoutée, calculs actualisés."); return;
+    }
     if (form.dataset.auth) {
       const endpoint = form.dataset.auth === "register" ? "/api/auth/register" : "/api/auth/login";
       const result = await api(endpoint, { method: "POST", body: JSON.stringify(values) });
@@ -864,14 +933,6 @@ document.addEventListener("submit", async (event) => {
       state.data = null;
       await refresh();
       toast(editingId ? "Album modifié." : "Album créé avec ses médias.");
-    }
-    if (form.dataset.equipment !== undefined) {
-      const editingId = form.dataset.id;
-      await api(`/api/equipment${editingId ? `/${editingId}` : ""}`, { method: editingId ? "PUT" : "POST", body: JSON.stringify({ ...values, floorId: "floor_1", zoneId: "zone_placeholder_1", imageUrl: "https://images.unsplash.com/photo-1534368420009-621bfab424a8?auto=format&fit=crop&w=900&q=80", muscles: ["Full body"], instructions: ["Configure instructions"], safety: ["Configure safety notes"] }) });
-      state.adminEdit = null;
-      state.data = null;
-      await refresh();
-      toast(editingId ? "Équipement modifié." : "Équipement ajouté.");
     }
     render();
   } catch (err) {

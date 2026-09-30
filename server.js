@@ -146,8 +146,24 @@ function normalizeDb(db) {
     if (item.emailVerified === undefined) item.emailVerified = item.id.startsWith("usr_demo") || ["usr_admin", "usr_coach", "usr_sara"].includes(item.id);
     if (item.archivedAt === undefined) item.archivedAt = null;
   });
-  db.memberships.forEach((item) => { item.status = membershipStatus(item); });
-  db.classes.forEach((item) => { if (item.archivedAt === undefined) item.archivedAt = null; });
+  db.memberships.forEach((item, index) => {
+    item.status = membershipStatus(item);
+    if (item.groupId === undefined) item.groupId = db.classes[index % Math.max(db.classes.length, 1)]?.id || null;
+  });
+  db.classes.forEach((item, index) => {
+    if (item.archivedAt === undefined) item.archivedAt = null;
+    if (!item.groupName) item.groupName = `Groupe ${index + 1}`;
+  });
+  db.attendances.forEach((item) => {
+    if (!item.status) item.status = "PRESENT";
+    if (!item.sessionDate) item.sessionDate = String(item.checkedAt || todayIso()).slice(0, 10);
+    item.source = "MANUAL";
+  });
+  db.payments.forEach((item) => {
+    if (item.method === "AT_CLUB" || item.method === "Cash") item.method = "CASH";
+    if (item.method === "Bank transfer") item.method = "BANK_TRANSFER";
+    if (!['CASH', 'BANK_TRANSFER'].includes(item.method)) item.method = "CASH";
+  });
   db.events.forEach((item) => { if (item.archivedAt === undefined) item.archivedAt = null; });
   return db;
 }
@@ -195,7 +211,7 @@ function reportSnapshot(db, year = new Date().getFullYear()) {
     return {
       month: month + 1,
       members: db.users.filter((item) => item.roles.includes(roles.CLIENT) && matchMonth(item.createdAt)).length,
-      sessions: db.attendances.filter((item) => matchMonth(item.checkedAt)).length,
+      sessions: new Set(db.attendances.filter((item) => matchMonth(item.sessionDate || item.checkedAt)).map((item) => `${item.classId}:${item.sessionDate || String(item.checkedAt).slice(0, 10)}`)).size,
       revenueMad: sum(payments.filter((item) => matchMonth(item.paidAt || item.createdAt))) + sum(otherIncome.filter((item) => matchMonth(item.date))),
       expensesMad: sum(expenses.filter((item) => matchMonth(item.date))),
       donationsMad: sum(donations.filter((item) => matchMonth(item.date)))
@@ -212,13 +228,26 @@ function reportSnapshot(db, year = new Date().getFullYear()) {
       activeMembers: db.memberships.filter((item) => ["ACTIVE", "EXPIRING_SOON"].includes(membershipStatus(item))).length,
       sessions: db.classes.filter((item) => !item.archivedAt).length,
       bookings: db.bookings.filter((item) => item.status === "BOOKED" && inYear(item.createdAt || item.bookedFor)).length,
-      attendance: db.attendances.filter((item) => inYear(item.checkedAt)).length,
+      attendance: db.attendances.filter((item) => item.status === "PRESENT" && inYear(item.sessionDate || item.checkedAt)).length,
+      absence: db.attendances.filter((item) => item.status === "ABSENT" && inYear(item.sessionDate || item.checkedAt)).length,
       events: db.events.filter((item) => inYear(item.startsAt) && !item.archivedAt).length,
       eventParticipants: db.eventRegistrations.filter((item) => item.status === "REGISTERED").length,
       totalRevenueMad, totalExpensesMad, totalDonationsMad,
       balanceMad: totalRevenueMad - totalExpensesMad - totalDonationsMad
     },
     months,
+    payments: db.payments.filter((item) => inYear(item.paidAt || item.createdAt) && !item.archivedAt).map((item) => {
+      const profile = db.profiles.find((profile) => profile.userId === item.userId);
+      const plan = db.membershipPlans.find((plan) => plan.id === item.planId);
+      return { id: item.id, client: `${profile?.firstName || ""} ${profile?.lastName || ""}`.trim(), membership: plan?.name || "", amountMad: Number(item.amountMad || 0), method: item.method, status: item.status, reference: item.reference || "", date: item.paidAt || item.createdAt };
+    }),
+    attendanceRows: db.attendances.filter((item) => inYear(item.sessionDate || item.checkedAt)).map((item) => {
+      const profile = db.profiles.find((profile) => profile.userId === item.userId);
+      const cls = db.classes.find((session) => session.id === item.classId);
+      return { date: item.sessionDate || String(item.checkedAt).slice(0, 10), group: cls?.groupName || cls?.name || "", schedule: cls ? `${cls.dayName} ${cls.startsAt}-${cls.endsAt}` : "", coach: cls?.coachName || "", client: `${profile?.firstName || ""} ${profile?.lastName || ""}`.trim(), status: item.status };
+    }),
+    finances: [...expenses, ...donations, ...otherIncome].sort((a, b) => new Date(a.date) - new Date(b.date)).map((item) => ({ date: item.date, type: item.type, category: item.category, amountMad: Number(item.amountMad || 0), description: item.description || "" })),
+    groups: db.classes.filter((item) => !item.archivedAt).map((cls) => ({ name: cls.groupName || cls.name, day: cls.dayName, time: `${cls.startsAt}-${cls.endsAt}`, coach: cls.coachName || "", members: db.memberships.filter((item) => item.groupId === cls.id && !item.archivedAt).length })),
     coaches: db.coaches.filter((item) => !item.archivedAt).map((item) => ({ name: `${item.firstName} ${item.lastName || ""}`.trim(), specialty: item.specialty, sessions: db.classes.filter((session) => session.coachId === item.id && !session.archivedAt).length })),
     events: db.events.filter((item) => inYear(item.startsAt)).map((item) => ({ title: item.title, date: item.startsAt, participants: item.participants || 0, revenueMad: Number(item.priceMad || 0) * Number(item.participants || 0) }))
   };
@@ -239,7 +268,18 @@ async function sendReport(res, snapshot, format) {
     const monthly = workbook.addWorksheet("Par mois");
     monthly.columns = Object.keys(snapshot.months[0]).map((key) => ({ header: key, key, width: 18 }));
     monthly.addRows(snapshot.months);
-    [summary, monthly].forEach((sheet) => { sheet.getRow(1).font = { bold: true }; sheet.views = [{ state: "frozen", ySplit: 1 }]; });
+    const addSheet = (name, rows) => {
+      const sheet = workbook.addWorksheet(name);
+      const keys = Object.keys(rows[0] || { information: "" });
+      sheet.columns = keys.map((key) => ({ header: key, key, width: Math.max(16, Math.min(36, key.length + 10)) }));
+      if (rows.length) sheet.addRows(rows);
+      return sheet;
+    };
+    const payments = addSheet("Paiements", snapshot.payments);
+    const attendance = addSheet("Présences", snapshot.attendanceRows);
+    const finances = addSheet("Finances", snapshot.finances);
+    const groups = addSheet("Groupes", snapshot.groups);
+    [summary, monthly, payments, attendance, finances, groups].forEach((sheet) => { sheet.getRow(1).font = { bold: true, color: { argb: "FF111111" } }; sheet.getRow(1).fill = { type: "pattern", pattern: "solid", fgColor: { argb: "FFF0C43C" } }; sheet.views = [{ state: "frozen", ySplit: 1 }]; sheet.autoFilter = { from: { row: 1, column: 1 }, to: { row: 1, column: Math.max(1, sheet.columnCount) } }; });
     const buffer = await workbook.xlsx.writeBuffer();
     res.writeHead(200, { "content-type": "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet", "content-disposition": `attachment; filename="${filename}.xlsx"` });
     return res.end(Buffer.from(buffer));
@@ -253,11 +293,17 @@ async function sendReport(res, snapshot, format) {
     Object.entries(snapshot.totals).forEach(([label, value]) => pdf.fontSize(11).text(`${label}: ${value}`));
     pdf.addPage().fontSize(16).text("Statistiques mensuelles").moveDown();
     snapshot.months.forEach((month) => pdf.fontSize(10).text(`Mois ${month.month} — membres ${month.members}, présences ${month.sessions}, revenus ${month.revenueMad} MAD, dépenses ${month.expensesMad} MAD, dons ${month.donationsMad} MAD`));
+    pdf.addPage().fontSize(16).text("Paiements").moveDown();
+    snapshot.payments.forEach((item) => pdf.fontSize(9).text(`${String(item.date).slice(0, 10)} | ${item.client} | ${item.membership} | ${item.amountMad} MAD | ${item.method} | ${item.status} | ${item.reference}`));
+    pdf.addPage().fontSize(16).text("Feuilles de présence").moveDown();
+    snapshot.attendanceRows.forEach((item) => pdf.fontSize(9).text(`${item.date} | ${item.group} | ${item.client} | ${item.status} | ${item.coach}`));
+    pdf.addPage().fontSize(16).text("Journal financier").moveDown();
+    snapshot.finances.forEach((item) => pdf.fontSize(9).text(`${String(item.date).slice(0, 10)} | ${item.type} | ${item.category} | ${item.amountMad} MAD | ${item.description}`));
     return pdf.end();
   }
   if (format === "docx") {
     const { Document, Packer, Paragraph, HeadingLevel } = await import("docx");
-    const children = [new Paragraph({ text: `ALJAWARIH — Rapport annuel ${snapshot.year}`, heading: HeadingLevel.TITLE }), ...Object.entries(snapshot.totals).map(([label, value]) => new Paragraph(`${label}: ${value}`)), new Paragraph({ text: "Statistiques mensuelles", heading: HeadingLevel.HEADING_1 }), ...snapshot.months.map((month) => new Paragraph(`Mois ${month.month} — membres ${month.members}, présences ${month.sessions}, revenus ${month.revenueMad} MAD, dépenses ${month.expensesMad} MAD, dons ${month.donationsMad} MAD`))];
+    const children = [new Paragraph({ text: `ALJAWARIH — Rapport annuel ${snapshot.year}`, heading: HeadingLevel.TITLE }), ...Object.entries(snapshot.totals).map(([label, value]) => new Paragraph(`${label}: ${value}`)), new Paragraph({ text: "Statistiques mensuelles", heading: HeadingLevel.HEADING_1 }), ...snapshot.months.map((month) => new Paragraph(`Mois ${month.month} — membres ${month.members}, séances ${month.sessions}, revenus ${month.revenueMad} MAD, dépenses ${month.expensesMad} MAD, dons ${month.donationsMad} MAD`)), new Paragraph({ text: "Paiements", heading: HeadingLevel.HEADING_1 }), ...snapshot.payments.map((item) => new Paragraph(`${String(item.date).slice(0, 10)} | ${item.client} | ${item.membership} | ${item.amountMad} MAD | ${item.method} | ${item.status} | ${item.reference}`)), new Paragraph({ text: "Feuilles de présence", heading: HeadingLevel.HEADING_1 }), ...snapshot.attendanceRows.map((item) => new Paragraph(`${item.date} | ${item.group} | ${item.client} | ${item.status} | ${item.coach}`)), new Paragraph({ text: "Journal financier", heading: HeadingLevel.HEADING_1 }), ...snapshot.finances.map((item) => new Paragraph(`${String(item.date).slice(0, 10)} | ${item.type} | ${item.category} | ${item.amountMad} MAD | ${item.description}`))];
     const buffer = await Packer.toBuffer(new Document({ sections: [{ children }] }));
     res.writeHead(200, { "content-type": "application/vnd.openxmlformats-officedocument.wordprocessingml.document", "content-disposition": `attachment; filename="${filename}.docx"` });
     return res.end(buffer);
@@ -627,37 +673,6 @@ function seedDb() {
     { id: "zone_placeholder_2", floorId: "floor_2", name: "Zone a configurer", description: "Real layout will be added after photos are provided.", x: 58, y: 40 }
   ];
 
-  const equipment = [
-    {
-      id: "eq_leg_press",
-      name: "Leg Press",
-      category: "Legs",
-      floorId: "floor_1",
-      zoneId: "zone_placeholder_1",
-      imageUrl: "https://images.unsplash.com/photo-1534368420009-621bfab424a8?auto=format&fit=crop&w=900&q=80",
-      description: "Machine guidee pour developper quadriceps et fessiers.",
-      difficulty: "Beginner",
-      muscles: ["Quadriceps", "Glutes"],
-      instructions: ["Regler le siege", "Placer les pieds", "Pousser sans verrouiller les genoux"],
-      safety: ["Garder le dos colle", "Commencer leger", "Eviter l'amplitude douloureuse"],
-      qrPath: "/equipment/eq_leg_press"
-    },
-    {
-      id: "eq_bench",
-      name: "Bench Press",
-      category: "Chest",
-      floorId: "floor_1",
-      zoneId: "zone_placeholder_1",
-      imageUrl: "https://images.unsplash.com/photo-1581009146145-b5ef050c2e1e?auto=format&fit=crop&w=900&q=80",
-      description: "Mouvement fondamental pour poitrine, epaules et triceps.",
-      difficulty: "Intermediate",
-      muscles: ["Chest", "Triceps", "Shoulders"],
-      instructions: ["Stabiliser les omoplates", "Descendre controle", "Pousser droit"],
-      safety: ["Utiliser un spotter", "Ne pas rebondir sur la poitrine"],
-      qrPath: "/equipment/eq_bench"
-    }
-  ];
-
   const workouts = [
     {
       id: "wrk_sara_1",
@@ -716,11 +731,10 @@ function seedDb() {
     memories,
     posts: [
       { id: "post_1", title: "Congratulations to our athletes", body: "Fierte pour toute la famille Aljawarih.", mediaUrl: null, likes: 34, comments: 7, createdAt: todayIso(-2) },
-      { id: "post_2", title: "New equipment has arrived", body: "Une nouvelle experience training arrive au club.", mediaUrl: null, likes: 22, comments: 3, createdAt: todayIso(-5) }
+      { id: "post_2", title: "Nouvelle saison sportive", body: "Les groupes et le planning de la nouvelle saison sont disponibles.", mediaUrl: null, likes: 22, comments: 3, createdAt: todayIso(-5) }
     ],
     floors,
     zones,
-    equipment,
     workouts,
     achievements: [
       { id: "ach_first", name: "First Workout", description: "Complete the first tracked workout.", xp: 10 },
@@ -848,7 +862,6 @@ async function handleApi(req, res, pathname) {
       posts: db.posts,
       floors: db.floors,
       zones: db.zones,
-      equipment: db.equipment,
       challenges: db.challenges,
       achievements: db.achievements,
       me: user ? withProfile(db, user) : null
@@ -1152,13 +1165,50 @@ async function handleApi(req, res, pathname) {
     const membership = db.memberships.find((item) => item.id === body.membershipId);
     if (!membership) throw httpError(404, "Membership not found");
     const plan = db.membershipPlans.find((item) => item.id === membership.planId);
-    const payment = { id: id("pay"), userId: membership.userId, membershipId: membership.id, planId: plan.id, amountMad: requireMoney(plan.priceMad), currency: "MAD", method: ["AT_CLUB", "BANK_TRANSFER", "ONLINE"].includes(body.method) ? body.method : "AT_CLUB", status: ["PAID", "PENDING", "CANCELLED"].includes(body.status) ? body.status : "PAID", reference: body.reference || null, paidAt: body.status === "PENDING" ? null : todayIso(), archivedAt: null, createdAt: todayIso() };
+    const methodValue = ["CASH", "BANK_TRANSFER"].includes(body.method) ? body.method : "CASH";
+    const status = ["PAID", "PENDING", "CANCELLED"].includes(body.status) ? body.status : "PAID";
+    const payment = { id: id("pay"), userId: membership.userId, membershipId: membership.id, planId: plan.id, amountMad: requireMoney(body.amountMad ?? plan.priceMad), currency: "MAD", method: methodValue, status, reference: methodValue === "BANK_TRANSFER" ? String(body.reference || "") : null, paidAt: status === "PAID" ? (body.paidAt ? new Date(body.paidAt).toISOString() : todayIso()) : null, archivedAt: null, createdAt: todayIso() };
     db.payments.push(payment);
     membership.paymentStatus = payment.status;
     membership.status = membershipStatus(membership);
     audit(db, actor, "CREATE", "Payment", payment.id, { amountMad: payment.amountMad });
     await saveDb(db);
     return send(201, payment);
+  }
+  if (method === "PUT" && pathname.match(/^\/api\/payments\/[^/]+$/)) {
+    const actor = requireRole(adminRoles);
+    const payment = db.payments.find((item) => item.id === pathname.split("/").pop() && !item.archivedAt);
+    if (!payment) throw httpError(404, "Payment not found");
+    const body = await readBody(req);
+    if (body.amountMad !== undefined) payment.amountMad = requireMoney(body.amountMad);
+    if (body.method !== undefined) {
+      if (!["CASH", "BANK_TRANSFER"].includes(body.method)) throw httpError(422, "Payment method must be CASH or BANK_TRANSFER");
+      payment.method = body.method;
+    }
+    if (body.status !== undefined) {
+      if (!["PAID", "PENDING", "CANCELLED"].includes(body.status)) throw httpError(422, "Invalid payment status");
+      payment.status = body.status;
+    }
+    payment.reference = payment.method === "BANK_TRANSFER" ? String(body.reference ?? payment.reference ?? "") : null;
+    payment.paidAt = payment.status === "PAID" ? (body.paidAt ? new Date(body.paidAt).toISOString() : payment.paidAt || todayIso()) : null;
+    payment.updatedAt = todayIso();
+    const membership = db.memberships.find((item) => item.id === payment.membershipId);
+    if (membership) { membership.paymentStatus = payment.status; membership.status = membershipStatus(membership); }
+    audit(db, actor, "UPDATE", "Payment", payment.id);
+    await saveDb(db);
+    return send(200, payment);
+  }
+  if (method === "DELETE" && pathname.match(/^\/api\/payments\/[^/]+$/)) {
+    const actor = requireRole(adminRoles);
+    const payment = db.payments.find((item) => item.id === pathname.split("/").pop() && !item.archivedAt);
+    if (!payment) throw httpError(404, "Payment not found");
+    payment.status = "CANCELLED";
+    payment.updatedAt = todayIso();
+    const membership = db.memberships.find((item) => item.id === payment.membershipId);
+    if (membership) { membership.paymentStatus = "CANCELLED"; membership.status = membershipStatus(membership); }
+    audit(db, actor, "CANCEL", "Payment", payment.id);
+    await saveDb(db);
+    return send(200, payment);
   }
 
   if (method === "GET" && pathname === "/api/classes") {
@@ -1256,41 +1306,49 @@ async function handleApi(req, res, pathname) {
   if (method === "POST" && pathname === "/api/attendance") {
     const current = requireRole(staffRoles);
     const body = await readBody(req);
-    const clientId = String(body.clientId || body.qrToken || "").replace("qr:", "");
+    const clientId = String(body.clientId || "");
     const client = db.users.find((u) => u.id === clientId);
     if (!client) throw httpError(404, "Client not found");
     if (body.classId && !db.classes.some((item) => item.id === body.classId && item.active && !item.archivedAt)) throw httpError(404, "Class not found");
-    if (db.attendances.some((item) => item.userId === client.id && item.classId === (body.classId || null) && new Date(item.checkedAt).toDateString() === new Date().toDateString())) throw httpError(409, "Attendance already recorded");
-    const attendance = { id: id("att"), userId: client.id, classId: body.classId || null, staffId: current.id, checkedAt: todayIso(), status: body.status || "PRESENT", source: body.source === "MANUAL" ? "MANUAL" : "QR" };
-    db.attendances.push(attendance);
+    const sessionDate = String(body.sessionDate || todayIso()).slice(0, 10);
+    let attendance = db.attendances.find((item) => item.userId === client.id && item.classId === (body.classId || null) && (item.sessionDate || String(item.checkedAt).slice(0, 10)) === sessionDate);
+    if (attendance) Object.assign(attendance, { status: body.status === "ABSENT" ? "ABSENT" : "PRESENT", staffId: current.id, checkedAt: todayIso(), source: "MANUAL", sessionDate });
+    else { attendance = { id: id("att"), userId: client.id, classId: body.classId || null, staffId: current.id, checkedAt: todayIso(), sessionDate, status: body.status === "ABSENT" ? "ABSENT" : "PRESENT", source: "MANUAL" }; db.attendances.push(attendance); }
     audit(db, current, "CREATE", "Attendance", attendance.id, { source: attendance.source });
     await saveDb(db);
     send(201, { attendance, client: clientSummary(db, client) });
     return;
   }
-
-  if (method === "GET" && pathname.match(/^\/api\/classes\/[^/]+\/qr$/)) {
+  if (method === "GET" && pathname === "/api/admin/attendance-session") {
     requireRole([...adminRoles, roles.COACH]);
-    const classId = pathname.split("/")[3];
+    const url = new URL(req.url, `http://${req.headers.host}`);
+    const classId = url.searchParams.get("classId");
+    const sessionDate = String(url.searchParams.get("date") || todayIso()).slice(0, 10);
     const cls = db.classes.find((item) => item.id === classId && item.active && !item.archivedAt);
     if (!cls) throw httpError(404, "Class not found");
-    const token = signSession({ kind: "attendance", classId, exp: Date.now() + 15 * 60 * 1000 });
-    return send(200, { classId, token, expiresInSeconds: 900, payload: `/api/attendance/scan?token=${encodeURIComponent(token)}` });
+    const members = db.memberships.filter((item) => item.groupId === classId && !item.archivedAt).map((membership) => {
+      const user = db.users.find((item) => item.id === membership.userId && item.active && !item.archivedAt);
+      if (!user) return null;
+      const attendance = db.attendances.find((item) => item.userId === user.id && item.classId === classId && (item.sessionDate || String(item.checkedAt).slice(0, 10)) === sessionDate);
+      return { userId: user.id, profile: db.profiles.find((item) => item.userId === user.id), status: attendance?.status || "ABSENT" };
+    }).filter(Boolean);
+    return send(200, { class: cls, sessionDate, members });
   }
-
-  if (method === "POST" && pathname === "/api/attendance/scan") {
-    const current = requireAuth();
-    requireActiveMembership(db, current.id);
+  if (method === "PUT" && pathname === "/api/admin/attendance-session") {
+    const actor = requireRole([...adminRoles, roles.COACH]);
     const body = await readBody(req);
-    const payload = verifySession(body.token);
-    if (!payload || payload.kind !== "attendance") throw httpError(400, "Invalid or expired attendance QR code");
-    const cls = db.classes.find((item) => item.id === payload.classId && item.active && !item.archivedAt);
+    const cls = db.classes.find((item) => item.id === body.classId && item.active && !item.archivedAt);
     if (!cls) throw httpError(404, "Class not found");
-    if (db.attendances.some((item) => item.userId === current.id && item.classId === cls.id && new Date(item.checkedAt).toDateString() === new Date().toDateString())) throw httpError(409, "Attendance already recorded");
-    const attendance = { id: id("att"), userId: current.id, classId: cls.id, staffId: null, checkedAt: todayIso(), status: "PRESENT", source: "QR" };
-    db.attendances.push(attendance);
+    const sessionDate = String(body.sessionDate || todayIso()).slice(0, 10);
+    for (const row of Array.isArray(body.records) ? body.records : []) {
+      if (!db.users.some((item) => item.id === row.userId && item.roles.includes(roles.CLIENT))) continue;
+      let attendance = db.attendances.find((item) => item.userId === row.userId && item.classId === cls.id && (item.sessionDate || String(item.checkedAt).slice(0, 10)) === sessionDate);
+      const values = { status: row.status === "PRESENT" ? "PRESENT" : "ABSENT", staffId: actor.id, checkedAt: todayIso(), sessionDate, source: "MANUAL" };
+      if (attendance) Object.assign(attendance, values); else db.attendances.push({ id: id("att"), userId: row.userId, classId: cls.id, ...values });
+    }
+    audit(db, actor, "UPSERT", "AttendanceSession", `${cls.id}:${sessionDate}`, { records: body.records?.length || 0 });
     await saveDb(db);
-    return send(201, attendance);
+    return send(200, { saved: body.records?.length || 0, classId: cls.id, sessionDate });
   }
 
   if (method === "GET" && pathname === "/api/admin/clients") {
@@ -1307,6 +1365,12 @@ async function handleApi(req, res, pathname) {
     const body = await readBody(req);
     const allowed = ["firstName", "lastName", "phone", "cin", "dateOfBirth", "gender", "emergencyContact", "notes", "audience"];
     allowed.forEach((key) => { if (body[key] !== undefined) profile[key] = body[key]; });
+    if (body.groupId !== undefined) {
+      if (body.groupId && !db.classes.some((item) => item.id === body.groupId && !item.archivedAt)) throw httpError(422, "Group not found");
+      const membership = currentMembership(db, client.id);
+      if (!membership) throw httpError(422, "Client needs a membership before group assignment");
+      membership.groupId = body.groupId || null;
+    }
     audit(db, actor, "UPDATE", "Client", client.id);
     await saveDb(db);
     return send(200, clientSummary(db, client));
@@ -1333,13 +1397,13 @@ async function handleApi(req, res, pathname) {
   }
   if (method === "GET" && pathname === "/api/admin/payments") {
     requireRole(adminRoles);
-    send(200, db.payments.map((p) => ({ ...p, client: db.profiles.find((profile) => profile.userId === p.userId), plan: db.membershipPlans.find((plan) => plan.id === p.planId) })));
+    send(200, db.payments.filter((p) => !p.archivedAt).map((p) => ({ ...p, client: db.profiles.find((profile) => profile.userId === p.userId), plan: db.membershipPlans.find((plan) => plan.id === p.planId), membership: db.memberships.find((membership) => membership.id === p.membershipId) })));
     return;
   }
   if (method === "GET" && pathname === "/api/admin/analytics") {
     requireRole(adminRoles);
     const clients = db.users.filter((u) => u.roles.includes(roles.CLIENT));
-    const paid = db.payments.filter((p) => p.status === "PAID");
+    const paid = db.payments.filter((p) => p.status === "PAID" && !p.archivedAt);
     const finance = reportSnapshot(db, new Date().getFullYear());
     send(200, {
       totalMembers: clients.length,
@@ -1350,7 +1414,10 @@ async function handleApi(req, res, pathname) {
       newMembers: clients.filter((u) => Date.now() - new Date(u.createdAt).getTime() < 1000 * 60 * 60 * 24 * 30).length,
       todayAttendance: db.attendances.filter((a) => new Date(a.checkedAt).toDateString() === new Date().toDateString()).length,
       todayBookings: db.bookings.filter((b) => b.status === "BOOKED").length,
-      monthlyRevenue: paid.reduce((sum, p) => sum + p.amountMad, 0),
+      monthlyRevenue: paid.filter((p) => new Date(p.paidAt || p.createdAt).getMonth() === new Date().getMonth() && new Date(p.paidAt || p.createdAt).getFullYear() === new Date().getFullYear()).reduce((sum, p) => sum + Number(p.amountMad || 0), 0),
+      totalRevenue: paid.reduce((sum, p) => sum + Number(p.amountMad || 0), 0),
+      cashRevenue: paid.filter((p) => p.method === "CASH").reduce((sum, p) => sum + Number(p.amountMad || 0), 0),
+      bankRevenue: paid.filter((p) => p.method === "BANK_TRANSFER").reduce((sum, p) => sum + Number(p.amountMad || 0), 0),
       pendingPayments: db.payments.filter((p) => p.status !== "PAID").length,
       totalSessions: db.classes.filter((item) => !item.archivedAt).length,
       totalBookings: db.bookings.filter((item) => item.status === "BOOKED").length,
@@ -1362,8 +1429,10 @@ async function handleApi(req, res, pathname) {
       donationsMad: finance.totals.totalDonationsMad,
       balanceMad: finance.totals.balanceMad,
       monthly: finance.months,
-      attendanceTrend: [8, 11, 13, 18, 16, 21, 19],
-      revenueTrend: [1800, 2400, 3100, 2800, 4200, 4600],
+      attendanceRate: db.attendances.length ? Math.round(db.attendances.filter((item) => item.status === "PRESENT").length * 100 / db.attendances.length) : 0,
+      groups: db.classes.filter((item) => !item.archivedAt).map((cls) => { const rows = db.attendances.filter((item) => item.classId === cls.id); return { id: cls.id, name: cls.groupName || cls.name, members: db.memberships.filter((item) => item.groupId === cls.id && !item.archivedAt).length, present: rows.filter((item) => item.status === "PRESENT").length, absent: rows.filter((item) => item.status === "ABSENT").length, rate: rows.length ? Math.round(rows.filter((item) => item.status === "PRESENT").length * 100 / rows.length) : 0 }; }),
+      attendanceTrend: finance.months.map((item) => item.sessions),
+      revenueTrend: finance.months.map((item) => item.revenueMad),
       popularSessions: db.classes.slice(0, 5).map((c) => ({ name: c.name, bookings: db.bookings.filter((b) => b.classId === c.id).length })),
       adultsVsChildren: {
         adults: db.profiles.filter((p) => p.audience === "adult").length,
@@ -1477,35 +1546,6 @@ async function handleApi(req, res, pathname) {
     await saveDb(db);
     return send(201, zone);
   }
-  if (method === "GET" && pathname === "/api/equipment") return send(200, db.equipment);
-  if (method === "POST" && pathname === "/api/equipment") {
-    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER, roles.COACH]);
-    const item = { id: id("eq"), ...(await readBody(req)) };
-    item.qrPath = `/equipment/${item.id}`;
-    db.equipment.push(item);
-    audit(db, actor, "CREATE", "Equipment", item.id);
-    await saveDb(db);
-    return send(201, item);
-  }
-  if (method === "PUT" && pathname.match(/^\/api\/equipment\/[^/]+$/)) {
-    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER, roles.COACH]);
-    const item = db.equipment.find((entry) => entry.id === pathname.split("/").pop());
-    if (!item) throw httpError(404, "Equipment not found");
-    Object.assign(item, await readBody(req), { updatedAt: todayIso() });
-    audit(db, actor, "UPDATE", "Equipment", item.id);
-    await saveDb(db);
-    return send(200, item);
-  }
-  if (method === "DELETE" && pathname.match(/^\/api\/equipment\/[^/]+$/)) {
-    const actor = requireRole([...adminRoles, roles.CONTENT_MANAGER]);
-    const index = db.equipment.findIndex((item) => item.id === pathname.split("/").pop());
-    if (index < 0) throw httpError(404, "Equipment not found");
-    const [item] = db.equipment.splice(index, 1);
-    audit(db, actor, "DELETE", "Equipment", item.id);
-    await saveDb(db);
-    return send(200, item);
-  }
-
   if (method === "GET" && pathname === "/api/workouts") {
     const current = requireAuth();
     return send(200, db.workouts.filter((w) => w.userId === current.id));
@@ -1617,8 +1657,7 @@ async function handleApi(req, res, pathname) {
     const query = new URL(req.url, `http://${req.headers.host}`).searchParams.get("q")?.toLowerCase() || "";
     const clients = db.profiles.filter((p) => `${p.firstName} ${p.lastName} ${p.phone}`.toLowerCase().includes(query));
     const events = db.events.filter((e) => `${e.title} ${e.category}`.toLowerCase().includes(query));
-    const equipment = db.equipment.filter((e) => `${e.name} ${e.category}`.toLowerCase().includes(query));
-    return send(200, { clients, events, equipment });
+    return send(200, { clients, events });
   }
 
   throw httpError(404, "API route not found");

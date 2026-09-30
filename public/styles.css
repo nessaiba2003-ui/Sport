@@ -818,6 +818,12 @@ body.lightbox-open { overflow: hidden; }
   border-collapse: collapse;
 }
 
+.card:has(> .table), .admin-manager { overflow-x: auto; }
+
+.inline-form { display: flex; gap: .5rem; align-items: center; min-width: 280px; }
+.inline-form select { min-width: 150px; }
+.table .actions { flex-wrap: nowrap; }
+
 .table th,
 .table td {
   border-bottom: 1px solid var(--line);
